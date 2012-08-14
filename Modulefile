@@ -1,5 +1,5 @@
 name    'hunner-hiera'
-version '0.1.1'
+version '0.1.2'
 source 'UNKNOWN'
 author 'hunner'
 license 'UNKNOWN'
