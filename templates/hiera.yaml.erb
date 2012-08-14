@@ -2,7 +2,7 @@
 :backends: - yaml
 :logger: console
 :hierarchy:
-<%= hierarchy.to_yaml.split("\n")[1..-1] -%>
+<%= hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
 
 :yaml:
    :datadir: <%= datadir %>
