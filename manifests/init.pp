@@ -8,7 +8,7 @@ class hiera(
     group => 'pe-puppet',
     mode  => '0644',
   }
-  file { $hiera_data:
+  file { $datadir:
     ensure => directory,
   }
   # Template uses $hierarchy, $datadir
