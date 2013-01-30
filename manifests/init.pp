@@ -58,7 +58,8 @@ class hiera (
   $hiera_yaml = $hiera::params::hiera_yaml,
   $datadir    = $hiera::params::datadir,
   $owner      = $hiera::params::owner,
-  $group      = $hiera::params::group
+  $group      = $hiera::params::group,
+  $extra_config   = '',
 ) inherits hiera::params {
   File {
     owner => $owner,
