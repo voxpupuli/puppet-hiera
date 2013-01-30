@@ -1,5 +1,6 @@
 class hiera(
   $hierarchy  = [],
+  $backends       = ['yaml'],
   $hiera_yaml     = '/etc/puppet/hiera.yaml',
   $datadir        = '/etc/puppet/hieradata',
   $manage_datadir = false,

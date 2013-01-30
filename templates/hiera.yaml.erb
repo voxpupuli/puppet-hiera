@@ -1,5 +1,6 @@
 ---
-:backends: - yaml
+:backends:
+<%= backends.to_yaml.split("\n")[1..-1].join("\n") %>
 :logger: console
 :hierarchy:
 <%= hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
