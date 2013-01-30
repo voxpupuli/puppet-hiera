@@ -55,6 +55,7 @@
 #
 class hiera (
   $hierarchy  = [],
+  $backends   = $hiera::params::backends,
   $hiera_yaml = $hiera::params::hiera_yaml,
   $datadir    = $hiera::params::datadir,
   $owner      = $hiera::params::owner,
