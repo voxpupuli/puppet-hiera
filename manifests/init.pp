@@ -1,10 +1,10 @@
-class hiera(
+class hiera (
   $hierarchy  = [],
-  $hiera_yaml = '/etc/puppetlabs/puppet/hiera.yaml',
-  $datadir    = '/etc/puppetlabs/puppet/hieradata',
-  $owner      = 'pe-puppet',
-  $group      = 'pe-puppet'
-) {
+  $hiera_yaml = $hiera::params::hiera_yaml,
+  $datadir    = $hiera::params::datadir,
+  $owner      = $hiera::params::owner,
+  $group      = $hiera::params::group
+) inherits hiera::params {
   File {
     owner => $owner,
     group => $group,
@@ -19,7 +19,7 @@ class hiera(
     content => template('hiera/hiera.yaml.erb'),
   }
   # Symlink for hiera command line tool
-  file { "/etc/hiera.yaml":
+  file { '/etc/hiera.yaml':
     ensure => symlink,
     target => $hiera_yaml,
   }
