@@ -1,3 +1,58 @@
+# == Class: hiera
+#
+# This class handles installing the hiera.yaml for Puppet's use.
+#
+# === Parameters:
+#
+# [*hierarchy*]
+#   Hiera hierarchy.
+#   Default: empty
+#
+# [*hiera_yaml*]
+#   Heira config file.
+#   Default: auto-set, platform specific
+#
+# [*datadir*]
+#   Directory in which hiera will start looking for databases.
+#   Default: auto-set, platform specific
+#
+# [*owner*]
+#   Owner of the files.
+#   Default: auto-set, platform specific
+#
+# [*group*]
+#   Group owner of the files.
+#   Default: auto-set, platform specific
+#
+# === Actions:
+#
+# Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
+# Links /etc/hiera.yaml to the above file.
+# Creates $datadir.
+#
+# === Requires:
+#
+# Nothing.
+#
+# === Sample Usage:
+#
+#   class { 'hiera':
+#     hierarchy => [
+#       '%{environment}',
+#       'common',
+#     ],
+#   }
+#
+# === Authors:
+#
+# Hunter Haugen <h.haugen@gmail.com>
+# Mike Arnold <mike@razorsedge.org>
+#
+# === Copyright:
+#
+# Copyright (C) 2012 Hunter Haugen, unless otherwise noted.
+# Copyright (C) 2013 Mike Arnold, unless otherwise noted.
+#
 class hiera (
   $hierarchy  = [],
   $hiera_yaml = $hiera::params::hiera_yaml,
