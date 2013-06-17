@@ -65,8 +65,10 @@ class hiera (
     group => $group,
     mode  => '0644',
   }
-  file { $datadir:
-    ensure => directory,
+  if $datadir !~ /%{.*}/ {
+    file { $datadir:
+      ensure => directory,
+    }
   }
   # Template uses $hierarchy, $datadir
   file { $hiera_yaml:
