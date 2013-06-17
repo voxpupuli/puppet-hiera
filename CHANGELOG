@@ -1,0 +1,6 @@
+2013-06-17 Release 0.3.0
+Features:
+- PE + POSS support
+
+Bugfixes:
+- Only ensure datadir if it does not have %{.*}
