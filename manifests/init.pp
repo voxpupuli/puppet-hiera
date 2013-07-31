@@ -24,6 +24,11 @@
 #   Group owner of the files.
 #   Default: auto-set, platform specific
 #
+# [*extra_config*]
+#   An extra string fragment of YAML to append to the config file.
+#   Useful for configuring backend-specific parameters.
+#   Default: ''
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
