@@ -25,4 +25,6 @@ class hiera::params {
     $owner      = 'puppet'
     $group      = 'puppet'
   }
+
+  $backends = ['yaml']
 }
