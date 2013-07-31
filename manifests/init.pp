@@ -2,8 +2,8 @@ class hiera(
   $hierarchy  = [],
   $hiera_yaml = '/etc/puppetlabs/puppet/hiera.yaml',
   $datadir    = '/etc/puppetlabs/puppet/hieradata',
-  $owner      = 'puppet',
-  $group      = 'puppet'
+  $owner      = 'pe-puppet',
+  $group      = 'pe-puppet'
 ) {
   File {
     owner => $owner,
