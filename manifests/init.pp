@@ -8,6 +8,10 @@
 #   Hiera hierarchy.
 #   Default: empty
 #
+# [*backends*]
+#   Hiera backends.
+#   Default: ['yaml']
+#
 # [*hiera_yaml*]
 #   Heira config file.
 #   Default: auto-set, platform specific
