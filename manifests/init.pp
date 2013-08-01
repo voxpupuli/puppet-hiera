@@ -28,6 +28,11 @@
 #   Group owner of the files.
 #   Default: auto-set, platform specific
 #
+# [*extra_config*]
+#   An extra string fragment of YAML to append to the config file.
+#   Useful for configuring backend-specific parameters.
+#   Default: ''
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -63,7 +68,8 @@ class hiera (
   $hiera_yaml = $hiera::params::hiera_yaml,
   $datadir    = $hiera::params::datadir,
   $owner      = $hiera::params::owner,
-  $group      = $hiera::params::group
+  $group      = $hiera::params::group,
+  $extra_config   = '',
 ) inherits hiera::params {
   File {
     owner => $owner,
