@@ -8,4 +8,4 @@
 :yaml:
    :datadir: <%= datadir %>
 
-<%= extra_config %>
+<%= extra_config.to_yaml.split("\n")[1..-1].join("\n") %>
