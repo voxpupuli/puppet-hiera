@@ -101,14 +101,13 @@ describe 'hiera' do
       :extra_config => {
         'bla' => {
           'foo' => 'foo',
-          'bar' => 'bar',
         }
       }
     }}
 
     it 'properly writes extra_config to config when hash given' do
       should create_file('/etc/puppet/hiera.yaml') \
-        .with_content(%r{datadir: /etc/puppet/hieradata\nbla: \n  bar: bar\n  foo: foo\n})
+        .with_content(%r{datadir: /etc/puppet/hieradata\nbla: \n  foo: foo\n})
     end
   end
 
