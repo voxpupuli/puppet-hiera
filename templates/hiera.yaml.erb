@@ -1,11 +1,18 @@
 ---
 :backends:
-<%= backends.to_yaml.split("\n")[1..-1].join("\n") %>
+<% @backends.each do |backend| -%>
+<%= backend.keys.to_yaml.split("\n")[1..-1].join("\n") %>
+<% end -%>
+
 :logger: console
 :hierarchy:
 <%= hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
 
-:yaml:
-   :datadir: <%= datadir %>
-
-<%= extra_config %>
+<% @backends.each do |backend| -%>
+<% backend.each_pair do |backend_name,config| -%>
+:<%= backend_name %>:
+<% config.each_pair do |key,value| -%>
+  :<%= key %>: <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
