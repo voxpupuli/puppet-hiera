@@ -34,7 +34,7 @@ The resulting output in /etc/puppet/hiera.yaml:
 Everything you need to know about testing this module is explained in
 `TESTING.md`.
 
-[![Build Status](https://travis-ci.org/Jimdo/puppet-hiera.png?branch=master)](https://travis-ci.org/Jimdo/puppet-hiera)
+[![Build Status](https://travis-ci.org/zined/puppet-hiera.png?branch=master)](https://travis-ci.org/zined/puppet-hiera)
 
 ## Contributing
 
