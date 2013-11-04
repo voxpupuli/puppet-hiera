@@ -1,11 +1,17 @@
 ---
-:backends:
+backends:
 <%= backends.to_yaml.split("\n")[1..-1].join("\n") %>
-:logger: console
-:hierarchy:
+logger: console
+hierarchy:
 <%= hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
-
-:yaml:
-   :datadir: <%= datadir %>
-
-<%= extra_config %>
+yaml:
+  datadir: <%= datadir %>
+<%=
+tmp = ""
+if extra_config.is_a?(Hash) then
+    tmp = extra_config.to_yaml.split("\n")[1..-1].join("\n").sub(/^  /, '').gsub(/\n  /, "\n")
+else
+    tmp = extra_config
+end
+tmp
+%>
