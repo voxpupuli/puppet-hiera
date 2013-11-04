@@ -29,7 +29,8 @@
 #   Default: auto-set, platform specific
 #
 # [*extra_config*]
-#   An extra string fragment of YAML to append to the config file.
+#   An extra configuration fragment to append to the config file.
+#   Can be plain YAML as a string, or a hash, which is transformed to YAML.
 #   Useful for configuring backend-specific parameters.
 #   Default: ''
 #
@@ -56,6 +57,7 @@
 #
 # Hunter Haugen <h.haugen@gmail.com>
 # Mike Arnold <mike@razorsedge.org>
+# Deniz Adrian <deniz@adrianer.de>
 #
 # === Copyright:
 #
@@ -63,25 +65,25 @@
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 #
 class hiera (
-  $hierarchy  = [],
-  $backends   = $hiera::params::backends,
-  $hiera_yaml = $hiera::params::hiera_yaml,
-  $datadir    = $hiera::params::datadir,
-  $owner      = $hiera::params::owner,
-  $group      = $hiera::params::group,
-  $extra_config   = '',
+  $hierarchy     = [],
+  $backends      = $hiera::params::backends,
+  $hiera_yaml    = $hiera::params::hiera_yaml,
+  $datadir       = $hiera::params::datadir,
+  $owner         = $hiera::params::owner,
+  $group         = $hiera::params::group,
+  $extra_config  = '',
 ) inherits hiera::params {
   File {
     owner => $owner,
     group => $group,
     mode  => '0644',
   }
-  if $datadir !~ /%{.*}/ {
+  if $datadir !~ /%\{.*\}/ {
     file { $datadir:
       ensure => directory,
     }
   }
-  # Template uses $hierarchy, $datadir
+  # Template uses $hierarchy, $datadir, $extra_config
   file { $hiera_yaml:
     ensure  => present,
     content => template('hiera/hiera.yaml.erb'),
