@@ -14,17 +14,19 @@
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 #
 class hiera::params {
+
   if $::puppetversion =~ /Puppet Enterprise/ {
+    $backends   = [{'yaml' => {'datadir' => '/etc/puppetlabs/puppet/hieradata'}}]
     $hiera_yaml = '/etc/puppetlabs/puppet/hiera.yaml'
-    $datadir    = '/etc/puppetlabs/puppet/hieradata'
     $owner      = 'pe-puppet'
     $group      = 'pe-puppet'
   } else {
+    $backends   = [{'yaml' => {'datadir' => '/etc/puppet/hieradata'}}]
     $hiera_yaml = '/etc/puppet/hiera.yaml'
-    $datadir    = '/etc/puppet/hieradata'
     $owner      = 'puppet'
     $group      = 'puppet'
   }
 
-  $backends = ['yaml']
+  $hierarchy = []
+
 }
