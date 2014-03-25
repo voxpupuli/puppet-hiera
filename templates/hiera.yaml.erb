@@ -1,11 +1,11 @@
 ---
 :backends:
-<%= backends.to_yaml.split("\n")[1..-1].join("\n") %>
+<%= @backends.to_yaml.split("\n")[1..-1].join("\n") %>
 :logger: console
 :hierarchy:
-<%= hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
+<%= @hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
 
 :yaml:
-   :datadir: <%= datadir %>
+   :datadir: <%= @datadir %>
 
-<%= extra_config %>
+<%= @extra_config %>
