@@ -19,7 +19,8 @@ class { 'hiera':
 The resulting output in /etc/puppet/hiera.yaml:
 ```yaml
 ---
-:backends: - yaml
+:backends: 
+  - yaml
 :logger: console
 :hierarchy:
   - "%{environment}/%{calling_class}"
