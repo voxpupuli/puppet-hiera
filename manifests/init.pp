@@ -20,6 +20,10 @@
 #   Directory in which hiera will start looking for databases.
 #   Default: auto-set, platform specific
 #
+# [*manage_datadir*]
+#   Enables creating $datadir directory
+#   Default: true
+#
 # [*owner*]
 #   Owner of the files.
 #   Default: auto-set, platform specific
@@ -37,7 +41,7 @@
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
 # Links /etc/hiera.yaml to the above file.
-# Creates $datadir.
+# Creates $datadir (unless $manage_datadir == true).
 #
 # === Requires:
 #
@@ -63,12 +67,13 @@
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 #
 class hiera (
-  $hierarchy  = [],
-  $backends   = $hiera::params::backends,
-  $hiera_yaml = $hiera::params::hiera_yaml,
-  $datadir    = $hiera::params::datadir,
-  $owner      = $hiera::params::owner,
-  $group      = $hiera::params::group,
+  $hierarchy      = [],
+  $backends       = $hiera::params::backends,
+  $hiera_yaml     = $hiera::params::hiera_yaml,
+  $datadir        = $hiera::params::datadir,
+  $manage_datadir = $hiera::params::manage_datadir,
+  $owner          = $hiera::params::owner,
+  $group          = $hiera::params::group,
   $extra_config   = '',
 ) inherits hiera::params {
   File {
@@ -76,7 +81,7 @@ class hiera (
     group => $group,
     mode  => '0644',
   }
-  if $datadir !~ /%{.*}/ {
+  if ($datadir !~ /%{.*}/) and ($manage_datadir == true) {
     file { $datadir:
       ensure => directory,
     }

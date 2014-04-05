@@ -26,5 +26,6 @@ class hiera::params {
     $group      = 'puppet'
   }
 
+  $manage_datadir = true
   $backends = ['yaml']
 }
