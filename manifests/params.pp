@@ -31,6 +31,7 @@ class hiera::params {
     $cmdpath    = '/usr/bin/puppet'
     $confdir    = '/etc/puppet'
   }
+  $manage_datadir = true
   $backends = ['yaml']
   $eyaml_extension = undef
 }
