@@ -33,6 +33,14 @@
 #   Useful for configuring backend-specific parameters.
 #   Default: ''
 #
+# [*eyaml*]
+#   Install and configure hiera-eyaml
+#   Default: false
+#
+# [*eyaml_datadir*]
+#   Location of eyaml-specific data
+#   Default: Same as datadir
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -56,20 +64,25 @@
 #
 # Hunter Haugen <h.haugen@gmail.com>
 # Mike Arnold <mike@razorsedge.org>
+# Terri Haber <terri@puppetlabs.com>
 #
 # === Copyright:
 #
 # Copyright (C) 2012 Hunter Haugen, unless otherwise noted.
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
+# Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera (
-  $hierarchy  = [],
-  $backends   = $hiera::params::backends,
-  $hiera_yaml = $hiera::params::hiera_yaml,
-  $datadir    = $hiera::params::datadir,
-  $owner      = $hiera::params::owner,
-  $group      = $hiera::params::group,
-  $extra_config   = '',
+  $hierarchy     = [],
+  $backends      = $hiera::params::backends,
+  $hiera_yaml    = $hiera::params::hiera_yaml,
+  $datadir       = $hiera::params::datadir,
+  $owner         = $hiera::params::owner,
+  $group         = $hiera::params::group,
+  $eyaml         = false,
+  $eyaml_datadir = $hiera::params::datadir,
+  $confdir       = $hiera::params::confdir,
+  $extra_config  = '',
 ) inherits hiera::params {
   File {
     owner => $owner,
@@ -81,6 +94,9 @@ class hiera (
       ensure => directory,
     }
   }
+  if $eyaml {
+    require hiera::eyaml
+  }
   # Template uses $hierarchy, $datadir
   file { $hiera_yaml:
     ensure  => present,
@@ -90,5 +106,5 @@ class hiera (
   file { '/etc/hiera.yaml':
     ensure => symlink,
     target => $hiera_yaml,
-  }
+  }  
 }
