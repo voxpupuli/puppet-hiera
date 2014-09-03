@@ -89,7 +89,7 @@ class hiera (
     group => $group,
     mode  => '0644',
   }
-  if $datadir !~ /%{.*}/ {
+  if $datadir !~ /%\{.*\}/ {
     file { $datadir:
       ensure => directory,
     }
