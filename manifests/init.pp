@@ -42,13 +42,14 @@
 #   Default: Same as datadir
 #
 # [*logger*]
-#   Configure a validate hiera logger type
+#   Configure a valid hiera logger
+#   Note: You need to manage any package/gem dependancies
 #   Default: console
 #
 # [*merge_behavior*]
 #   Configure hiera merge behavior.
-#   Note: You need to ensure the approriate gem file is installed
-#   Default: undef
+#   Note: You need to manage any package/gem dependancies
+#   Default: native
 #
 # === Actions:
 #
