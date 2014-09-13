@@ -41,6 +41,15 @@
 #   Location of eyaml-specific data
 #   Default: Same as datadir
 #
+# [*logger*]
+#   Configure a validate hiera logger type
+#   Default: console
+#
+# [*merge_behavior*]
+#   Configure hiera merge behavior.
+#   Note: You need to ensure the approriate gem file is installed
+#   Default: undef
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -73,16 +82,18 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera (
-  $hierarchy     = [],
-  $backends      = $hiera::params::backends,
-  $hiera_yaml    = $hiera::params::hiera_yaml,
-  $datadir       = $hiera::params::datadir,
-  $owner         = $hiera::params::owner,
-  $group         = $hiera::params::group,
-  $eyaml         = false,
-  $eyaml_datadir = $hiera::params::datadir,
-  $confdir       = $hiera::params::confdir,
-  $extra_config  = '',
+  $hierarchy      = [],
+  $backends       = $hiera::params::backends,
+  $hiera_yaml     = $hiera::params::hiera_yaml,
+  $datadir        = $hiera::params::datadir,
+  $owner          = $hiera::params::owner,
+  $group          = $hiera::params::group,
+  $eyaml          = false,
+  $eyaml_datadir  = $hiera::params::datadir,
+  $confdir        = $hiera::params::confdir,
+  $logger         = $hiera::params::logger,
+  $merge_behavior = undef,
+  $extra_config   = '',
 ) inherits hiera::params {
   File {
     owner => $owner,
