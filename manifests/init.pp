@@ -41,6 +41,10 @@
 #   Location of eyaml-specific data
 #   Default: Same as datadir
 #
+# [*eyaml_extension*]
+#   File extension for eyaml backend
+#   Default: undef, use backend default
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -65,6 +69,7 @@
 # Hunter Haugen <h.haugen@gmail.com>
 # Mike Arnold <mike@razorsedge.org>
 # Terri Haber <terri@puppetlabs.com>
+# Greg Kitson <greg.kitson@puppetlabs.com>
 #
 # === Copyright:
 #
@@ -73,16 +78,17 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera (
-  $hierarchy     = [],
-  $backends      = $hiera::params::backends,
-  $hiera_yaml    = $hiera::params::hiera_yaml,
-  $datadir       = $hiera::params::datadir,
-  $owner         = $hiera::params::owner,
-  $group         = $hiera::params::group,
-  $eyaml         = false,
-  $eyaml_datadir = $hiera::params::datadir,
-  $confdir       = $hiera::params::confdir,
-  $extra_config  = '',
+  $hierarchy       = [],
+  $backends        = $hiera::params::backends,
+  $hiera_yaml      = $hiera::params::hiera_yaml,
+  $datadir         = $hiera::params::datadir,
+  $owner           = $hiera::params::owner,
+  $group           = $hiera::params::group,
+  $eyaml           = false,
+  $eyaml_datadir   = $hiera::params::datadir,
+  $eyaml_extension = $hiera::params::eyaml_extension,
+  $confdir         = $hiera::params::confdir,
+  $extra_config    = '',
 ) inherits hiera::params {
   File {
     owner => $owner,
