@@ -20,7 +20,7 @@
 #   Directory in which hiera will start looking for databases.
 #   Default: auto-set, platform specific
 #
-# [*manage_datadir*]
+# [*datadir_manage*]
 #   Enables creating $datadir directory
 #   Default: true
 #
@@ -63,7 +63,7 @@
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
 # Links /etc/hiera.yaml to the above file.
-# Creates $datadir (if $manage_datadir == true).
+# Creates $datadir (if $datadir_manage == true).
 #
 # === Requires:
 #
@@ -96,7 +96,7 @@ class hiera (
   $backends        = $hiera::params::backends,
   $hiera_yaml      = $hiera::params::hiera_yaml,
   $datadir         = $hiera::params::datadir,
-  $manage_datadir  = $hiera::params::manage_datadir,
+  $datadir_manage  = $hiera::params::datadir_manage,
   $owner           = $hiera::params::owner,
   $group           = $hiera::params::group,
   $eyaml           = false,
@@ -112,7 +112,7 @@ class hiera (
     group => $group,
     mode  => '0644',
   }
-  if ($datadir !~ /%\{.*\}/) and ($manage_datadir == true) {
+  if ($datadir !~ /%\{.*\}/) and ($datadir_manage == true) {
     file { $datadir:
       ensure => directory,
     }
@@ -123,12 +123,14 @@ class hiera (
   # Template uses:
   # - $eyaml
   # - $backends
+  # - $logger
+  # - $hierarchy
+  # - $datadir
   # - $eyaml_datadir
   # - $eyaml_extension
   # - $confdir
+  # - $merge_behavior
   # - $extra_config
-  # - $hierarchy
-  # - $datadir
   file { $hiera_yaml:
     ensure  => present,
     content => template('hiera/hiera.yaml.erb'),
