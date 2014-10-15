@@ -53,7 +53,7 @@
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
 # Links /etc/hiera.yaml to the above file.
-# Creates $datadir (unless $manage_datadir == true).
+# Creates $datadir (if $manage_datadir == true).
 #
 # === Requires:
 #
