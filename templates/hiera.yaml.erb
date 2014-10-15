@@ -1,8 +1,9 @@
 ---
 :backends:
-<% if @eyaml -%>
-  - eyaml
-<% end -%>
+<% if @eyaml
+  @backends << 'eyaml'
+  @backends = @backends.uniq
+end -%>
 <%= @backends.to_yaml.split("\n")[1..-1].join("\n") %>
 :logger: <%= @logger %>
 :hierarchy:
