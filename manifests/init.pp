@@ -49,6 +49,16 @@
 #   File extension for eyaml backend
 #   Default: undef, use backend default
 #
+# [*logger*]
+#   Configure a valid hiera logger
+#   Note: You need to manage any package/gem dependancies
+#   Default: console
+#
+# [*merge_behavior*]
+#   Configure hiera merge behavior.
+#   Note: You need to manage any package/gem dependancies
+#   Default: native
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -93,6 +103,8 @@ class hiera (
   $eyaml_datadir   = $hiera::params::datadir,
   $eyaml_extension = $hiera::params::eyaml_extension,
   $confdir         = $hiera::params::confdir,
+  $logger          = $hiera::params::logger,
+  $merge_behavior  = undef,
   $extra_config    = '',
 ) inherits hiera::params {
   File {
