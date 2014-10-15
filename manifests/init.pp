@@ -120,7 +120,15 @@ class hiera (
   if $eyaml {
     require hiera::eyaml
   }
-  # Template uses $hierarchy, $datadir
+  # Template uses:
+  # - $eyaml
+  # - $backends
+  # - $eyaml_datadir
+  # - $eyaml_extension
+  # - $confdir
+  # - $extra_config
+  # - $hierarchy
+  # - $datadir
   file { $hiera_yaml:
     ensure  => present,
     content => template('hiera/hiera.yaml.erb'),
