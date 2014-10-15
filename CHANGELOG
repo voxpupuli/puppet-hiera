@@ -1,3 +1,15 @@
+2014-10-15 Release 1.1.0
+Features:
+- Added eyaml, eyaml_datadir, & eyaml_extension parameters to hiera class for configuring hiera-eyaml
+- Added hiera::datadir_manage parameter to disable datadir management
+- Added hiera::logger parameter to change logger
+- Added hiera::merge_behavior parameter to change the hash merge behavior
+- Added some spec tests
+- Added new readme
+
+Bugfixes:
+- Correct datadir regex {} matching
+
 2014-05-01 Release 1.0.2
 - Remove swap files from package
 
