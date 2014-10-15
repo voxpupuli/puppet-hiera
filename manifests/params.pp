@@ -32,4 +32,5 @@ class hiera::params {
     $confdir    = '/etc/puppet'
   }
   $backends = ['yaml']
+  $eyaml_extension = undef
 }

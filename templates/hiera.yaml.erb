@@ -1,9 +1,9 @@
 ---
 :backends:
-<%= @backends.to_yaml.split("\n")[1..-1].join("\n") %>
 <% if @eyaml -%>
   - eyaml
 <% end -%>
+<%= @backends.to_yaml.split("\n")[1..-1].join("\n") %>
 :logger: console
 :hierarchy:
 <%= @hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
@@ -14,6 +14,9 @@
 <% if @eyaml %>
 :eyaml:
    :datadir: <%= @eyaml_datadir %>
+<% if @eyaml_extension -%>
+   :extension: <%= @eyaml_extension %>
+<% end -%>
    :pkcs7_private_key: <%= @confdir %>/keys/private_key.pkcs7.pem
    :pkcs7_public_key:  <%= @confdir %>/keys/public_key.pkcs7.pem
 <% end %>
