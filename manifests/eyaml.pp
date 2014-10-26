@@ -39,13 +39,18 @@ class hiera::eyaml (
     require => Package['hiera-eyaml'],
   }
 
-  $eyaml_files = [
-    "${confdir}/keys/private_key.pkcs7.pem",
-    "${confdir}/keys/public_key.pkcs7.pem"]
 
-  file { $eyaml_files:
+  file { "${confdir}/keys/private_key.pkcs7.pem":
     ensure  => file,
-    mode    => '0604',
+    mode    => '0640',
+    owner   => $owner,
+    group   => $group,
+    require => Exec['createkeys'],
+  }
+
+  file { "${confdir}/keys/public_key.pkcs7.pem":
+    ensure  => file,
+    mode    => '0644',
     owner   => $owner,
     group   => $group,
     require => Exec['createkeys'],
