@@ -33,7 +33,7 @@ class hiera::eyaml (
   exec { 'createkeys':
     user    => $owner,
     cwd     => $confdir,
-    command => "${cmdpath}/eyaml createkeys",
+    command => 'eyaml createkeys',
     path    => $cmdpath,
     creates => "${confdir}/keys/private_key.pkcs7.pem",
     require => Package['hiera-eyaml'],

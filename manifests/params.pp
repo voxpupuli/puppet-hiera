@@ -20,7 +20,6 @@ class hiera::params {
     $owner      = 'pe-puppet'
     $group      = 'pe-puppet'
     $provider   = 'pe_gem'
-    $cmdpath    = '/opt/puppet/bin'
     $confdir    = '/etc/puppetlabs/puppet'
   } else {
     $hiera_yaml = '/etc/puppet/hiera.yaml'
@@ -28,9 +27,9 @@ class hiera::params {
     $owner      = 'puppet'
     $group      = 'puppet'
     $provider   = 'gem'
-    $cmdpath    = '/usr/bin/puppet'
     $confdir    = '/etc/puppet'
   }
+  $cmdpath         = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
   $datadir_manage  = true
   $backends        = ['yaml']
   $logger          = 'console'
