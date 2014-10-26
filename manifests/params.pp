@@ -28,7 +28,7 @@ class hiera::params {
     $owner      = 'puppet'
     $group      = 'puppet'
     $provider   = 'gem'
-    $cmdpath    = '/usr/bin/puppet'
+    $cmdpath    = '/usr/local/bin'
     $confdir    = '/etc/puppet'
   }
   $datadir_manage  = true
