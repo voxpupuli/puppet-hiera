@@ -42,7 +42,7 @@ class hiera::eyaml (
 
   file { "${confdir}/keys/private_key.pkcs7.pem":
     ensure  => file,
-    mode    => '0640',
+    mode    => '0600',
     owner   => $owner,
     group   => $group,
     require => Exec['createkeys'],
