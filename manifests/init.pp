@@ -60,8 +60,9 @@
 #   Default: native
 #
 # [*cmdpath*]
-#   Path to command binaries.
-#   Default: /usr/bin
+#   Search paths for command binaries, like the 'eyaml' command.
+#   The default should cover most cases.
+#   Default: ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
 #
 # === Actions:
 #
