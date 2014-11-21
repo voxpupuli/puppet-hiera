@@ -59,6 +59,10 @@
 #   Note: You need to manage any package/gem dependancies
 #   Default: native
 #
+# [*cmdpath*]
+#   Path to command binaries.
+#   Default: /usr/bin
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -104,6 +108,7 @@ class hiera (
   $eyaml_extension = $hiera::params::eyaml_extension,
   $confdir         = $hiera::params::confdir,
   $logger          = $hiera::params::logger,
+  $cmdpath         = $hiera::params::cmdpath,
   $merge_behavior  = undef,
   $extra_config    = '',
 ) inherits hiera::params {
