@@ -12,10 +12,10 @@
 #
 class hiera::eyaml (
   $provider = $hiera::params::provider,
-  $owner    = $hiera::params::owner,
-  $group    = $hiera::params::group,
-  $cmdpath  = $hiera::params::cmdpath,
-  $confdir  = $hiera::params::confdir
+  $owner    = $hiera::owner,
+  $group    = $hiera::group,
+  $cmdpath  = $hiera::cmdpath,
+  $confdir  = $hiera::confdir
 ) inherits hiera::params {
 
   package { 'hiera-eyaml':
