@@ -57,7 +57,11 @@ class hiera (
   $eyaml_version   = undef,
   $merge_behavior  = undef,
   $extra_config    = '',
+  $eyaml_gpg            = false,
+  $eyaml_gpg_keygen     = false,
+  $eyaml_gpg_recipients = $hiera::params::eyaml_gpg_recipients,
 ) inherits hiera::params {
+
   File {
     owner => $owner,
     group => $group,
@@ -73,7 +77,9 @@ class hiera (
       fail("${merge_behavior} merge behavior is invalid. Valid values are: native, deep, deeper")
     }
   }
-  if $eyaml {
+  if $eyaml_gpg {
+    require hiera::eyaml_gpg
+  } elsif $eyaml {
     require hiera::eyaml
   }
   # Template uses:
