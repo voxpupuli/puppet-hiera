@@ -69,6 +69,10 @@
 #   The default should cover most cases.
 #   Default: ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
 #
+# [*gem_source*]
+#   Configure an alternative Gem source
+#   Default: undef, use backend default
+#
 # === Actions:
 #
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
@@ -116,6 +120,7 @@ class hiera (
   $logger          = $hiera::params::logger,
   $cmdpath         = $hiera::params::cmdpath,
   $create_keys     = $hiera::params::create_keys,
+  $gem_source      = $hiera::params::gem_source,
   $merge_behavior  = undef,
   $extra_config    = '',
 ) inherits hiera::params {

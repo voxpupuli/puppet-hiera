@@ -35,4 +35,5 @@ class hiera::params {
   $logger          = 'console'
   $eyaml_extension = undef
   $create_keys     = true
+  $gem_source      = undef
 }
