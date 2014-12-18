@@ -19,8 +19,12 @@ class hiera::params {
     $datadir    = '/etc/puppetlabs/puppet/hieradata'
     $owner      = 'pe-puppet'
     $group      = 'pe-puppet'
-    $provider   = 'pe_gem'
     $confdir    = '/etc/puppetlabs/puppet'
+    if $::puppetversion =~ /3.7/ {
+      $provider = 'puppetserver'
+    } else {
+      $provider = 'pe_gem'
+    }
   } else {
     $hiera_yaml = '/etc/puppet/hiera.yaml'
     $datadir    = '/etc/puppet/hieradata'
