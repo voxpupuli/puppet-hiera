@@ -22,6 +22,11 @@ class hiera::params {
     $confdir    = '/etc/puppetlabs/puppet'
     if $::puppetversion =~ /3.7/ {
       $provider = 'pe_puppetserver_gem'
+      # 3.7 also needs /opt/puppet/bin/eyaml
+      exec { 'install pe_gem':
+          command => '/opt/puppet/bin/gem install hiera-eyaml'
+          creates => '/opt/puppet/bin/eyaml'
+      }
     } else {
       $provider = 'pe_gem'
     }
