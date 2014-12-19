@@ -21,7 +21,7 @@ class hiera::params {
     $group      = 'pe-puppet'
     $confdir    = '/etc/puppetlabs/puppet'
     if $::puppetversion =~ /3.7/ {
-      $provider = 'puppetserver'
+      $provider = 'pe_puppetserver_gem'
     } else {
       $provider = 'pe_gem'
     }
