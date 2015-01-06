@@ -137,6 +137,8 @@ Configures the directory for puppet's confdir.
 Configures the hiera logger. Default is 'console'
 #### `merge_behavior`
 Configures the hiera merge behavior (e.g. for deep merges). No default
+#### `create_keys`
+Enables/disables generating pkcs7 keys for use with hiera-eyaml
 #### `extra_config`
 Accepts arbitrary content to add to the end of hiera.yaml
 

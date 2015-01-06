@@ -34,4 +34,5 @@ class hiera::params {
   $backends        = ['yaml']
   $logger          = 'console'
   $eyaml_extension = undef
+  $create_keys     = true
 }
