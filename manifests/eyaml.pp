@@ -16,12 +16,14 @@ class hiera::eyaml (
   $group       = $hiera::group,
   $cmdpath     = $hiera::cmdpath,
   $confdir     = $hiera::confdir,
-  $create_keys = $hiera::create_keys
+  $create_keys = $hiera::create_keys,
+  $gem_source  = $hiera::gem_source,
 ) inherits hiera::params {
 
   package { 'hiera-eyaml':
     ensure   => installed,
     provider => $provider,
+    source   => $gem_source,
   }
 
   File {

@@ -141,6 +141,8 @@ Configures the hiera merge behavior (e.g. for deep merges). No default
 Enables/disables generating pkcs7 keys for use with hiera-eyaml
 #### `extra_config`
 Accepts arbitrary content to add to the end of hiera.yaml
+#### `gem_source`
+Configures the Gem source to use for installing hiera-eyaml.
 
 ## Limitations
 
