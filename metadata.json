@@ -1,0 +1,14 @@
+{
+  "name": "hunner-hiera",
+  "version": "1.1.2",
+  "author": "hunner",
+  "summary": "Deploy hiera.yaml with hierarchy, and datadir",
+  "license": "BSD",
+  "source": "UNKNOWN",
+  "project_page": "https://github.com/hunner/hunner-hiera",
+  "issues_url": null,
+  "description": "",
+  "dependencies": [
+  
+  ]
+}
