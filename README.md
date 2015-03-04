@@ -111,38 +111,74 @@ The resulting output in /etc/puppet/hiera.yaml:
 
 The following parameters are available for the hiera class:
 
-#### `hierarchy`
-Configures the hiera hierarchy. Default is []
-#### `backends`
-Configures the list of backends. Default is ['yaml']
-#### `hiera_yaml`
-Configures the path to hiera.yaml
-#### `datadir`
-Configures the path to the hieradata directory.
-#### `datadir_manage`
-Enables/disables the datadir file resource
-#### `owner`
-Sets the owner of the managed files and directories.
-#### `group`
-Sets the group of the managed files and directories.
-#### `eyaml`
-Enables/disables the eyaml backend. Default true
-#### `eyaml_datadir`
-Configures the eyaml data directory. Default is the same as datadir
-#### `eyaml_extension`
-Configures the eyaml file extension. No default
-#### `confdir`
-Configures the directory for puppet's confdir.
-#### `logger`
-Configures the hiera logger. Default is 'console'
-#### `merge_behavior`
-Configures the hiera merge behavior (e.g. for deep merges). No default
-#### `create_keys`
-Enables/disables generating pkcs7 keys for use with hiera-eyaml
-#### `extra_config`
-Accepts arbitrary content to add to the end of hiera.yaml
-#### `gem_source`
-Configures the Gem source to use for installing hiera-eyaml.
+* `hierarchy`  
+  The hiera hierarchy.  
+  Default: `[]`
+* `backend`  
+  The list of backends.  
+  Default: `['yaml']`
+* `hiera_yaml`  
+  The path to the hiera config file.  
+  Default:
+    * `'/etc/puppet/hiera.yaml'` for Puppet Open Source
+    * `'/etc/puppetlabs/puppet/hiera.yaml'` for Puppet Enterprise
+* `datadir`  
+  The path to the directory where hiera will look for databases.  
+  Default:
+    * `'/etc/puppet/hieradata'` for Puppet Open Source
+    * `'/etc/puppetlabs/puppet/hieradata'` for Puppet Enterprise
+* `datadir_manage`  
+  Whether to create and manage the datadir as a file resource.  
+  Default: `true`
+* `owner`  
+  The owner of managed files and directories.  
+  Default:
+    * `'puppet'` for Puppet Open Source
+    * `'pe-puppet'` for Puppet Enterprise
+* `group`  
+  The group owner of managed files and directories.  
+  Default:
+    * `'puppet'` for Puppet Open Source
+    * `'pe-puppet'` for Puppet Enterprise
+* `eyaml`  
+  Whether to install, configure, and enable [the eyaml backend][eyaml].  
+  Default: `false`
+* `eyaml_datadir`  
+  The path to the directory where hiera will look for databases with the eyaml backend.  
+  Default: same as `datadir`
+* `eyaml_extension`  
+  The file extension for the eyaml backend.  
+  Default: `undef`, backend defaults to `'.eyaml'`
+* `confdir`  
+  The path to Puppet's confdir.  
+  Default:
+    * `'/etc/puppet'` for Puppet Open Source
+    * `'/etc/puppetlabs/puppet'` for Puppet Enterprise
+* `logger`  
+  Which hiera logger to use.  
+  **Note**: You need to manage any package/gem dependencies yourself.  
+  Default: `undef`, hiera defaults to `'console'`
+* `cmdpath`  
+  Search paths for command binaries, like the `eyaml` command.  
+  The default should cover most cases.  
+  Default: `['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']`
+* `create_keys`  
+  Whether to create pkcs7 keys and manage key files for hiera-eyaml.  
+  This is useful if you need to distribute a pkcs7 key pair.  
+  Default: `true`
+* `gem_source`  
+  An alternate gem source for installing hiera-eyaml.  
+  Default: `undef`, uses gem backend default
+* `merge_behavior`  
+  Which hiera merge behavior to use.  
+  **Note**: You need to manage any package/gem dependencies yourself.  
+  Default: `undef`, hiera defaults to `'native'`
+* `extra_config`  
+  Arbitrary YAML content to append to the end of the hiera.yaml config file.  
+  This is useful for configuring backend-specific parameters.  
+  Default: `''`
+
+[eyaml]: https://github.com/TomPoulton/hiera-eyaml
 
 ## Limitations
 
