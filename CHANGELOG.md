@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 - Added ability to disable pkcs7 key generation with hiera-eyaml
 - Added `gem_source` param
 
+### Bugfixes:
+- Install compatible version of HighLine when installing hiera-eyaml on Ruby 1.8
+
 ## [1.1.1] - 2014-11-21
 ### Bugfixes:
 - Correct handling of `cmdpath` (using an array of paths instead of hardcoded
