@@ -5,10 +5,12 @@
 # === Authors:
 #
 # Terri Haber <terri@puppetlabs.com>
+# Eli Young <elyscape@gmail.com>
 #
 # === Copyright:
 #
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
+# Copyright (C) 2015 Eli Young, unless otherwise noted.
 #
 class hiera::eyaml (
   $provider    = $hiera::params::provider,
@@ -20,6 +22,14 @@ class hiera::eyaml (
   $gem_source  = $hiera::gem_source,
 ) inherits hiera::params {
 
+  if versioncmp($::rubyversion, '1.9.3') < 0 {
+    package { 'highline':
+      ensure   => '~> 1.6.19',
+      provider => provider,
+      source   => $gem_source,
+      before   => Package['hiera-eyaml'],
+    }
+  }
   package { 'hiera-eyaml':
     ensure   => installed,
     provider => $provider,
