@@ -67,6 +67,11 @@ class hiera (
       ensure => directory,
     }
   }
+  if $merge_behavior {
+    unless $merge_behavior in ['native', 'deep', 'deeper'] {
+      fail("${merge_behavior} merge behavior is invalid. Valid values are: native, deep, deeper")
+    }
+  }
   if $eyaml {
     require hiera::eyaml
   }
