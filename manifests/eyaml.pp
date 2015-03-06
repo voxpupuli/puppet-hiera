@@ -25,6 +25,22 @@ class hiera::eyaml (
     provider => $provider,
     source   => $gem_source,
   }
+  if $provider == 'pe_puppetserver_gem' {
+    # The puppetserver gem wouldn't install the commandline util, so we do
+    # that here
+    #XXX Pre-puppet 4.0.0 version (PUP-1073)
+    exec { 'install pe_gem':
+      command => '/opt/puppet/bin/gem install hiera-eyaml',
+      creates => '/opt/puppet/bin/eyaml',
+    }
+    #XXX Post-puppet 4.0.0
+    #package { 'hiera-eyaml command line':
+    #  ensure   => installed,
+    #  name     => 'hiera-eyaml',
+    #  provider => 'pe_gem',
+    #  source   => $gem_source,
+    #}
+  }
 
   File {
     owner => $owner,

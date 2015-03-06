@@ -26,7 +26,7 @@ This module configures [Hiera](https://github.com/puppetlabs/hiera) for Puppet.
 - /etc/hiera.yaml for symlink
 
 ### Setup requirements
-If you are using Puppet Enterprise and the eyaml backend, you will need the [puppetlabs-pe_gem](https://forge.puppetlabs.com/puppetlabs/pe_gem) module to install the eyaml gem using PE's gem command.
+If you are using Puppet Enterprise and the eyaml backend, you will need the [puppetlabs-pe_gem](https://forge.puppetlabs.com/puppetlabs/pe_gem) module to install the eyaml gem using PE's gem command. If you are using a PE version with puppetserver (3.7 and later) you will also need the [puppetlabs-pe_puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/pe_puppetserver_gem) module.
 
 Otherwise you just need puppet.
 
@@ -182,7 +182,7 @@ The following parameters are available for the hiera class:
 
 ## Limitations
 
-Unknown.
+The pe-puppetserver service must be restarted after hiera-eyaml is installed; this module will not do it for you.
 
 ## Development
 
