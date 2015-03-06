@@ -2,9 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
+### Bugfixes:
+
+## [1.2.0] - 2015-03-05
 ### Features:
-- Added ability to disable pkcs7 key generation with hiera-eyaml
-- Added `gem_source` param
+- Added `hiera::eyaml::create_keys` param to disable pkcs7 key generation with
+  hiera-eyaml
+- Added `hiera::eyaml::gem_source` param to specify source of hiera-eyaml gem
+
+### Bugfixes:
+- Change Modulefile to metadata.json
+- Add validation on `merge_behavior` param
 
 ## [1.1.1] - 2014-11-21
 ### Bugfixes:
@@ -53,7 +61,8 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
-[unreleased]: https://github.com/hunner/puppet-hiera/compare/1.1.1...master
+[unreleased]: https://github.com/hunner/puppet-hiera/compare/1.2.0...master
+[1.2.0]: https://github.com/hunner/puppet-hiera/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/hunner/puppet-hiera/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/hunner/puppet-hiera/compare/1.0.2...1.1.0
 [1.0.2]: https://github.com/hunner/puppet-hiera/compare/1.0.1...1.0.2
