@@ -6,9 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ## [1.2.0] - 2015-03-05
 ### Features:
-- Added `hiera::eyaml::create_keys` param to disable pkcs7 key generation with
+- Added `hiera::create_keys` param to disable pkcs7 key generation with
   hiera-eyaml
-- Added `hiera::eyaml::gem_source` param to specify source of hiera-eyaml gem
+- Added `hiera::gem_source` param to specify source of hiera-eyaml gem
+- Added `hiera::eyaml_version` param to specify the version of eyaml
 
 ### Bugfixes:
 - Change Modulefile to metadata.json

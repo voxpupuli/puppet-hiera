@@ -149,6 +149,9 @@ The following parameters are available for the hiera class:
 * `eyaml_extension`  
   The file extension for the eyaml backend.  
   Default: `undef`, backend defaults to `'.eyaml'`
+* `eyaml_version`  
+  The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7', etc  
+  Default: `undef`
 * `confdir`  
   The path to Puppet's confdir.  
   Default:
@@ -182,7 +185,7 @@ The following parameters are available for the hiera class:
 
 ## Limitations
 
-The pe-puppetserver service must be restarted after hiera-eyaml is installed; this module will not do it for you.
+The pe-puppetserver service must be restarted after hiera-eyaml is installed; this module will not do it for you. The `eyaml_version` parameter does not currently modify the eyaml version of the command-line gem on pe-puppetserver.
 
 ## Development
 

@@ -54,6 +54,7 @@ class hiera (
   $cmdpath         = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin'],
   $create_keys     = true,
   $gem_source      = undef,
+  $eyaml_version   = undef,
   $merge_behavior  = undef,
   $extra_config    = '',
 ) inherits hiera::params {
