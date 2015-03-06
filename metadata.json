@@ -1,13 +1,22 @@
 {
   "name": "hunner-hiera",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "author": "hunner",
   "summary": "Deploy hiera.yaml with hierarchy, and datadir",
-  "license": "BSD",
-  "source": "UNKNOWN",
+  "license": "BSD-2-Clause",
+  "source": "https://github.com/hunner/puppet-hiera",
   "project_page": "https://github.com/hunner/hunner-hiera",
-  "issues_url": null,
-  "description": "",
+  "issues_url": "https://github.com/hunner/puppet-hiera/issues",
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.0.0 < 3.7.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
   "dependencies": [
   
   ]
