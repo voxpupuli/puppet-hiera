@@ -13,6 +13,8 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Change Modulefile to metadata.json
 - Add validation on `merge_behavior` param
+- Make it kind of work on PE 3.7 (pe-puppetserver must still be restarted after
+  the gem is installed)
 
 ## [1.1.1] - 2014-11-21
 ### Bugfixes:
