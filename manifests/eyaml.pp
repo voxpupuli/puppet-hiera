@@ -11,17 +11,22 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera::eyaml (
-  $provider    = $hiera::params::provider,
-  $owner       = $hiera::owner,
-  $group       = $hiera::group,
-  $cmdpath     = $hiera::cmdpath,
-  $confdir     = $hiera::confdir,
-  $create_keys = $hiera::create_keys,
-  $gem_source  = $hiera::gem_source,
+  $provider      = $hiera::params::provider,
+  $owner         = $hiera::owner,
+  $group         = $hiera::group,
+  $cmdpath       = $hiera::cmdpath,
+  $confdir       = $hiera::confdir,
+  $create_keys   = $hiera::create_keys,
+  $eyaml_version = $hiera::eyaml_version,
+  $gem_source    = $hiera::gem_source,
 ) inherits hiera::params {
 
+  $package_ensure = $eyaml_version ? {
+    undef   => 'installed',
+    default => $eyaml_version,
+  }
   package { 'hiera-eyaml':
-    ensure   => installed,
+    ensure   => $package_ensure,
     provider => $provider,
     source   => $gem_source,
   }
@@ -29,8 +34,14 @@ class hiera::eyaml (
     # The puppetserver gem wouldn't install the commandline util, so we do
     # that here
     #XXX Pre-puppet 4.0.0 version (PUP-1073)
+    #BUG This can't actually update the gem version if already installed.
+    if $eyaml_version =~ /^\d+\.\d+\.\d+$/ {
+      $gem_flag = "--version ${eyaml_version}"
+    } else {
+      $gem_flag = undef
+    }
     exec { 'install pe_gem':
-      command => '/opt/puppet/bin/gem install hiera-eyaml',
+      command => "/opt/puppet/bin/gem install hiera-eyaml ${gem_flag}",
       creates => '/opt/puppet/bin/eyaml',
     }
     #XXX Post-puppet 4.0.0
