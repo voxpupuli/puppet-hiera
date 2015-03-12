@@ -60,7 +60,7 @@ class hiera::eyaml_gpg (
       require => Package["${hiera::params::gnupg_package}"],
     }
 
-    $gpg_files = [ "${confdir}/keys/gpg/pubring.gpg", "${confdir}/keys/gpg/pibring.gpg~", "${confdir}/keys/gpg/random_seed", "${confdir}/keys/gpg/secring.gpg", "${confdir}/keys/gpg/trustdb.gpg" ]
+    $gpg_files = [ "${confdir}/keys/gpg/pubring.gpg", "${confdir}/keys/gpg/pubring.gpg~", "${confdir}/keys/gpg/random_seed", "${confdir}/keys/gpg/secring.gpg", "${confdir}/keys/gpg/trustdb.gpg" ]
 
     file { $gpg_files:
       ensure  => file,
