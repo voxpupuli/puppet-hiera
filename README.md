@@ -114,7 +114,7 @@ The following parameters are available for the hiera class:
 * `hierarchy`  
   The hiera hierarchy.  
   Default: `[]`
-* `backend`  
+* `backends`  
   The list of backends.  
   Default: `['yaml']`
 * `hiera_yaml`  
