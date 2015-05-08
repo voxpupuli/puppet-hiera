@@ -66,7 +66,7 @@ The resulting output in /etc/puppet/hiera.yaml:
 ## Reference
 This module will also allow you to configure different options for logger and merge_behaviour.  The default behaviour is to set logger to console and merge behaviour to native.
 
-For details and valid options [Configuring Hiera][https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings].
+For details and valid options see [Configuring Hiera](https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings).
 
 Note: For `merge_behavior` if you set deep or deeper you need to ensure the deep_merge Ruby gem is installed.
 
