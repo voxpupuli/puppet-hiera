@@ -20,6 +20,7 @@ class hiera::params {
     $owner      = 'pe-puppet'
     $group      = 'pe-puppet'
     $confdir    = '/etc/puppetlabs/puppet'
+    $cmdpath    = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
 
 
     if versioncmp($::pe_version, '3.7.0') >= 0 {
@@ -34,9 +35,11 @@ class hiera::params {
       # Configure for AIO packaging.
       $provider = 'puppet_gem'
       $confdir  = '/etc/puppetlabs/code'
+      $cmdpath  = ['/opt/puppetlabs/puppet/bin', '/usr/bin', '/usr/local/bin']
     } else {
       $provider = 'gem'
       $confdir  = '/etc/puppet'
+      $cmdpath  = ['/usr/bin', '/usr/local/bin']
     }
     $hiera_yaml = "${confdir}/hiera.yaml"
     $datadir    = "${confdir}/hieradata"
