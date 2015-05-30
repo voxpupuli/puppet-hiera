@@ -30,11 +30,17 @@ class hiera::params {
     }
   }
   else {
-    $hiera_yaml = '/etc/puppet/hiera.yaml'
-    $datadir    = '/etc/puppet/hieradata'
+    if versioncmp($::puppetversion, '4.0.0') >= 0 {
+      # Configure for AIO packaging.
+      $provider = 'puppet_gem'
+      $confdir  = '/etc/puppetlabs/code'
+    } else {
+      $provider = 'gem'
+      $confdir  = '/etc/puppet'
+    }
+    $hiera_yaml = "${confdir}/hiera.yaml"
+    $datadir    = "${confdir}/hieradata"
     $owner      = 'puppet'
     $group      = 'puppet'
-    $provider   = 'gem'
-    $confdir    = '/etc/puppet'
   }
 }
