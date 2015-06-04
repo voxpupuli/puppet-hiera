@@ -90,14 +90,14 @@ class hiera::eyaml (
       ensure  => file,
       mode    => '0600',
       source  => $eyaml_private_key,
-      require => File["${confdir}/keys/"],
+      require => [ Package['hiera-eyaml'], File["${confdir}/keys"] ]
     }
 
     file { "${confdir}/keys/public_key.pkcs7.pem":
       ensure  => file,
       mode    => '0644',
       source  => $eyaml_public_key,
-      require => File["${confdir}/keys/"],
+      require => [ Package['hiera-eyaml'], File["${confdir}/keys"] ]
     }
   }
 }
