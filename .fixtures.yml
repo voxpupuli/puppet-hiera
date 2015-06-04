@@ -1,3 +1,7 @@
 fixtures:
   symlinks:
     "hiera": "#{source_dir}"
+  forge_modules:
+    stdlib:
+      repo: puppetlabs/stdlib
+      ref: 4.5.1

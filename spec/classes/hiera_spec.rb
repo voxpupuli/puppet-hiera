@@ -11,4 +11,11 @@ describe 'hiera' do
     let(:params) { { :eyaml => true }}
     it { should contain_class("hiera::eyaml") }
   end
+  describe 'eyaml param without create_keys' do
+    let(:params) { { :eyaml => true, :create_keys => false }}
+    it { should contain_class("hiera::eyaml") }
+    it { should contain_file("/etc/puppet/keys") }
+    it { should contain_file("/etc/puppet/keys/private_key.pkcs7.pem") }
+    it { should contain_file("/etc/puppet/keys/public_key.pkcs7.pem") }
+  end
 end
