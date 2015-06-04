@@ -37,4 +37,6 @@ class hiera::params {
     $provider   = 'gem'
     $confdir    = '/etc/puppet'
   }
+  $private_key  = 'puppet:///modules/hiera/private_key.pkcs7.pem'
+  $public_key   = 'puppet:///modules/hiera/public_key.pkcs7.pem'
 }

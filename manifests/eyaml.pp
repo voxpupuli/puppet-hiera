@@ -11,14 +11,16 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera::eyaml (
-  $provider      = $hiera::params::provider,
-  $owner         = $hiera::owner,
-  $group         = $hiera::group,
-  $cmdpath       = $hiera::cmdpath,
-  $confdir       = $hiera::confdir,
-  $create_keys   = $hiera::create_keys,
-  $eyaml_version = $hiera::eyaml_version,
-  $gem_source    = $hiera::gem_source,
+  $provider          = $hiera::params::provider,
+  $owner             = $hiera::owner,
+  $group             = $hiera::group,
+  $cmdpath           = $hiera::cmdpath,
+  $confdir           = $hiera::confdir,
+  $create_keys       = $hiera::create_keys,
+  $eyaml_private_key = $hiera::private_key,
+  $eyaml_public_key  = $hiera::public_key,
+  $eyaml_version     = $hiera::eyaml_version,
+  $gem_source        = $hiera::gem_source,
 ) inherits hiera::params {
 
   $package_ensure = $eyaml_version ? {
@@ -82,6 +84,20 @@ class hiera::eyaml (
       ensure  => file,
       mode    => '0644',
       require => Exec['createkeys'],
+    }
+  } else {
+    file {"${confdir}/keys/private_key.pkcs7.pem":
+      ensure  => file,
+      mode    => '0600',
+      source  => $eyaml_private_key,
+      require => File["${confdir}/keys/"],
+    }
+
+    file { "${confdir}/keys/public_key.pkcs7.pem":
+      ensure  => file,
+      mode    => '0644',
+      source  => $eyaml_public_key,
+      require => File["${confdir}/keys/"],
     }
   }
 }
