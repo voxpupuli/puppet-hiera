@@ -13,15 +13,15 @@ end -%>
 :yaml:
    :datadir: <%= @datadir %>
 
-<% if @eyaml %>
+<% if @eyaml -%>
 :eyaml:
-   :datadir: <%= @eyaml_datadir %>
+   :datadir: <%= @eyaml_real_datadir %>
 <% if @eyaml_extension -%>
    :extension: <%= @eyaml_extension %>
 <% end -%>
    :pkcs7_private_key: <%= @confdir %>/keys/private_key.pkcs7.pem
    :pkcs7_public_key:  <%= @confdir %>/keys/public_key.pkcs7.pem
-<% end %>
+<% end -%>
 
 <% if @merge_behavior -%>
 :merge_behavior: <%= @merge_behavior -%>

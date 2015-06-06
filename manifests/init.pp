@@ -14,7 +14,7 @@
 #
 # === Requires:
 #
-# Nothing.
+# puppetlabs-stdlib >= 4.3.1
 #
 # === Sample Usage:
 #
@@ -47,7 +47,7 @@ class hiera (
   $owner           = $hiera::params::owner,
   $group           = $hiera::params::group,
   $eyaml           = false,
-  $eyaml_datadir   = $hiera::params::datadir,
+  $eyaml_datadir   = undef,
   $eyaml_extension = undef,
   $confdir         = $hiera::params::confdir,
   $logger          = 'console',
@@ -75,6 +75,10 @@ class hiera (
   }
   if $eyaml {
     require hiera::eyaml
+    $eyaml_real_datadir = empty($eyaml_datadir) ? {
+      false => $eyaml_datadir,
+      true  => $datadir,
+    }
   }
   # Template uses:
   # - $eyaml
@@ -82,7 +86,7 @@ class hiera (
   # - $logger
   # - $hierarchy
   # - $datadir
-  # - $eyaml_datadir
+  # - $eyaml_real_datadir
   # - $eyaml_extension
   # - $confdir
   # - $merge_behavior
