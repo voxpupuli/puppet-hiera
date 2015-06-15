@@ -51,7 +51,7 @@ class hiera (
   $eyaml_extension = undef,
   $confdir         = $hiera::params::confdir,
   $logger          = 'console',
-  $cmdpath         = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin'],
+  $cmdpath         = $hiera::params::cmdpath,
   $create_keys     = true,
   $gem_source      = undef,
   $eyaml_version   = undef,
