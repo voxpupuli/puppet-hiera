@@ -46,4 +46,14 @@ class hiera::params {
     $owner      = 'puppet'
     $group      = 'puppet'
   }
+  $cmdpath              = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
+  $datadir_manage       = true
+  $backends             = ['yaml']
+  $logger               = 'console'
+  $eyaml_extension      = undef
+  $eyaml_gpg_recipients = undef
+  
+  if $::osfamily == 'RedHat' {
+    $gnupg_package         = 'gnupg2'
+  }
 }

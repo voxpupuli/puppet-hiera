@@ -98,6 +98,50 @@ The resulting output in /etc/puppet/hiera.yaml:
 :merge_behavior: deep
 ```
 
+**Configure with hirea-eyaml-gpg**
+```puppet
+class { 'hiera':
+  hierarchy => [
+    'nodes/%{::clientcert}',
+    'locations/%{::location}',
+    'environments/%{::applicationtier}',
+    'common',
+  ],
+  logger               => 'console',
+  eyaml                => true,
+  eyaml_gpg            => true,
+  eyaml_gpg_keygen     => true,
+  eyaml_gpg_recipients => 'sihil@example.com,gtmtech@example.com,tpoulton@example.com',
+}
+```
+
+The resulting output in /etc/puppet/hiera.yaml:
+```yaml
+---
+:backends:
+  - eyaml
+  - yaml
+:logger: console
+:hierarchy:
+  - "nodes/%{::clientcert}"
+  - "locations/%{::location}"
+  - "environments/%{::applicationtier}"
+  - common
+
+:yaml:
+   :datadir: /etc/puppet/hieradata
+
+
+:eyaml:
+   :datadir: /etc/puppet/hieradata
+   :pkcs7_private_key: /etc/puppet/keys/private_key.pkcs7.pem
+   :pkcs7_public_key:  /etc/puppet/keys/public_key.pkcs7.pem
+   :encrypt_method: "gpg"
+   :gpg_gnupghome: "/etc/puppet/keys/gpg"
+   :gpg_recipients: "sihil@example.com,gtmtech@example.com,tpoulton@example.com"
+```
+
+
 ### Classes
 
 #### Public Classes
@@ -106,6 +150,7 @@ The resulting output in /etc/puppet/hiera.yaml:
 #### Private Classes
 - hiera::params: Handles variable conditionals
 - hiera::eyaml: Handles eyaml configuration
+- hiera::eyaml_gpg: Handles eyaml-gpg plugin configuration
 
 ### Parameters
 
@@ -180,8 +225,15 @@ The following parameters are available for the hiera class:
   Arbitrary YAML content to append to the end of the hiera.yaml config file.  
   This is useful for configuring backend-specific parameters.  
   Default: `''`
-
-[eyaml]: https://github.com/TomPoulton/hiera-eyaml
+* `eyaml_gpg`
+  Enables/disable the eyaml-gpg backend. 
+  Default: `false`
+* `eyaml_gpg_keygen`
+  Generate a GPG Keyring. 
+  Default: `false` ( Currently only works for RedHat OS Family )
+* `eyaml_gpg_recipients`
+  Sets the gpg recipients list in hiera.yaml for hirea-eyaml-gpg
+  Default: `undef`
 
 ## Limitations
 

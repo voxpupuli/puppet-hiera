@@ -21,7 +21,15 @@ end -%>
 <% end -%>
    :pkcs7_private_key: <%= @confdir %>/keys/private_key.pkcs7.pem
    :pkcs7_public_key:  <%= @confdir %>/keys/public_key.pkcs7.pem
-<% end %>
+<% end -%>
+<% if @eyaml_gpg -%>
+   :encrypt_method: "gpg"
+   :gpg_gnupghome: "/etc/puppet/keys/gpg"
+<% if @eyaml_gpg_recipients -%>
+   :gpg_recipients: "<%= @eyaml_gpg_recipients %>"
+<% end -%>
+<% end -%>
+   
 
 <% if @merge_behavior -%>
 :merge_behavior: <%= @merge_behavior -%>

@@ -19,6 +19,7 @@ class hiera::eyaml (
   $create_keys   = $hiera::create_keys,
   $eyaml_version = $hiera::eyaml_version,
   $gem_source    = $hiera::gem_source,
+  $eyaml_gpg     = $hiera::eyaml_gpg,
 ) inherits hiera::params {
 
   $package_ensure = $eyaml_version ? {
@@ -60,6 +61,17 @@ class hiera::eyaml (
 
   file { "${confdir}/keys":
     ensure => directory,
+  }
+
+  # Removing the hiera-eyaml-gpg gem if its installed and we need to generate keys
+  # There is a bug where it wont allow puppet to run eyaml createkeys if both are installed
+  exec { 'remove_hiera_eyaml_gpg':
+    command => 'gem uninstall hiera-eyaml-gpg',
+    onlyif  => 'gem list hiera-eyaml-gpg -i > /dev/null',
+    path    => $cmdpath,
+    creates => "${confdir}/keys/private_key.pkcs7.pem",
+    require => Package['hiera-eyaml'],
+    before  => Exec['createkeys'],
   }
 
   if ( $create_keys == true ) {
