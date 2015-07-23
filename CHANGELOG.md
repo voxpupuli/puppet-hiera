@@ -1,8 +1,14 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased][unreleased]
+## [1.3.0] - 2015-07-23
+### Features:
+- Add PE 3.8 support
+- Add Puppet 4 support
+
 ### Bugfixes:
+- Fix `eyaml_datadir` parameter default to `datadir` value
+- Handle cmdpath on different versions of puppet
 
 ## [1.2.0] - 2015-03-05
 ### Features:
@@ -64,7 +70,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
-[unreleased]: https://github.com/hunner/puppet-hiera/compare/1.2.0...master
+[1.3.0]: https://github.com/hunner/puppet-hiera/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/hunner/puppet-hiera/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/hunner/puppet-hiera/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/hunner/puppet-hiera/compare/1.0.2...1.1.0
