@@ -1,6 +1,10 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2015-07-24
+### Bugfixes:
+- Allow `eyaml_version` to be undef (the default) on PE 3.7/3.8
+
 ## [1.3.0] - 2015-07-23
 ### Features:
 - Add PE 3.8 support
@@ -70,6 +74,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[1.3.1]: https://github.com/hunner/puppet-hiera/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/hunner/puppet-hiera/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/hunner/puppet-hiera/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/hunner/puppet-hiera/compare/1.1.0...1.1.1
