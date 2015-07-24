@@ -35,7 +35,7 @@ class hiera::eyaml (
     # that here
     #XXX Pre-puppet 4.0.0 version (PUP-1073)
     #BUG This can't actually update the gem version if already installed.
-    if $eyaml_version =~ /^\d+\.\d+\.\d+$/ {
+    if "$eyaml_version" =~ /^\d+\.\d+\.\d+$/ {
       $gem_flag = "--version ${eyaml_version}"
     } else {
       $gem_flag = undef
