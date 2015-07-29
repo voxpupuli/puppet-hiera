@@ -25,11 +25,7 @@ class hiera::eyaml (
     undef   => 'installed',
     default => $eyaml_version,
   }
-  package { 'hiera-eyaml':
-    ensure   => $package_ensure,
-    provider => $provider,
-    source   => $gem_source,
-  }
+
   if $provider == 'pe_puppetserver_gem' {
     # The puppetserver gem wouldn't install the commandline util, so we do
     # that here
@@ -51,6 +47,12 @@ class hiera::eyaml (
     #  provider => 'pe_gem',
     #  source   => $gem_source,
     #}
+  } else {
+    package { 'hiera-eyaml':
+      ensure   => $package_ensure,
+      provider => $provider,
+      source   => $gem_source,
+    }
   }
 
   File {
