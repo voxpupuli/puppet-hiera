@@ -27,6 +27,8 @@ class hiera::eyaml (
   }
 
   if $provider == 'pe_puppetserver_gem' {
+    $hiera_package_dep = Exec['install pe_gem']
+
     # The puppetserver gem wouldn't install the commandline util, so we do
     # that here
     #XXX Pre-puppet 4.0.0 version (PUP-1073)
@@ -48,6 +50,7 @@ class hiera::eyaml (
     #  source   => $gem_source,
     #}
   } else {
+    $hiera_package_dep = Package['hiera-eyaml']
     package { 'hiera-eyaml':
       ensure   => $package_ensure,
       provider => $provider,
@@ -71,7 +74,7 @@ class hiera::eyaml (
       command => 'eyaml createkeys',
       path    => $cmdpath,
       creates => "${confdir}/keys/private_key.pkcs7.pem",
-      require => [ Package['hiera-eyaml'], File["${confdir}/keys"] ]
+      require => [ $hiera_package_dep, File["${confdir}/keys"] ]
     }
 
     file { "${confdir}/keys/private_key.pkcs7.pem":
