@@ -11,7 +11,7 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera::eyaml (
-  $provider      = $hiera::params::provider,
+  $provider      = $hiera::provider,
   $owner         = $hiera::owner,
   $group         = $hiera::group,
   $cmdpath       = $hiera::cmdpath,
