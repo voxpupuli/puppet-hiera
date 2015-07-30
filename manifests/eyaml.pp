@@ -34,7 +34,10 @@ class hiera::eyaml (
       ]
     }
 
-    $hiera_package_dep = Exec['install pe_gem']
+    $hiera_package_dep = [
+      Exec['install ruby gem hiera-eyaml'],
+      Exec['install puppetserver gem hiera-eyaml'],
+    ]
 
     # figure out what files get installed where so that we can tell if installation
     # succeeded
