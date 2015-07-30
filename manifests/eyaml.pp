@@ -29,8 +29,11 @@ class hiera::eyaml (
   if $provider == 'pe_puppetserver_gem' {
     Exec {
       path => [
+        '/opt/puppetlabs/server/bin/',
         '/opt/puppetlabs/puppet/bin',
         '/opt/puppet/bin',
+        '/usr/bin/',
+        '/bin',
       ]
     }
 
