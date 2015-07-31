@@ -45,11 +45,13 @@ class hiera::eyaml (
     # figure out what files get installed where so that we can tell if installation
     # succeeded
     if $pe_server_version {
-      $vendored_gem_creates = '/opt/puppet/bin/eyaml'
-      $puppetserver_gem_creates = '/var/opt/lib/pe-puppet-server/jruby-gems/bin/eyaml'
-    } else {
-      $vendored_gem_creates = '/opt/puppetlabs/puppet/bin/eyaml'
+      # PE 2015
+      $vendored_gem_creates     = '/opt/puppetlabs/puppet/bin/eyaml'
       $puppetserver_gem_creates = '/opt/puppetlabs/server/data/puppetserver/jruby-gems/bin/eyaml'
+    } else {
+      # PE 3.x
+      $vendored_gem_creates     = '/opt/puppet/bin/eyaml'
+      $puppetserver_gem_creates = '/var/opt/lib/pe-puppet-server/jruby-gems/bin/eyaml'
     }
 
     # The puppetserver gem wouldn't install the commandline util, so we do
