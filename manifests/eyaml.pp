@@ -21,6 +21,11 @@ class hiera::eyaml (
   $gem_source    = $hiera::gem_source,
 ) inherits hiera::params {
 
+
+  $keys_dir    = "${confdir}/keys"
+  $private_key = "${keys_dir}/private_key.pkcs7.pem"
+  $public_key  = "${keys_dir}/public_key.pkcs7.pem"
+
   $package_ensure = $eyaml_version ? {
     undef   => 'installed',
     default => $eyaml_version,
@@ -58,30 +63,30 @@ class hiera::eyaml (
     group => $group
   }
 
-  file { "${confdir}/keys":
+  file { $keys_dir:
     ensure => directory,
   }
 
   if ( $create_keys == true ) {
-    exec { 'createkeys':
+    exec { 'eyaml_createkeys':
       user    => $owner,
       cwd     => $confdir,
       command => 'eyaml createkeys',
       path    => $cmdpath,
-      creates => "${confdir}/keys/private_key.pkcs7.pem",
-      require => [ Package['hiera-eyaml'], File["${confdir}/keys"] ]
+      creates => $private_key,
+      require => [ Package['hiera-eyaml'], File["${keys_dir}"] ]
     }
 
-    file { "${confdir}/keys/private_key.pkcs7.pem":
+    file { $private_key:
       ensure  => file,
       mode    => '0600',
-      require => Exec['createkeys'],
+      require => Exec['eyaml_createkeys'],
     }
 
-    file { "${confdir}/keys/public_key.pkcs7.pem":
+    file { $public_key:
       ensure  => file,
       mode    => '0644',
-      require => Exec['createkeys'],
+      require => Exec['eyaml_createkeys'],
     }
   }
 }
