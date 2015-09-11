@@ -5,15 +5,17 @@
   @backends.unshift('eyaml')
   @backends = @backends.uniq
 end -%>
-<%= @backends.to_yaml.split("\n")[1..-1].join("\n") %>
+<%= @backends.to_yaml.split("\n")[1..-1].map{|e| "  #{e}"}.join("\n") %>
+
 :logger: <%= @logger %>
+
 :hierarchy:
-<%= @hierarchy.to_yaml.split("\n")[1..-1].join("\n") %>
+<%= @hierarchy.to_yaml.split("\n")[1..-1].map{|e| "  #{e}"}.join("\n") %>
 
 :yaml:
-   :datadir: <%= @datadir %>
-
+  :datadir: <%= @datadir %>
 <% if @eyaml -%>
+
 :eyaml:
    :datadir: <%= @eyaml_real_datadir %>
 <% if @eyaml_extension -%>
@@ -22,9 +24,11 @@ end -%>
    :pkcs7_private_key: <%= @confdir %>/keys/private_key.pkcs7.pem
    :pkcs7_public_key:  <%= @confdir %>/keys/public_key.pkcs7.pem
 <% end -%>
-
 <% if @merge_behavior -%>
+
 :merge_behavior: <%= @merge_behavior -%>
 <% end -%>
+<% if @extra_config && !@extra_config.empty? -%>
 
 <%= @extra_config %>
+<% end -%>
