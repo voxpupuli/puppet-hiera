@@ -1,5 +1,4 @@
 # Hiera Puppet
-[![Puppet Forge](http://img.shields.io/puppetforge/v/hunner/hiera.svg)](https://forge.puppetlabs.com/hunner/hiera)
 ####Table of Contents
 
 1. [Overview](#overview)
