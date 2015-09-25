@@ -11,7 +11,7 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera::eyaml (
-  $provider      = $hiera::params::provider,
+  $provider      = $hiera::provider,
   $owner         = $hiera::owner,
   $group         = $hiera::group,
   $cmdpath       = $hiera::cmdpath,
@@ -25,12 +25,35 @@ class hiera::eyaml (
     undef   => 'installed',
     default => $eyaml_version,
   }
-  package { 'hiera-eyaml':
-    ensure   => $package_ensure,
-    provider => $provider,
-    source   => $gem_source,
-  }
+
   if $provider == 'pe_puppetserver_gem' {
+    Exec {
+      path => [
+        '/opt/puppetlabs/server/bin/',
+        '/opt/puppetlabs/puppet/bin',
+        '/opt/puppet/bin',
+        '/usr/bin/',
+        '/bin',
+      ]
+    }
+
+    $hiera_package_dep = [
+      Exec['install ruby gem hiera-eyaml'],
+      Exec['install puppetserver gem hiera-eyaml'],
+    ]
+
+    # figure out what files get installed where so that we can tell if installation
+    # succeeded
+    if $pe_server_version {
+      # PE 2015
+      $vendored_gem_creates     = '/opt/puppetlabs/puppet/bin/eyaml'
+      $puppetserver_gem_creates = '/opt/puppetlabs/server/data/puppetserver/jruby-gems/bin/eyaml'
+    } else {
+      # PE 3.x
+      $vendored_gem_creates     = '/opt/puppet/bin/eyaml'
+      $puppetserver_gem_creates = '/var/opt/lib/pe-puppet-server/jruby-gems/bin/eyaml'
+    }
+
     # The puppetserver gem wouldn't install the commandline util, so we do
     # that here
     #XXX Pre-puppet 4.0.0 version (PUP-1073)
@@ -40,10 +63,6 @@ class hiera::eyaml (
     } else {
       $gem_flag = undef
     }
-    exec { 'install pe_gem':
-      command => "/opt/puppet/bin/gem install hiera-eyaml ${gem_flag}",
-      creates => '/opt/puppet/bin/eyaml',
-    }
     #XXX Post-puppet 4.0.0
     #package { 'hiera-eyaml command line':
     #  ensure   => installed,
@@ -51,6 +70,27 @@ class hiera::eyaml (
     #  provider => 'pe_gem',
     #  source   => $gem_source,
     #}
+    
+    # vendored ruby gem
+    exec { 'install ruby gem hiera-eyaml':
+      command => "gem install hiera-eyaml ${gem_flag}",
+      creates => $vendored_gem_creates,
+    }
+
+    # puppetserver gem (and restart)
+    exec { 'install puppetserver gem hiera-eyaml':
+      command => "puppetserver gem install hiera-eyaml ${gem_flag}",
+      creates => $puppetserver_gem_creates,
+      notify  => Service['pe-puppetserver'],
+    }
+
+  } else {
+    $hiera_package_dep = Package['hiera-eyaml']
+    package { 'hiera-eyaml':
+      ensure   => $package_ensure,
+      provider => $provider,
+      source   => $gem_source,
+    }
   }
 
   File {
@@ -69,7 +109,7 @@ class hiera::eyaml (
       command => 'eyaml createkeys',
       path    => $cmdpath,
       creates => "${confdir}/keys/private_key.pkcs7.pem",
-      require => [ Package['hiera-eyaml'], File["${confdir}/keys"] ]
+      require => [ $hiera_package_dep, File["${confdir}/keys"] ]
     }
 
     file { "${confdir}/keys/private_key.pkcs7.pem":

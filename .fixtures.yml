@@ -1,4 +1,8 @@
 fixtures:
+  forge_modules:
+    stdlib:
+      repo: "puppetlabs-stdlib"
+      ref: "4.7.0"
   symlinks:
     "hiera": "#{source_dir}"
   repositories:

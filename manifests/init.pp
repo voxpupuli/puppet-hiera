@@ -57,6 +57,7 @@ class hiera (
   $eyaml_version   = undef,
   $merge_behavior  = undef,
   $extra_config    = '',
+  $provider        = $hiera::params::provider,
 ) inherits hiera::params {
   File {
     owner => $owner,
