@@ -57,6 +57,7 @@ class hiera (
   $eyaml_version   = undef,
   $merge_behavior  = undef,
   $extra_config    = '',
+  $master_service  = $hiera::params::master_service,
 ) inherits hiera::params {
   File {
     owner => $owner,
@@ -99,5 +100,9 @@ class hiera (
   file { '/etc/hiera.yaml':
     ensure => symlink,
     target => $hiera_yaml,
+  }
+  # Restart master service
+  Service <| title == $master_service |> {
+    subscribe +> File[$hiera_yaml],
   }
 }
