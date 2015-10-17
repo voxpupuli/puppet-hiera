@@ -148,6 +148,16 @@ The following parameters are available for the hiera class:
 * `eyaml_extension`  
   The file extension for the eyaml backend.  
   Default: `undef`, backend defaults to `'.eyaml'`
+* `eyaml_provider`
+  The provider to be used to installl the eyaml backend
+  Default:
+    * `'pe_puppetserver_gem'` for Puppet Enterprise >= 3.7
+    * `'pe_gem'` for Puppet Enterprise < 3.7
+    * `'puppet_gem'` for Puppet 4.x
+    * `'gem'` for Puppet 3.x
+* `eyaml_package`
+  The package name to be installed for eyaml backend
+  Default: `undef`
 * `eyaml_version`  
   The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7', etc  
   Default: `undef`

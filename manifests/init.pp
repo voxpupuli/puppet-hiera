@@ -54,6 +54,8 @@ class hiera (
   $cmdpath         = $hiera::params::cmdpath,
   $create_keys     = true,
   $gem_source      = undef,
+  $eyaml_provider  = $hiera::params::provider,
+  $eyaml_package   = 'hiera-eyaml',
   $eyaml_version   = undef,
   $merge_behavior  = undef,
   $extra_config    = '',
