@@ -11,21 +11,26 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera::eyaml (
-  $provider      = $hiera::params::provider,
+  $provider      = $hiera::eyaml_provider,
   $owner         = $hiera::owner,
   $group         = $hiera::group,
   $cmdpath       = $hiera::cmdpath,
   $confdir       = $hiera::confdir,
   $create_keys   = $hiera::create_keys,
+  $eyaml_package = $hiera::eyaml_package,
   $eyaml_version = $hiera::eyaml_version,
   $gem_source    = $hiera::gem_source,
 ) inherits hiera::params {
 
+  $package_name = $eyaml_package ? {
+    undef   => 'hiera-eyaml',
+    default => $eyaml_package,
+  }
   $package_ensure = $eyaml_version ? {
     undef   => 'installed',
     default => $eyaml_version,
   }
-  package { 'hiera-eyaml':
+  package { $package_name:
     ensure   => $package_ensure,
     provider => $provider,
     source   => $gem_source,
@@ -69,7 +74,7 @@ class hiera::eyaml (
       command => 'eyaml createkeys',
       path    => $cmdpath,
       creates => "${confdir}/keys/private_key.pkcs7.pem",
-      require => [ Package['hiera-eyaml'], File["${confdir}/keys"] ]
+      require => [ Package[$package_name], File["${confdir}/keys"] ]
     }
 
     file { "${confdir}/keys/private_key.pkcs7.pem":
