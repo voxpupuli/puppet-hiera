@@ -5,6 +5,11 @@ group :development, :test do
   gem 'pry',                     :require => false
 end
 
+group :system_tests do
+  gem 'beaker-rspec',                 :require => false
+  gem 'beaker-puppet_install_helper', :require => false
+end
+
 if facterversion = ENV['FACTER_GEM_VERSION']
   gem 'facter', facterversion, :require => false
 else

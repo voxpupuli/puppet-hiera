@@ -25,14 +25,12 @@ class hiera::params {
     if versioncmp($::pe_version, '3.7.0') >= 0 {
       $provider       = 'pe_puppetserver_gem'
       $master_service = 'pe-puppetserver'
-    }
-    else {
+    } else {
       $provider       = 'pe_gem'
       $master_service = 'pe-httpd'
     }
-  }
-  else {
-    if is_function_available('pe_compiling_server_version') {
+  } else {
+    if $::pe_server_version {
       $master_service = 'pe-puppetserver'
     } else {
       $master_service = 'puppetmaster'
@@ -47,11 +45,10 @@ class hiera::params {
       $confdir  = '/etc/puppet'
       $cmdpath  = ['/usr/bin', '/usr/local/bin']
     }
-    if versioncmp($::pe_server_version, '2015.2.0') >= 0 {
+    if $::pe_server_version {
       $owner    = 'pe-puppet'
       $group    = 'pe-puppet'
-    }
-    else {
+    } else {
       $owner    = 'puppet'
       $group    = 'puppet'
     }
