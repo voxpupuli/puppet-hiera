@@ -40,8 +40,18 @@ class hiera::eyaml (
     } else {
       $gem_flag = undef
     }
+    if $gem_source {
+        # we only can deal with local files
+        validate_absolute_path($gem_source)
+        $source_flag = "--local ${gem_source}"
+        $gemname = undef
+    } else {
+        # else we use the remote gem name
+        $source_flag = undef
+        $gemname = 'hiera-eyaml'
+    }
     exec { 'install pe_gem':
-      command => "/opt/puppet/bin/gem install hiera-eyaml ${gem_flag}",
+      command => "/opt/puppet/bin/gem install ${source_flag} ${gemname} ${gem_flag}",
       creates => '/opt/puppet/bin/eyaml',
     }
     #XXX Post-puppet 4.0.0
