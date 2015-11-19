@@ -42,6 +42,7 @@ class hiera (
   $hierarchy       = [],
   $backends        = ['yaml'],
   $hiera_yaml      = $hiera::params::hiera_yaml,
+  $create_symlink  = true,
   $datadir         = $hiera::params::datadir,
   $datadir_manage  = true,
   $owner           = $hiera::params::owner,
@@ -97,10 +98,13 @@ class hiera (
     content => template('hiera/hiera.yaml.erb'),
   }
   # Symlink for hiera command line tool
-  file { '/etc/hiera.yaml':
-    ensure => symlink,
-    target => $hiera_yaml,
+  if $create_symlink {
+    file { '/etc/hiera.yaml':
+      ensure => symlink,
+      target => $hiera_yaml,
+    }
   }
+
   # Restart master service
   Service <| title == $master_service |> {
     subscribe +> File[$hiera_yaml],
