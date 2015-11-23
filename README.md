@@ -121,6 +121,9 @@ The following parameters are available for the hiera class:
   Default:
     * `'/etc/puppet/hiera.yaml'` for Puppet Open Source
     * `'/etc/puppetlabs/puppet/hiera.yaml'` for Puppet Enterprise
+* `create_symlink`
+  Whether to create the symlink `/etc/hiera.yaml`
+  Default: true
 * `datadir`  
   The path to the directory where hiera will look for databases.  
   Default:
