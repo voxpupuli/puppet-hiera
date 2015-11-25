@@ -51,6 +51,10 @@
     {
       "name": "puppetlabs-stdlib",
       "version_requirement": ">= 4.3.1 < 5.0.0"
+    },
+    {
+      "name": "puppetlabs-puppetserver_gem",
+      "version_requirement": ">= 0.1.0"
     }
   ]
 }

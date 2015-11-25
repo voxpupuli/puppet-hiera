@@ -47,6 +47,7 @@ class hiera (
   $datadir_manage  = true,
   $owner           = $hiera::params::owner,
   $group           = $hiera::params::group,
+  $provider        = $hiera::params::provider,
   $eyaml           = false,
   $eyaml_datadir   = undef,
   $eyaml_extension = undef,

@@ -25,7 +25,7 @@ class hiera::eyaml (
     undef   => 'installed',
     default => $eyaml_version,
   }
-  if $provider == 'pe_puppetserver_gem' {
+  if $provider == 'puppetserver_gem' {
     Exec {
       path => [
         '/opt/puppetlabs/server/bin',
