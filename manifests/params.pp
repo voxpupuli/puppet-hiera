@@ -22,7 +22,7 @@ class hiera::params {
     $confdir    = '/etc/puppetlabs/puppet'
     $cmdpath    = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
 
-    if versioncmp($::pe_version, '3.7.0') >= 0 {
+    if versioncmp("$::pe_version", '3.7.0') >= 0 {
       $provider       = 'pe_puppetserver_gem'
       $master_service = 'pe-puppetserver'
     } else {
@@ -35,7 +35,7 @@ class hiera::params {
     } else {
       $master_service = 'puppetmaster'
     }
-    if versioncmp($::puppetversion, '4.0.0') >= 0 {
+    if versioncmp("$::puppetversion", '4.0.0') >= 0 {
       # Configure for AIO packaging.
       $provider = 'puppet_gem'
       $confdir  = '/etc/puppetlabs/code'
