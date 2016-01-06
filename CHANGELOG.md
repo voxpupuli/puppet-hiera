@@ -1,6 +1,19 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2016-01-05
+### Features:
+- Added `hiera::create_symlink` parameter to disable /etc/hiera.yaml creation
+- Added `hiera::master_service` parameter to set the master service name
+- Added ability to restart master service on hiera.yaml change
+- Added beaker-rspec acceptance tests
+- Bumped PE range to include 2015.3
+
+### Bugfixes:
+- Fixed bugs on PE 2015.2 when versioncmp() raised errors
+- Fixed hiera.yaml output to be consistent across puppet 3 and 4
+- Fixed stdlib metadata requirement.
+
 ## [1.3.2] - 2015-09-14
 ### Bugfixes:
 - Detect correct user on 2015.2.0
@@ -79,6 +92,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[1.4.0]: https://github.com/hunner/puppet-hiera/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/hunner/puppet-hiera/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/hunner/puppet-hiera/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/hunner/puppet-hiera/compare/1.2.0...1.3.0
