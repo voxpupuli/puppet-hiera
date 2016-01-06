@@ -54,5 +54,4 @@ class hiera::params {
       $cmdpath  = ['/usr/bin', '/usr/local/bin']
     }
   }
-
 }
