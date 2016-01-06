@@ -29,7 +29,7 @@ class hiera::params {
       $datadir    = "${confdir}/hieradata"
     }
 
-    if ($::pe_build) and ((versioncmp($::pe_build, '2015.2') >= 0) or (versioncmp($::pe_version, '3.7.0') >= 0)) { 
+    if (($::pe_build) and (versioncmp($::pe_build, '2015.2') >= 0)) or (($::pe_version) and (versioncmp($::pe_version, '3.7.0') >= 0)) {
       $provider       = 'puppetserver_gem'
       $master_service = 'pe-puppetserver'
     } else {
