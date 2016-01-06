@@ -36,7 +36,8 @@ describe 'hiera' do
     end
   end
   describe file(hierayaml), :node => master do
-    its(:content) do should eq(<<-EOS
+    its(:content) do
+      should eq ( <<-EOS
 # managed by puppet
 ---
 :backends:
@@ -58,7 +59,7 @@ describe 'hiera' do
   :pkcs7_private_key: #{confdir}/keys/private_key.pkcs7.pem
   :pkcs7_public_key:  #{confdir}/keys/public_key.pkcs7.pem
 EOS
-      )
+                )
     end
   end
   describe 'querying hiera' do

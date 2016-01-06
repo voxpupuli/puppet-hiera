@@ -88,7 +88,7 @@ class hiera::eyaml (
 
   File {
     owner => $owner,
-    group => $group
+    group => $group,
   }
 
   file { "${confdir}/keys":
@@ -102,7 +102,7 @@ class hiera::eyaml (
       command => 'eyaml createkeys',
       path    => $cmdpath,
       creates => "${confdir}/keys/private_key.pkcs7.pem",
-      require => [ $hiera_package_depedencies, File["${confdir}/keys"] ]
+      require => [ $hiera_package_depedencies, File["${confdir}/keys"] ],
     }
 
     file { "${confdir}/keys/private_key.pkcs7.pem":
