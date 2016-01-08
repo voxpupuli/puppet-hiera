@@ -1,6 +1,12 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [1.4.1] - 2016-01-08
+### Bugfixes:
+- Fix rubocop linting
+- Correct the name of the license file so the forge can find it.
+- Add travis testing
+
 ## [1.4.0] - 2016-01-05
 ### Features:
 - Added `hiera::create_symlink` parameter to disable /etc/hiera.yaml creation
@@ -92,6 +98,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[1.4.1]: https://github.com/hunner/puppet-hiera/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/hunner/puppet-hiera/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/hunner/puppet-hiera/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/hunner/puppet-hiera/compare/1.3.0...1.3.1
