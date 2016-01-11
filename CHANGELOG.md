@@ -1,6 +1,28 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [2.0.0]
+### Changes:
+- eyaml keys/ directory moved from `/etc/puppetlabs/code/keys` to
+  `/etc/puppetlabs/puppet/keys` on PE > 3.x. You should move you keys directory
+  when upgrading.
+- `hiera::hiera_yaml` default changed from `/etc/puppetlabs/code/hiera.yaml` to
+  `/etc/puppetlabs/puppet/hiera.yaml` on Puppet >= 4.x. The hiera\_yaml puppet
+  config setting in puppet.conf should be updated when upgrading; see
+  `hiera::puppet_conf_manage`
+- `hiera::datadir` default changed from `/etc/puppetlabs/puppet/hieradata` to
+  `/etc/puppetlabs/code/environments/%{::environment}/hieradata` on puppet
+  versions >= 4. Verify that this is your prefered value when upgrading.
+
+### Features:
+- No longer using exec resources to install eyaml on puppet versions >= 4!
+- Add `hiera::puppet_conf_manage` parameter to manage `hiera_conf` puppet.conf setting
+- Add `hiera::keysdir` parameter for putting the keys somewhere other than $confdir/keys
+
+### Bugfixes:
+- Fix hiera.yaml and keys/ directory being overwritten by file sync on PE 2015.x
+- Fix eyaml package provider detection on puppet versions >= 4
+
 ## [1.4.1] - 2016-01-08
 ### Bugfixes:
 - Fix rubocop linting
@@ -98,6 +120,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[2.0.0]: https://github.com/hunner/puppet-hiera/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/hunner/puppet-hiera/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/hunner/puppet-hiera/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/hunner/puppet-hiera/compare/1.3.1...1.3.2

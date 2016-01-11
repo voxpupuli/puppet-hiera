@@ -1,6 +1,6 @@
 {
   "name": "hunner-hiera",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "author": "hunner",
   "summary": "Deploy hiera.yaml with hierarchy, and datadir",
   "license": "BSD-2-Clause",
@@ -51,6 +51,10 @@
     {
       "name": "puppetlabs-stdlib",
       "version_requirement": ">= 4.3.1 < 5.0.0"
+    },
+    {
+      "name": "puppetlabs-inifile",
+      "version_requirement": ">= 1.0.0 < 2.0.0"
     }
   ]
 }
