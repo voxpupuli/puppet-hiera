@@ -18,6 +18,7 @@ class hiera::eyaml (
   $confdir       = $hiera::confdir,
   $create_keys   = $hiera::create_keys,
   $eyaml_version = $hiera::eyaml_version,
+  $eyaml_name    = $hiera::eyaml_name,
   $gem_source    = $hiera::gem_source,
 ) inherits hiera::params {
 
@@ -81,6 +82,7 @@ class hiera::eyaml (
     $hiera_package_depedencies = Package['hiera-eyaml']
     package { 'hiera-eyaml':
       ensure   => $package_ensure,
+      name     => $eyaml_name,
       provider => $provider,
       source   => $gem_source,
     }
