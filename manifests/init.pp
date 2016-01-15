@@ -51,6 +51,7 @@ class hiera (
   $eyaml           = false,
   $eyaml_datadir   = undef,
   $eyaml_extension = undef,
+  $eyaml_name      = 'hiera-eyaml',
   $confdir         = $hiera::params::confdir,
   $logger          = 'console',
   $cmdpath         = $hiera::params::cmdpath,
