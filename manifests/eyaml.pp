@@ -75,7 +75,6 @@ class hiera::eyaml (
     exec { 'install puppetserver gem hiera-eyaml':
       command => "puppetserver gem install hiera-eyaml ${gem_flag}",
       creates => $puppetserver_gem_creates,
-      notify  => Service[$hiera::master_service],
     }
   } else {
     $hiera_package_depedencies = Package['hiera-eyaml']

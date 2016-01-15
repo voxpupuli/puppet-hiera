@@ -108,6 +108,6 @@ class hiera (
 
   # Restart master service
   Service <| title == $master_service |> {
-    subscribe +> File[$hiera_yaml],
+    subscribe +> Class[$title],
   }
 }
