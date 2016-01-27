@@ -186,7 +186,7 @@ The following parameters are available for the hiera class:
   This is useful for configuring backend-specific parameters.  
   Default: `''`
 * `keysdir`
-  Directory for hiera to manage for eyaml keys.
+  Directory for hiera to manage for eyaml keys. This is the path where /keys should be managed not the full path to the /keys directory.
   Default: `$confdir/keys`
 * `puppet_conf_manage`
   Whether to manage the puppet.conf `hiera_config` value or not.
