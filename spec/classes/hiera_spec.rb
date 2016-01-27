@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'hiera' do
-  if Puppet.version.match(/^(Puppet Enterprise )?3/)
+  if Puppet.version =~ /^(Puppet Enterprise )?3/
     context "foss puppet 3" do
       let(:facts) do
         { :puppetversion => Puppet.version, }
@@ -30,7 +30,7 @@ describe 'hiera' do
         it { should contain_class("hiera::eyaml") }
       end
     end
-  elsif Puppet.version.match(/^4/)
+  elsif Puppet.version =~ /^4/
     context "foss puppet 4" do
       let(:facts) do
         { :puppetversion => Puppet.version, }

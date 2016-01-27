@@ -5,7 +5,7 @@ require 'beaker/puppet_install_helper'
 def wait_for_master(max_retries)
   1.upto(max_retries) do |retries|
     on(master, "curl -skIL https://#{master.hostname}:8140", { :acceptable_exit_codes => [0,1,7] }) do |result|
-      return if result.stdout =~ %r{HTTP/1\.1 4}
+      return true if result.stdout =~ %r{HTTP/1\.1 4}
 
       counter = 2 ** retries
       logger.debug "Unable to reach Puppet Master, #{master.hostname}, Sleeping #{counter} seconds for retry #{retries}..."
@@ -15,14 +15,16 @@ def wait_for_master(max_retries)
   raise "Could not connect to Puppet Master."
 end
 
+# rubocop:disable AbcSize
 def make_site_pp(pp, path = File.join(master['puppetpath'], 'manifests'))
   on master, "mkdir -p #{path}"
   create_remote_file(master, File.join(path, "site.pp"), pp)
   on master, "chown -R #{puppet_user(master)}:#{puppet_group(master)} #{path}"
   on master, "chmod -R 0755 #{path}"
-  on master, "service #{(master['puppetservice']||"puppetserver")} restart"
+  on master, "service #{(master['puppetservice']||'puppetserver')} restart"
   wait_for_master(3)
 end
+# rubocop:enable AbcSize
 
 run_puppet_install_helper
 unless ENV["RS_PROVISION"] == "no" or ENV["BEAKER_provision"] == "no"
