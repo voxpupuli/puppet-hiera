@@ -17,6 +17,7 @@ class hiera::eyaml {
   $cmdpath       = $hiera::cmdpath
   $confdir       = $hiera::confdir
   $create_keys   = $hiera::create_keys
+  $keysdir       = $hiera::keysdir
   $_keysdir      = $hiera::_keysdir
   $eyaml_version = $hiera::eyaml_version
   $gem_source    = $hiera::gem_source
@@ -103,20 +104,20 @@ class hiera::eyaml {
   if ( $create_keys == true ) {
     exec { 'createkeys':
       user    => $owner,
-      cwd     => $confdir,
+      cwd     => $keysdir,
       command => 'eyaml createkeys',
       path    => $cmdpath,
-      creates => "${confdir}/keys/private_key.pkcs7.pem",
-      require => [ $hiera_package_depedencies, File["${confdir}/keys"] ],
+      creates => "${_keysdir}/private_key.pkcs7.pem",
+      require => [ $hiera_package_depedencies, File[$_keysdir] ],
     }
 
-    file { "${confdir}/keys/private_key.pkcs7.pem":
+    file { "${_keysdir}/private_key.pkcs7.pem":
       ensure  => file,
       mode    => '0600',
       require => Exec['createkeys'],
     }
 
-    file { "${confdir}/keys/public_key.pkcs7.pem":
+    file { "${_keysdir}/public_key.pkcs7.pem":
       ensure  => file,
       mode    => '0644',
       require => Exec['createkeys'],
