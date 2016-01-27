@@ -1,6 +1,6 @@
 {
   "name": "hunner-hiera",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "hunner",
   "summary": "Deploy hiera.yaml with hierarchy, and datadir",
   "license": "BSD-2-Clause",

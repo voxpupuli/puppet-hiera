@@ -1,7 +1,11 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
-## [2.0.0]
+## [2.0.1] - 2016-01-27
+### Fixes:
+- Fix key creation when passing a custom `hiera::keysdir`
+
+## [2.0.0] - 2016-01-26
 ### Changes:
 - eyaml keys/ directory moved from `/etc/puppetlabs/code/keys` to
   `/etc/puppetlabs/puppet/keys` on PE > 3.x. You should move you keys directory
@@ -120,6 +124,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[2.0.1]: https://github.com/hunner/puppet-hiera/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/hunner/puppet-hiera/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/hunner/puppet-hiera/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/hunner/puppet-hiera/compare/1.3.2...1.4.0
