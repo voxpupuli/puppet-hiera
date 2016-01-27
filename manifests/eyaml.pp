@@ -17,7 +17,6 @@ class hiera::eyaml {
   $cmdpath       = $hiera::cmdpath
   $confdir       = $hiera::confdir
   $create_keys   = $hiera::create_keys
-  $keysdir       = $hiera::keysdir
   $_keysdir      = $hiera::_keysdir
   $eyaml_version = $hiera::eyaml_version
   $gem_source    = $hiera::gem_source
@@ -100,6 +99,8 @@ class hiera::eyaml {
   file { $_keysdir:
     ensure => directory,
   }
+
+  $keysdir = dirname($_keysdir)
 
   if ( $create_keys == true ) {
     exec { 'createkeys':

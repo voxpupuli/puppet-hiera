@@ -64,7 +64,7 @@ class hiera (
   $master_service     = $hiera::params::master_service,
 ) inherits hiera::params {
   if $keysdir {
-    $_keysdir = "${keysdir}/keys"
+    $_keysdir = $keysdir
   } else {
     $_keysdir = "${confdir}/keys"
   }
