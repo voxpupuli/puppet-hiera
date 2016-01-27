@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-if puppetversion = ENV['PUPPET_GEM_VERSION']
-  gem 'puppet', puppetversion, :require => false
+if ENV['PUPPET_GEM_VERSION']
+  gem 'puppet', ENV['PUPPET_GEM_VERSION'], :require => false
 else
   gem 'puppet', :require => false
 end
@@ -13,7 +13,7 @@ group :test do
   gem "puppetlabs_spec_helper"
   gem "metadata-json-lint"
   gem "rspec-puppet-facts"
-  gem 'rubocop'
+  gem 'rubocop', '0.33.0'
   gem 'simplecov'
   gem 'simplecov-console'
 

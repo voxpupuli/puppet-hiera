@@ -211,9 +211,6 @@ Style/SpaceInsideParens:
 Style/LeadingCommentSpace:
   Enabled: false
 
-Style/SingleSpaceBeforeFirstArg:
-  Enabled: false
-
 Style/SpaceAfterColon:
   Enabled: false
 

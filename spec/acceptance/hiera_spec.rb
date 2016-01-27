@@ -22,7 +22,6 @@ describe 'hiera' do
     fail "Unknown puppet version #{version}"
   end
   hierayaml = "#{confdir}/hiera.yaml"
-  sitepp = File.join(manifestsdir, 'site.pp')
 
   describe 'puppet apply' do
     it 'creates a hiera.yaml' do
@@ -43,7 +42,7 @@ describe 'hiera' do
   end
   describe file(hierayaml), :node => master do
     its(:content) do
-      should match( <<-EOS
+      should match <<-EOS
 # managed by puppet
 ---
 :backends:
@@ -65,7 +64,6 @@ describe 'hiera' do
   :pkcs7_private_key: #{confdir}/keys/private_key.pkcs7.pem
   :pkcs7_public_key:  #{confdir}/keys/public_key.pkcs7.pem
 EOS
-                )
     end
   end
   describe 'querying hiera' do
