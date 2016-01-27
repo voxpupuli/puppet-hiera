@@ -39,28 +39,35 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera (
-  $hierarchy       = [],
-  $backends        = ['yaml'],
-  $hiera_yaml      = $hiera::params::hiera_yaml,
-  $create_symlink  = true,
-  $datadir         = $hiera::params::datadir,
-  $datadir_manage  = true,
-  $owner           = $hiera::params::owner,
-  $group           = $hiera::params::group,
-  $provider        = $hiera::params::provider,
-  $eyaml           = false,
-  $eyaml_datadir   = undef,
-  $eyaml_extension = undef,
-  $confdir         = $hiera::params::confdir,
-  $logger          = 'console',
-  $cmdpath         = $hiera::params::cmdpath,
-  $create_keys     = true,
-  $gem_source      = undef,
-  $eyaml_version   = undef,
-  $merge_behavior  = undef,
-  $extra_config    = '',
-  $master_service  = $hiera::params::master_service,
+  $hierarchy          = [],
+  $backends           = ['yaml'],
+  $hiera_yaml         = $hiera::params::hiera_yaml,
+  $create_symlink     = true,
+  $datadir            = $hiera::params::datadir,
+  $datadir_manage     = true,
+  $owner              = $hiera::params::owner,
+  $group              = $hiera::params::group,
+  $provider           = $hiera::params::provider,
+  $eyaml              = false,
+  $eyaml_datadir      = undef,
+  $eyaml_extension    = undef,
+  $confdir            = $hiera::params::confdir,
+  $puppet_conf_manage = true,
+  $logger             = 'console',
+  $cmdpath            = $hiera::params::cmdpath,
+  $create_keys        = true,
+  $keysdir            = undef,
+  $gem_source         = undef,
+  $eyaml_version      = undef,
+  $merge_behavior     = undef,
+  $extra_config       = '',
+  $master_service     = $hiera::params::master_service,
 ) inherits hiera::params {
+  if $keysdir {
+    $_keysdir = $keysdir
+  } else {
+    $_keysdir = "${confdir}/keys"
+  }
   File {
     owner => $owner,
     group => $group,
@@ -91,6 +98,7 @@ class hiera (
   # - $datadir
   # - $eyaml_real_datadir
   # - $eyaml_extension
+  # - $_keysdir
   # - $confdir
   # - $merge_behavior
   # - $extra_config
@@ -105,9 +113,24 @@ class hiera (
       target => $hiera_yaml,
     }
   }
+  if $puppet_conf_manage {
+    ini_setting { 'puppet.conf hiera_config main section' :
+      ensure  => present,
+      path    => "${confdir}/puppet.conf",
+      section => 'main',
+      setting => 'hiera_config',
+      value   => $hiera_yaml,
+    }
+    $master_subscribe = [
+      File[$hiera_yaml],
+      Ini_setting['puppet.conf hiera_config main section'],
+    ]
+  } else {
+    $master_subscribe = File[$hiera_yaml]
+  }
 
   # Restart master service
   Service <| title == $master_service |> {
-    subscribe +> File[$hiera_yaml],
+    subscribe +> $master_subscribe,
   }
 }

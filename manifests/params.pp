@@ -14,12 +14,12 @@
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 #
 class hiera::params {
+  $confdir = $::settings::confdir
   if str2bool($::is_pe) {
     $hiera_yaml = '/etc/puppetlabs/puppet/hiera.yaml'
     $datadir    = '/etc/puppetlabs/puppet/hieradata'
     $owner      = 'pe-puppet'
     $group      = 'pe-puppet'
-    $confdir    = '/etc/puppetlabs/puppet'
     $cmdpath    = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
 
     if $::pe_version and versioncmp($::pe_version, '3.7.0') >= 0 {
@@ -30,29 +30,32 @@ class hiera::params {
       $master_service = 'pe-httpd'
     }
   } else {
-    if $::pe_server_version {
-      $master_service = 'pe-puppetserver'
-    } else {
-      $master_service = 'puppetmaster'
-    }
     if $::puppetversion and versioncmp($::puppetversion, '4.0.0') >= 0 {
       # Configure for AIO packaging.
-      $provider = 'puppet_gem'
-      $confdir  = '/etc/puppetlabs/code'
-      $cmdpath  = ['/opt/puppetlabs/puppet/bin', '/usr/bin', '/usr/local/bin']
+      if $::pe_server_version {
+        $master_service = 'pe-puppetserver'
+        $provider = 'puppetserver_gem'
+      } else {
+        # It would probably be better to assume this is puppetserver, but that
+        # would be a backwards-incompatible change.
+        $master_service = 'puppetmaster'
+        $provider = 'puppet_gem'
+      }
+      $cmdpath = ['/opt/puppetlabs/puppet/bin', '/usr/bin', '/usr/local/bin']
+      $datadir = '/etc/puppetlabs/code/environments/%{::environment}/hieradata'
     } else {
+      $master_service = 'puppetmaster'
       $provider = 'gem'
-      $confdir  = '/etc/puppet'
-      $cmdpath  = ['/usr/bin', '/usr/local/bin']
+      $cmdpath = ['/usr/bin', '/usr/local/bin']
+      $datadir  = "${confdir}/hieradata"
     }
     if $::pe_server_version {
-      $owner    = 'pe-puppet'
-      $group    = 'pe-puppet'
+      $owner = 'pe-puppet'
+      $group = 'pe-puppet'
     } else {
-      $owner    = 'puppet'
-      $group    = 'puppet'
+      $owner = 'puppet'
+      $group = 'puppet'
     }
     $hiera_yaml = "${confdir}/hiera.yaml"
-    $datadir    = "${confdir}/hieradata"
   }
 }
