@@ -49,6 +49,7 @@ class hiera (
   $group              = $hiera::params::group,
   $provider           = $hiera::params::provider,
   $eyaml              = false,
+  $eyaml_name         = 'hiera-eyaml',
   $eyaml_datadir      = undef,
   $eyaml_extension    = undef,
   $confdir            = $hiera::params::confdir,

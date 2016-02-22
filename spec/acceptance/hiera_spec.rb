@@ -28,6 +28,7 @@ describe 'hiera' do
       pp = <<-EOS
       class { 'hiera':
         eyaml              => true,
+        eyaml_name         => 'custom-eyaml',
         puppet_conf_manage => true,
         hierarchy          => [
           'virtual/%{::virtual}',

@@ -148,6 +148,9 @@ The following parameters are available for the hiera class:
 * `eyaml`  
   Whether to install, configure, and enable [the eyaml backend][eyaml]. Also see the provider and masterservice parameters.  
   Default: `false`
+* `eyaml_name`
+  The name of the eyaml gem.
+  Default: 'hiera-eyaml'
 * `eyaml_datadir`  
   The path to the directory where hiera will look for databases with the eyaml backend.  
   Default: same as `datadir`
