@@ -20,6 +20,7 @@ class hiera::eyaml {
   $_keysdir      = $hiera::_keysdir
   $eyaml_version = $hiera::eyaml_version
   $gem_source    = $hiera::gem_source
+  $eyaml_name    = $hiera::eyaml_name
 
   $package_ensure = $eyaml_version ? {
     undef   => 'installed',
@@ -35,8 +36,8 @@ class hiera::eyaml {
     }
 
     $hiera_package_depedencies = [
-      Exec['install ruby gem hiera-eyaml'],
-      Exec['install puppetserver gem hiera-eyaml'],
+      Exec["install ruby gem ${eyaml_name}"],
+      Exec["install puppetserver gem ${eyaml_name}"],
     ]
 
     # The puppetserver gem wouldn't install the commandline util, so we do
@@ -48,44 +49,44 @@ class hiera::eyaml {
       $gem_flag = undef
     }
 
-    exec { 'install ruby gem hiera-eyaml':
-      command => "gem install hiera-eyaml ${gem_flag}",
+    exec { "install ruby gem ${eyaml_name}":
+      command => "gem install ${eyaml_name} ${gem_flag}",
       creates => '/opt/puppet/bin/eyaml',
     }
 
-    exec { 'install puppetserver gem hiera-eyaml':
-      command => "puppetserver gem install hiera-eyaml ${gem_flag}",
+    exec { "install puppetserver gem ${eyaml_name}":
+      command => "puppetserver gem install ${eyaml_name} ${gem_flag}",
       creates => '/var/opt/lib/pe-puppet-server/jruby-gems/bin/eyaml',
     }
-    $master_subscribe = Exec['install puppetserver gem hiera-eyaml']
+    $master_subscribe = Exec["install puppetserver gem ${eyaml_name}"]
   } elsif $provider == 'puppetserver_gem' {
     $hiera_package_depedencies = [
-      Package['hiera-eyaml'],
-      Package['puppetserver hiera-eyaml'],
+      Package[$eyaml_name],
+      Package["puppetserver ${eyaml_name}"],
     ]
-    package { 'puppetserver hiera-eyaml':
+    package { "puppetserver ${eyaml_name}":
       ensure   => $package_ensure,
-      name     => 'hiera-eyaml',
+      name     => $eyaml_name,
       provider => $provider,
       source   => $gem_source,
     }
-    package { 'hiera-eyaml':
+    package { $eyaml_name:
       ensure   => $package_ensure,
       provider => 'puppet_gem',
       source   => $gem_source,
     }
     $master_subscribe = [
-      Package['hiera-eyaml'],
-      Package['puppetserver hiera-eyaml']
+      Package[$eyaml_name],
+      Package["puppetserver ${eyaml_name}"],
     ]
   } else {
-    $hiera_package_depedencies = Package['hiera-eyaml']
-    package { 'hiera-eyaml':
+    $hiera_package_depedencies = Package[$eyaml_name]
+    package { $eyaml_name:
       ensure   => $package_ensure,
       provider => $provider,
       source   => $gem_source,
     }
-    $master_subscribe = Package['hiera-eyaml']
+    $master_subscribe = Package[$eyaml_name]
   }
   Service <| title == $hiera::master_service |> {
     subscribe +> $master_subscribe,
