@@ -9,9 +9,13 @@ describe 'hiera' do
       describe 'default params' do
         it { should compile.with_all_deps }
       end
-      describe 'eyaml param' do
-        let(:params) { { :eyaml => true }}
+      describe 'other params' do
+        let(:params) { {
+          :eyaml          => true,
+          :merge_behavior => 'deeper',
+        } }
         it { should contain_class("hiera::eyaml") }
+        it { should contain_class("hiera::deep_merge") }
       end
     end
     context "pe puppet 3" do
@@ -25,9 +29,13 @@ describe 'hiera' do
       describe 'default params' do
         it { should compile.with_all_deps }
       end
-      describe 'eyaml param' do
-        let(:params) { { :eyaml => true }}
+      describe 'other params' do
+        let(:params) { {
+          :eyaml          => true,
+          :merge_behavior => 'deeper',
+        } }
         it { should contain_class("hiera::eyaml") }
+        it { should contain_class("hiera::deep_merge") }
       end
     end
   elsif Puppet.version =~ /^4/
@@ -38,9 +46,13 @@ describe 'hiera' do
       describe 'default params' do
         it { should compile.with_all_deps }
       end
-      describe 'eyaml param' do
-        let(:params) { { :eyaml => true }}
+      describe 'other params' do
+        let(:params) { {
+          :eyaml          => true,
+          :merge_behavior => 'deeper',
+        } }
         it { should contain_class("hiera::eyaml") }
+        it { should contain_class("hiera::deep_merge") }
       end
     end
     context "pe puppet 2015.2" do
@@ -53,9 +65,13 @@ describe 'hiera' do
       describe 'default params' do
         it { should compile.with_all_deps }
       end
-      describe 'eyaml param' do
-        let(:params) { { :eyaml => true }}
+      describe 'other params' do
+        let(:params) { {
+          :eyaml          => true,
+          :merge_behavior => 'deeper',
+        } }
         it { should contain_class("hiera::eyaml") }
+        it { should contain_class("hiera::deep_merge") }
       end
     end
   end

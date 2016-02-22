@@ -64,7 +64,7 @@ The resulting output in /etc/puppet/hiera.yaml:
 ## Usage
 
 ## Reference
-This module will also allow you to configure different options for logger and merge_behaviour.  The default behaviour is to set logger to console and merge behaviour to native.
+This module will also allow you to configure different options for logger and merge_behavior.  The default behavior is to set logger to console and merge behavior to native.
 
 For details and valid options see [Configuring Hiera](https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings).
 
@@ -151,15 +151,30 @@ The following parameters are available for the hiera class:
 * `eyaml_name`
   The name of the eyaml gem.
   Default: 'hiera-eyaml'
+* `eyaml_version`  
+  The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7', etc  
+  Default: `undef`
+* `eyaml_source`
+  An alternate gem source for installing hiera-eyaml.
+  Default: `undef`, uses gem backend default
 * `eyaml_datadir`  
   The path to the directory where hiera will look for databases with the eyaml backend.  
   Default: same as `datadir`
 * `eyaml_extension`  
   The file extension for the eyaml backend.  
   Default: `undef`, backend defaults to `'.eyaml'`
-* `eyaml_version`  
-  The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7', etc  
+* `deep_merge_name`
+  The name of the deep_merge gem.
+  Default: 'deep\_merge'
+* `deep_merge_version`
+  The version of deep\_merge to install. Accepts 'installed', 'latest', '2.0.7', etc.
   Default: `undef`
+* `deep_merge_source`
+  An alternate gem source for installing deep_merge.
+  Default: `undef`, uses gem backend default
+* `deep_merge_options`
+  A hash of options to set in hiera.yaml for the deep merge behavior.
+  Default: `{}`
 * `confdir`  
   The path to Puppet's confdir.
   Default: `$::settings::confdir` which should be the following:
@@ -177,12 +192,8 @@ The following parameters are available for the hiera class:
   Whether to create pkcs7 keys and manage key files for hiera-eyaml.  
   This is useful if you need to distribute a pkcs7 key pair.  
   Default: `true`
-* `gem_source`  
-  An alternate gem source for installing hiera-eyaml.  
-  Default: `undef`, uses gem backend default
-* `merge_behavior`  
-  Which hiera merge behavior to use.  
-  **Note**: You need to manage any package/gem dependencies yourself.  
+* `merge_behavior`
+  Which hiera merge behavior to use. Valid values are 'native', 'deep', and 'deeper'. Deep and deeper values will install the deep\_merge gem into the puppet runtime.
   Default: `undef`, hiera defaults to `'native'`
 * `extra_config`  
   Arbitrary YAML content to append to the end of the hiera.yaml config file.  
