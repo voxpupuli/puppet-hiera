@@ -59,6 +59,9 @@ class hiera (
   $keysdir            = undef,
   $gem_source         = undef,
   $eyaml_version      = undef,
+  $deep_merge_version = undef,
+  $deep_merge_name    = 'deep_merge',
+  $deep_merge_options = {},
   $merge_behavior     = undef,
   $extra_config       = '',
   $master_service     = $hiera::params::master_service,
@@ -82,6 +85,9 @@ class hiera (
     unless $merge_behavior in ['native', 'deep', 'deeper'] {
       fail("${merge_behavior} merge behavior is invalid. Valid values are: native, deep, deeper")
     }
+    if $merge_behavior != 'native' {
+      require hiera::deep_merge
+    }
   }
   if $eyaml {
     require hiera::eyaml
@@ -90,6 +96,7 @@ class hiera (
       true  => $datadir,
     }
   }
+
   # Template uses:
   # - $eyaml
   # - $backends

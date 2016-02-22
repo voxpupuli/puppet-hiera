@@ -28,6 +28,12 @@ end -%>
 
 :merge_behavior: <%= @merge_behavior -%>
 <% end -%>
+<% if @merge_behavior == 'deep' && !@deep_merge_options.empty? -%>
+:deep_merge_options:
+  <%- @deep_merge_options.each do |option_key, option_value| -%>
+  :<%= option_key %>: <%= option_value %>
+  <%- end -%>
+<%- end -%>
 <% if @extra_config && !@extra_config.empty? -%>
 
 <%= @extra_config %>
