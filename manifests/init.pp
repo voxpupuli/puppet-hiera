@@ -50,6 +50,8 @@ class hiera (
   $provider           = $hiera::params::provider,
   $eyaml              = false,
   $eyaml_name         = 'hiera-eyaml',
+  $eyaml_version      = undef,
+  $eyaml_source       = undef,
   $eyaml_datadir      = undef,
   $eyaml_extension    = undef,
   $confdir            = $hiera::params::confdir,
@@ -58,19 +60,27 @@ class hiera (
   $cmdpath            = $hiera::params::cmdpath,
   $create_keys        = true,
   $keysdir            = undef,
-  $gem_source         = undef,
-  $eyaml_version      = undef,
-  $deep_merge_version = undef,
   $deep_merge_name    = 'deep_merge',
+  $deep_merge_version = undef,
+  $deep_merge_source  = undef,
   $deep_merge_options = {},
   $merge_behavior     = undef,
   $extra_config       = '',
   $master_service     = $hiera::params::master_service,
+
+  #Deprecated
+  $gem_source         = undef,
 ) inherits hiera::params {
   if $keysdir {
     $_keysdir = $keysdir
   } else {
     $_keysdir = "${confdir}/keys"
+  }
+
+  if $eyaml_source {
+    $_eyaml_source = $eyaml_source
+  } else {
+    $_eyaml_source = $gem_source
   }
   File {
     owner => $owner,
@@ -109,6 +119,7 @@ class hiera (
   # - $_keysdir
   # - $confdir
   # - $merge_behavior
+  # - $deep_merge_options
   # - $extra_config
   file { $hiera_yaml:
     ensure  => present,

@@ -29,6 +29,7 @@ describe 'hiera' do
       class { 'hiera':
         eyaml              => true,
         eyaml_name         => 'custom-eyaml',
+        merge_behavior     => 'deep',
         puppet_conf_manage => true,
         hierarchy          => [
           'virtual/%{::virtual}',
