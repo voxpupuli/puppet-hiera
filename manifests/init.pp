@@ -67,6 +67,9 @@ class hiera (
   $merge_behavior     = undef,
   $extra_config       = '',
   $master_service     = $hiera::params::master_service,
+  $manage_package     = $hiera::params::manage_package,
+  $package_name       = $hiera::params::package_name,
+  $package_ensure     = $hiera::params::package_ensure,
 
   #Deprecated
   $gem_source         = undef,
@@ -105,6 +108,13 @@ class hiera (
     $eyaml_real_datadir = empty($eyaml_datadir) ? {
       false => $eyaml_datadir,
       true  => $datadir,
+    }
+  }
+
+  if $manage_package {
+    package { 'hiera':
+      ensure => $package_ensure,
+      name   => $package_name,
     }
   }
 

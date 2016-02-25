@@ -16,6 +16,7 @@ describe 'hiera' do
         } }
         it { should contain_class("hiera::eyaml") }
         it { should contain_class("hiera::deep_merge") }
+        it { should contain_package("hiera") }
       end
     end
     context "pe puppet 3" do
