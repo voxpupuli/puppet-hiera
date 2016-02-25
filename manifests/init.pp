@@ -39,7 +39,7 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera (
-  $hierarchy          = [],
+  $hierarchy          = $hiera::params::hierarchy,
   $backends           = ['yaml'],
   $hiera_yaml         = $hiera::params::hiera_yaml,
   $create_symlink     = true,
