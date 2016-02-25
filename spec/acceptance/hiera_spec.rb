@@ -28,7 +28,6 @@ describe 'hiera' do
       pp = <<-EOS
       class { 'hiera':
         eyaml              => true,
-        eyaml_name         => 'custom-eyaml',
         merge_behavior     => 'deep',
         puppet_conf_manage => true,
         hierarchy          => [
