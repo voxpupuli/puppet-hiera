@@ -146,7 +146,7 @@ The following parameters are available for the hiera class:
     * `'puppet'` for Puppet Open Source
     * `'pe-puppet'` for Puppet Enterprise
 * `eyaml`  
-  Whether to install, configure, and enable [the eyaml backend][eyaml]. Also see the provider and masterservice parameters.  
+  Whether to install, configure, and enable [the eyaml backend][eyaml]. Also see the provider and master_service parameters.  
   Default: `false`
 * `eyaml_name`
   The name of the eyaml gem.
@@ -207,11 +207,11 @@ The following parameters are available for the hiera class:
   Default: `true`
 * `provider`  
   Which provider to use to install hiera-eyaml. Can be `puppetserver_gem` (PE 2015.x), `pe_puppetserver_gem` (PE 3.7 and 3.8), `pe_gem` (PE pre-3.7), `puppet_gem` (FOSS using puppet's gem), or `gem` (FOSS using system's gem)
-  **Note**: hunner-hiera cannot detect FOSS puppetserver AIO and you must pass `provider => 'puppetserver_gem'` for that to work. See also masterservice.
+  **Note**: hunner-hiera cannot detect FOSS puppetserver AIO and you must pass `provider => 'puppetserver_gem'` for that to work. See also master_service.
   Default: Depends on puppet version detected as specified above.
-* `masterservice`  
+* `master_service`  
   The service name of the master to restart after package installation or hiera.yaml changes.  
-  **Note**: You must pass `masterservice => 'puppetserver'` for FOSS puppetserver  
+  **Note**: You must pass `master_service => 'puppetserver'` for FOSS puppetserver  
   Default: 'pe-puppetserver' for PE 2015.x, otherwise 'puppetmaster'
 
 [eyaml]: https://github.com/TomPoulton/hiera-eyaml
