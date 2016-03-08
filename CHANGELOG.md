@@ -1,6 +1,26 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2016-03-07
+### Features:
+- Add parameters to give more control over package management:
+  - `eyaml_name`
+  - `eyaml_version`
+  - `eyaml_source` (deprecates `gem_source` parameter)
+  - `deep_merge_name`
+  - `deep_merge_version`
+  - `deep_merge_source`
+  - `manage_package`
+  - `package_name`
+  - `package_source`
+- Add `deep_merge_options` parameter for passing parameters in hiera.yaml
+- The `merge_behavior` parameter installs the `deep_merge` gem when needed.
+
+### Bugfixes:
+- Typo for `master_service` parameter in readme.
+- Improve dependency management around packages
+- Fix `hierarchy` parameter default on Puppet 4
+
 ## [2.0.1] - 2016-01-27
 ### Fixes:
 - Fix key creation when passing a custom `hiera::keysdir`
@@ -124,6 +144,7 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[2.1.0]: https://github.com/hunner/puppet-hiera/compare/2.0.1...2.1.0
 [2.0.1]: https://github.com/hunner/puppet-hiera/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/hunner/puppet-hiera/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/hunner/puppet-hiera/compare/1.4.0...1.4.1

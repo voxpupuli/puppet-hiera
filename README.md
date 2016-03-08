@@ -175,6 +175,12 @@ The following parameters are available for the hiera class:
 * `deep_merge_options`
   A hash of options to set in hiera.yaml for the deep merge behavior.
   Default: `{}`
+* `manage_package`
+  AA boolean for wether the hiera package should be managed. Defaults to `true` on FOSS 3 but `false` otherwise.
+* `package_name`
+  Specifies the name of the hiera package. Default: 'hiera'
+* `package_ensure`
+  Specifies the ensure value of the hiera package. Default: 'present'
 * `confdir`  
   The path to Puppet's confdir.
   Default: `$::settings::confdir` which should be the following:
