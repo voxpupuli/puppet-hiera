@@ -47,9 +47,10 @@ class { 'hiera':
 ```
 
 The resulting output in /etc/puppet/hiera.yaml:
+
 ```yaml
 ---
-:backends: 
+:backends:
   - yaml
 :logger: console
 :hierarchy:
@@ -68,7 +69,7 @@ This module will also allow you to configure different options for logger and me
 
 For details and valid options see [Configuring Hiera](https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings).
 
-Note: For `merge_behavior` if you set deep or deeper you need to ensure the deep_merge Ruby gem is installed.
+**Note:** For `merge_behavior` if you set deep or deeper you need to ensure the deep_merge Ruby gem is installed.
 
 ```puppet
 class { 'hiera':
@@ -83,6 +84,7 @@ class { 'hiera':
 ```
 
 The resulting output in /etc/puppet/hiera.yaml:
+
 ```yaml
 ---
 :backends:
@@ -96,6 +98,98 @@ The resulting output in /etc/puppet/hiera.yaml:
 :yaml:
    :datadir: /etc/puppet/hieradata
 :merge_behavior: deep
+```
+
+### Hiera-Eyaml-GPG
+
+The default PKCS#7 encryption scheme used by hiera-eyaml is perfect if only simple encryption and decryption is needed.
+
+However, if you are in a sizable team it helps to encrypt and decrypt data with multiple keys. This means that each team member can hold their own private key and so can the puppetmaster. Equally, each puppet master can have their own key if desired and when you need to rotate keys for either users or puppet masters, re-encrypting your files and changing the key everywhere does not need to be done in lockstep.
+
+#### Requirements
+
+**Note:** This module will create a /gpg sub-directory in the ```$keysdir```.
+
+1. The GPG keyring must be passphraseless on the on the PuppetServer(Master).
+
+1. The GPG keyring must live in the /gpg sub-directory in the ```$keysdir```.
+1. The GPG keyring must be owned by the Puppet user. ex: pe-puppet
+
+#### GPG Keyring Creation Tips
+
+**RNG-TOOLS**
+
+When generating a GPG keyring the system requires a good amount of entropy.  To help generate entropy to speed up the process then rng-tools package on RHEL based systems or equivilent can be used.  Note: Update the ```/etc/sysconfig/rngd``` or equivilent file to set the EXTRAOPTIONS to ```EXTRAOPTIONS="-r /dev/urandom -o /dev/random -t 5"```
+
+**Keyring Generation**
+
+Below is a sample GPG answers file that will assist in generating a passphraseless key
+
+```bash
+cat << EOF >> /tmp/gpg_answers
+%echo Generating a Puppet Hiera GPG Key
+Key-Type: RSA
+Key-Length: 4096
+Subkey-Type: ELG-E
+Subkey-Length: 4096
+Name-Real: Hiera Data
+Name-Comment: Hiera Data Encryption
+Name-Email: puppet@$(hostname -d)
+Expire-Date: 0
+%no-ask-passphrase
+# Do a commit here, so that we can later print "done" :-)
+# %commit
+# %echo done
+EOF
+```
+
+You can then use the GPG answer file to generate your keyring within the /gpg sub-directory in the ```$keysdir```
+
+```bash
+gpg --batch --homedir /etc/puppetlabs/code-staging/keys/gpg --gen-key /tmp/gpg_answers
+```
+
+#### Usage
+
+```puppet
+class { 'hiera':
+  hierarchy => [
+    'nodes/%{::clientcert}',
+    'locations/%{::location}',
+    'environments/%{::applicationtier}',
+    'common',
+  ],
+  eyaml                => true,
+  eyaml_gpg            => true,
+  eyaml_gpg_recipients => 'sihil@example.com,gtmtech@example.com,tpoulton@example.com',
+}
+```
+
+The resulting output in /etc/puppet/hiera.yaml:
+
+```yaml
+---
+:backends:
+  - eyaml
+  - yaml
+:logger: console
+:hierarchy:
+  - "nodes/%{::clientcert}"
+  - "locations/%{::location}"
+  - "environments/%{::applicationtier}"
+  - common
+
+:yaml:
+   :datadir: /etc/puppet/hieradata
+
+
+:eyaml:
+   :datadir: /etc/puppet/hieradata
+   :pkcs7_private_key: /etc/puppet/keys/private_key.pkcs7.pem
+   :pkcs7_public_key:  /etc/puppet/keys/public_key.pkcs7.pem
+   :encrypt_method: "gpg"
+   :gpg_gnupghome: "/etc/puppet/keys/gpg"
+   :gpg_recipients: "sihil@example.com,gtmtech@example.com,tpoulton@example.com"
 ```
 
 ### Classes
@@ -202,6 +296,7 @@ The following parameters are available for the hiera class:
 * `keysdir`
   Directory for hiera to manage for eyaml keys.
   Default: `$confdir/keys`
+  **Note:** If using PE 2013.x+ and code-manager set the keysdir under the ```$confdir/code-staging directory``` to allow the code manager to sync the keys to all PuppetServers Example:  ```/etc/puppetlabs/code-staging/keys```
 * `puppet_conf_manage`
   Whether to manage the puppet.conf `hiera_config` value or not.
   Default: `true`

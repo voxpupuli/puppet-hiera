@@ -65,4 +65,5 @@ class hiera::params {
     }
     $hiera_yaml = "${confdir}/hiera.yaml"
   }
+
 }
