@@ -301,8 +301,13 @@ The following parameters are available for the hiera class:
   Whether to manage the puppet.conf `hiera_config` value or not.
   Default: `true`
 * `provider`  
-  Which provider to use to install hiera-eyaml. Can be `puppetserver_gem` (PE 2015.x), `pe_puppetserver_gem` (PE 3.7 and 3.8), `pe_gem` (PE pre-3.7), `puppet_gem` (FOSS using puppet's gem), or `gem` (FOSS using system's gem)
-  **Note**: hunner-hiera cannot detect FOSS puppetserver AIO and you must pass `provider => 'puppetserver_gem'` for that to work. See also master_service.
+  Which provider to use to install hiera-eyaml. Can be:
+  * `puppetserver_gem` (PE 2015.x or FOSS using puppetserver)
+  * `pe_puppetserver_gem` (PE 3.7 or 3.8)
+  * `pe_gem` (PE pre-3.7)
+  * `puppet_gem` (agent-only gem)
+  * `gem` (FOSS using system ruby (ie puppetmaster))
+  **Note**: this module cannot detect FOSS puppetserver and you must pass `provider => 'puppetserver_gem'` for that to work. See also master_service.
   Default: Depends on puppet version detected as specified above.
 * `master_service`  
   The service name of the master to restart after package installation or hiera.yaml changes.  
