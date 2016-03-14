@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'hiera' do
-  if Puppet.version =~ /^(Puppet Enterprise )?3/
+  if Puppet.version =~ /(Puppet Enterprise 3|^3)/
     context "foss puppet 3" do
       let(:facts) do
-        { :puppetversion => Puppet.version, }
+        { :puppetversion => "3.8.5", }
       end
       describe 'default params' do
         it { should compile.with_all_deps }
@@ -22,7 +22,7 @@ describe 'hiera' do
     context "pe puppet 3" do
       let(:facts) do
         {
-          :puppetversion => 'Puppet Enterprise 3.8.0',
+          :puppetversion => '3.8.5 (Puppet Enterprise 3.8.0)',
           :is_pe         => true,
           :pe_version    => '3.8.0',
         }
