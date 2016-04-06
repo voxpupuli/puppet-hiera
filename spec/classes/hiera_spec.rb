@@ -23,6 +23,61 @@ describe 'hiera' do
         it { should contain_class('hiera::deep_merge') }
         it { should contain_package('hiera') }
       end
+      describe 'hiera.yaml template' do
+        context 'when eyaml = false' do
+          it 'should not contain :eyaml: section' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).not_to include(':eyaml:')
+          end
+          it do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).not_to include('pkcs7_private_key')
+          end
+          it do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).not_to include('pkcs7_public_key')
+          end
+        end
+        context 'when eyaml = true' do
+          let(:params) { { eyaml: true } }
+          it 'should contain an :eyaml: section' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).to include(':eyaml:')
+          end
+          context 'when eyaml_pkcs7_private_key not set (default)' do
+            it do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              expect(content).to match(%r{:pkcs7_private_key: /etc/puppet/keys/private_key\.pkcs7\.pem})
+            end
+          end
+          context 'when eyaml_pkcs7_private_key set' do
+            let(:params) { {
+              eyaml:                   true,
+              eyaml_pkcs7_private_key: '/path/to/private.key'
+            } }
+            it 'should use the provided private key path' do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              expect(content).to match(%r{:pkcs7_private_key: /path/to/private\.key})
+            end
+          end
+          context 'when eyaml_pkcs7_public_key not set (default)' do
+            it do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              expect(content).to match(%r{:pkcs7_public_key:  /etc/puppet/keys/public_key\.pkcs7\.pem})
+            end
+          end
+          context 'when eyaml_pkcs7_public_key set' do
+            let(:params) { {
+              eyaml:                  true,
+              eyaml_pkcs7_public_key: '/path/to/public.key'
+            } }
+            it 'should use the provided public key path' do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              expect(content).to match(%r{:pkcs7_public_key:  /path/to/public\.key})
+            end
+          end
+        end
+      end
     end
     context 'pe puppet 3' do
       let(:facts) do
