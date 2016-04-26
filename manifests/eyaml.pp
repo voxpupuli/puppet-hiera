@@ -11,19 +11,19 @@
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
 #
 class hiera::eyaml {
-  $eyaml_name    = $hiera::eyaml_name
-  $provider      = $hiera::provider
-  $eyaml_version = $hiera::eyaml_version
-  $eyaml_source  = $hiera::_eyaml_source
+  $eyaml_name    = $::hiera::eyaml_name
+  $provider      = $::hiera::provider
+  $eyaml_version = $::hiera::eyaml_version
+  $eyaml_source  = $::hiera::_eyaml_source
 
-  $owner         = $hiera::owner
-  $group         = $hiera::group
-  $cmdpath       = $hiera::cmdpath
-  $confdir       = $hiera::confdir
-  $create_keys   = $hiera::create_keys
-  $_keysdir      = $hiera::_keysdir
+  $owner         = $::hiera::owner
+  $group         = $::hiera::group
+  $cmdpath       = $::hiera::cmdpath
+  $confdir       = $::hiera::confdir
+  $create_keys   = $::hiera::create_keys
+  $_keysdir      = $::hiera::_keysdir
 
-  hiera::install { 'eyaml':
+  ::hiera::install { 'eyaml':
     gem_name    => $eyaml_name,
     provider    => $provider,
     gem_version => $eyaml_version,

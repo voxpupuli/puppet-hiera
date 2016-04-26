@@ -15,11 +15,11 @@ describe 'hiera' do
     manifestsdir = "#{confdir}/manifests"
   when /^4/
     confdir = '/etc/puppetlabs/puppet'
-    datadir = "/etc/puppetlabs/code/environments/%{::environment}/hieradata"
-    actualdir = "/etc/puppetlabs/code/environments/production/hieradata"
-    manifestsdir = "/etc/puppetlabs/code/environments/production/manifests"
+    datadir = '/etc/puppetlabs/code/environments/%{::environment}/hieradata'
+    actualdir = '/etc/puppetlabs/code/environments/production/hieradata'
+    manifestsdir = '/etc/puppetlabs/code/environments/production/manifests'
   else
-    fail "Unknown puppet version #{version}"
+    raise "Unknown puppet version #{version}"
   end
   hierayaml = "#{confdir}/hiera.yaml"
 
@@ -37,11 +37,11 @@ describe 'hiera' do
         ],
       }
       EOS
-      apply_manifest_on(master, pp, :catch_failures => true)
-      apply_manifest_on(master, pp, :catch_changes => true)
+      apply_manifest_on(master, pp, catch_failures: true)
+      apply_manifest_on(master, pp, catch_changes: true)
     end
   end
-  describe file(hierayaml), :node => master do
+  describe file(hierayaml), node: master do
     its(:content) do
       should match <<-EOS
 # managed by puppet
@@ -85,11 +85,11 @@ EOS
       expect(on(master, 'hiera myclass::value environment=production').stdout.strip).to eq('found output')
     end
     it 'finds it in puppet apply' do
-      expect(apply_manifest_on(master, pp, :catch_failures => true).stdout.strip).to match(%r{found output})
+      expect(apply_manifest_on(master, pp, catch_failures: true).stdout.strip).to match(/found output/)
     end
-    it 'finds it in puppet agent', :if => (master.is_pe? || master[:roles].include?('aio')) do
-      make_site_pp(pp,manifestsdir)
-      expect(on(master, puppet('agent', '-t', '--server', '$(hostname -f)'), :acceptable_exit_codes => [0,2]).stdout.strip).to match(%r{found output})
+    it 'finds it in puppet agent', if: (master.is_pe? || master[:roles].include?('aio')) do
+      make_site_pp(pp, manifestsdir)
+      expect(on(master, puppet('agent', '-t', '--server', '$(hostname -f)'), acceptable_exit_codes: [0, 2]).stdout.strip).to match(/found output/)
     end
   end
 end
