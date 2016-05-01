@@ -76,7 +76,7 @@ define hiera::install (
     }
     $master_subscribe = Package[$gem_name]
   }
-  Service <| title == $hiera::master_service |> {
+  Service <| title == $::hiera::master_service |> {
     subscribe +> $master_subscribe,
   }
 }
