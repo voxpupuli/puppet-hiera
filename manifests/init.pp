@@ -40,51 +40,65 @@
 # Copyright (C) 2016 Vox Pupuli, unless otherwise noted.
 #
 class hiera (
-  $hierarchy            = $::hiera::params::hierarchy,
-  $backends             = ['yaml'],
-  $hiera_yaml           = $::hiera::params::hiera_yaml,
-  $create_symlink       = true,
-  $datadir              = $::hiera::params::datadir,
-  $datadir_manage       = true,
-  $owner                = $::hiera::params::owner,
-  $group                = $::hiera::params::group,
-  $provider             = $::hiera::params::provider,
-  $eyaml                = false,
-  $eyaml_name           = 'hiera-eyaml',
-  $eyaml_version        = undef,
-  $eyaml_source         = undef,
-  $eyaml_datadir        = undef,
-  $eyaml_extension      = undef,
-  $confdir              = $::hiera::params::confdir,
-  $puppet_conf_manage   = true,
-  $logger               = 'console',
-  $cmdpath              = $::hiera::params::cmdpath,
-  $create_keys          = true,
-  $keysdir              = undef,
-  $deep_merge_name      = 'deep_merge',
-  $deep_merge_version   = undef,
-  $deep_merge_source    = undef,
-  $deep_merge_options   = {},
-  $merge_behavior       = undef,
-  $extra_config         = '',
-  $master_service       = $::hiera::params::master_service,
-  $manage_package       = $::hiera::params::manage_package,
-  $package_name         = $::hiera::params::package_name,
-  $package_ensure       = $::hiera::params::package_ensure,
-  $eyaml_gpg_name       = 'hiera-eyaml-gpg',
-  $eyaml_gpg_version    = undef,
-  $eyaml_gpg_source     = undef,
-  $eyaml_gpg            = false,
-  $eyaml_gpg_recipients = undef,
+  $hierarchy               = $::hiera::params::hierarchy,
+  $backends                = ['yaml'],
+  $hiera_yaml              = $::hiera::params::hiera_yaml,
+  $create_symlink          = true,
+  $datadir                 = $::hiera::params::datadir,
+  $datadir_manage          = true,
+  $owner                   = $::hiera::params::owner,
+  $group                   = $::hiera::params::group,
+  $provider                = $::hiera::params::provider,
+  $eyaml                   = false,
+  $eyaml_name              = 'hiera-eyaml',
+  $eyaml_version           = undef,
+  $eyaml_source            = undef,
+  $eyaml_datadir           = undef,
+  $eyaml_extension         = undef,
+  $confdir                 = $::hiera::params::confdir,
+  $puppet_conf_manage      = true,
+  $logger                  = 'console',
+  $cmdpath                 = $::hiera::params::cmdpath,
+  $create_keys             = true,
+  $keysdir                 = undef,
+  $deep_merge_name         = 'deep_merge',
+  $deep_merge_version      = undef,
+  $deep_merge_source       = undef,
+  $deep_merge_options      = {},
+  $merge_behavior          = undef,
+  $extra_config            = '',
+  $master_service          = $::hiera::params::master_service,
+  $manage_package          = $::hiera::params::manage_package,
+  $package_name            = $::hiera::params::package_name,
+  $package_ensure          = $::hiera::params::package_ensure,
+  $eyaml_gpg_name          = 'hiera-eyaml-gpg',
+  $eyaml_gpg_version       = undef,
+  $eyaml_gpg_source        = undef,
+  $eyaml_gpg               = false,
+  $eyaml_gpg_recipients    = undef,
+  $eyaml_pkcs7_private_key = undef,
+  $eyaml_pkcs7_public_key  = undef,
 
   #Deprecated
-  $gem_source         = undef,
+  $gem_source              = undef,
 ) inherits ::hiera::params {
 
   if $keysdir {
     $_keysdir = $keysdir
   } else {
     $_keysdir = "${confdir}/keys"
+  }
+
+  if $eyaml_pkcs7_private_key {
+    $_eyaml_pkcs7_private_key = $eyaml_pkcs7_private_key
+  } else {
+    $_eyaml_pkcs7_private_key = "${_keysdir}/private_key.pkcs7.pem"
+  }
+
+  if $eyaml_pkcs7_public_key {
+    $_eyaml_pkcs7_public_key = $eyaml_pkcs7_public_key
+  } else {
+    $_eyaml_pkcs7_public_key = "${_keysdir}/public_key.pkcs7.pem"
   }
 
   if $eyaml_source {
