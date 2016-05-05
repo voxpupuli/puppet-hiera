@@ -62,7 +62,7 @@ define hiera::install (
       }
       exec { "install puppetserver gem ${gem_name}":
         command => "puppetserver gem install ${source_flag} ${gem_name} ${gem_flag}",
-        unless  => "find ${puppetserver_gem_dir} -maxdepth 1 -type d -regextype posix-egrep -regex '.*/${name}-([0-9].?)+'",
+        unless  => "find ${puppetserver_gem_dir} -mindepth 1 -maxdepth 1 -type d -exec basename {} \\; | egrep -q '^${gem_name}-([0-9].?)+$'",
         #unless  => "puppetserver gem list -i '^${name}$'", # Suuuuper slow
       }
       $master_subscribe = Exec["install puppetserver gem ${gem_name}"]
