@@ -24,6 +24,20 @@ describe 'hiera' do
         it { should contain_package('hiera') }
       end
       describe 'hiera.yaml template' do
+        describe ':hierarchy: section' do
+          let(:params) { {
+            :hierarchy => ['%{foo}/%{bar}','foo/%{bar}','bar']
+          } }
+          it 'should contain quotes around hierarchy lines containing %{} components' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).to include('- "%{foo}/%{bar}"')
+            expect(content).to include('- "foo/%{bar}"')
+          end
+          it 'should not contain quotes around hierarchy lines not containing %{} components' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).to include('- bar')
+          end
+        end
         context 'when eyaml = false' do
           it 'should not contain :eyaml: section' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
@@ -120,6 +134,22 @@ describe 'hiera' do
         } }
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
+      end
+      describe 'hiera.yaml template' do
+        describe ':hierarchy: section' do
+          let(:params) { {
+            :hierarchy => ['%{foo}/%{bar}','foo/%{bar}','bar']
+          } }
+          it 'should contain quotes around hierarchy lines containing %{} components' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).to include('- "%{foo}/%{bar}"')
+            expect(content).to include('- "foo/%{bar}"')
+          end
+          it 'should not contain quotes around hierarchy lines not containing %{} components' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            expect(content).to include('- bar')
+          end
+        end
       end
     end
     context 'pe puppet 2015.2' do
