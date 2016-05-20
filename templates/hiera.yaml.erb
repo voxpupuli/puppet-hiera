@@ -5,12 +5,12 @@
   @backends.unshift('eyaml')
   @backends = @backends.uniq
 end -%>
-<%= @backends.to_yaml.split("\n")[1..-1].map{|e| "  #{e.strip}"}.join("\n") %>
+<%= @backends.map{|x| "  - #{x}"}.join("\n") %>
 
 :logger: <%= @logger %>
 
 :hierarchy:
-<%= @hierarchy.to_yaml.split("\n")[1..-1].map{|e| "  #{e.strip}"}.join("\n") %>
+<%= @hierarchy.map{|x| x  =~ /%/ ? "  - \"#{x}\"" : "  - #{x}"}.join("\n") %>
 
 :yaml:
   :datadir: <%= @datadir %>

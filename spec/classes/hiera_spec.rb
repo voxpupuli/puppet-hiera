@@ -24,6 +24,23 @@ describe 'hiera' do
         it { should contain_package('hiera') }
       end
       describe 'hiera.yaml template' do
+        describe ':hierarchy: section' do
+          let(:params) { {
+            hierarchy: [
+              '%{environment}/%{calling_class}',
+              '%{environment}',
+              'common',
+            ]
+          } }
+          it 'should render correctly' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            hierarchy_section  = %(:hierarchy:\n)
+            hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
+            hierarchy_section += %(  - "%{environment}"\n)
+            hierarchy_section += %(  - common\n)
+            expect(content).to include(hierarchy_section)
+          end
+        end
         context 'when eyaml = false' do
           it 'should not contain :eyaml: section' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
@@ -120,6 +137,25 @@ describe 'hiera' do
         } }
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
+      end
+      describe 'hiera.yaml template' do
+        describe ':hierarchy: section' do
+          let(:params) { {
+            hierarchy: [
+              '%{environment}/%{calling_class}',
+              '%{environment}',
+              'common',
+            ]
+          } }
+          it 'should render correctly' do
+            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            hierarchy_section  = %(:hierarchy:\n)
+            hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
+            hierarchy_section += %(  - "%{environment}"\n)
+            hierarchy_section += %(  - common\n)
+            expect(content).to include(hierarchy_section)
+          end
+        end
       end
     end
     context 'pe puppet 2015.2' do
