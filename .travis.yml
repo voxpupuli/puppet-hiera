@@ -15,10 +15,8 @@ script:
 matrix:
   fast_finish: true
   include:
-  - rvm: jruby-19mode
+  - rvm: 1.9.3
     env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
-  - rvm: jruby-19mode
-    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
   - rvm: 2.1
     env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
   - rvm: 2.1
@@ -38,7 +36,7 @@ deploy:
   provider: puppetforge
   user: puppet
   password:
-    secure: ""
+    secure: "dfKeMkCSF59QPTPC5FbP4HVQVnEl7ktVoWi3cqz/dDA6EjR/szanjwDgrDIs522NoO/r516NmbT5hvMit1qGPE9kIODlbfopuyTxsS4WGxB5dATL71DRWiemfjWynUS6Xyb4LU7MTWIQNvYsTnrPdC3aSN101IwyzQVMSkWHp24="
   on:
     tags: true
     # all_branches is required to use tags

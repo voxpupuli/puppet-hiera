@@ -1,11 +1,32 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
-## [2.0.1] - 2016-01-27
+## 2016-05-21 Release 2.1.0
+Note: this is the first release of the module in the voxpupuli namespace.
+### Features:
+- Add parameters to give more control over package management:
+  - `eyaml_name`
+  - `eyaml_version`
+  - `eyaml_source` (deprecates `gem_source` parameter)
+  - `deep_merge_name`
+  - `deep_merge_version`
+  - `deep_merge_source`
+  - `manage_package`
+  - `package_name`
+  - `package_source`
+- Add `deep_merge_options` parameter for passing parameters in hiera.yaml
+- The `merge_behavior` parameter installs the `deep_merge` gem when needed.
+
+### Bugfixes:
+- Typo for `master_service` parameter in readme.
+- Improve dependency management around packages
+- Fix `hierarchy` parameter default on Puppet 4
+
+## 2016-01-27 Release 2.0.1
 ### Fixes:
 - Fix key creation when passing a custom `hiera::keysdir`
 
-## [2.0.0] - 2016-01-26
+## 2016-01-26 Release 2.0.0
 ### Changes:
 - eyaml keys/ directory moved from `/etc/puppetlabs/code/keys` to
   `/etc/puppetlabs/puppet/keys` on PE > 3.x. You should move you keys directory
@@ -27,13 +48,13 @@ All notable changes to this project will be documented in this file.
 - Fix hiera.yaml and keys/ directory being overwritten by file sync on PE 2015.x
 - Fix eyaml package provider detection on puppet versions >= 4
 
-## [1.4.1] - 2016-01-08
+## 2016-01-08 Release 1.4.1
 ### Bugfixes:
 - Fix rubocop linting
 - Correct the name of the license file so the forge can find it.
 - Add travis testing
 
-## [1.4.0] - 2016-01-05
+## 2016-01-05 Release 1.4.0
 ### Features:
 - Added `hiera::create_symlink` parameter to disable /etc/hiera.yaml creation
 - Added `hiera::master_service` parameter to set the master service name
@@ -46,16 +67,16 @@ All notable changes to this project will be documented in this file.
 - Fixed hiera.yaml output to be consistent across puppet 3 and 4
 - Fixed stdlib metadata requirement.
 
-## [1.3.2] - 2015-09-14
+## 2015-09-14 Release 1.3.2
 ### Bugfixes:
 - Detect correct user on 2015.2.0
 - Clean up hiera formatting.
 
-## [1.3.1] - 2015-07-24
+## 2015-07-24 Release 1.3.1
 ### Bugfixes:
 - Allow `eyaml_version` to be undef (the default) on PE 3.7/3.8
 
-## [1.3.0] - 2015-07-23
+## 2015-07-23 Release 1.3.0
 ### Features:
 - Add PE 3.8 support
 - Add Puppet 4 support
@@ -64,7 +85,7 @@ All notable changes to this project will be documented in this file.
 - Fix `eyaml_datadir` parameter default to `datadir` value
 - Handle cmdpath on different versions of puppet
 
-## [1.2.0] - 2015-03-05
+## 2015-03-05 Release 1.2.0
 ### Features:
 - Added `hiera::create_keys` param to disable pkcs7 key generation with
   hiera-eyaml
@@ -77,14 +98,14 @@ All notable changes to this project will be documented in this file.
 - Make it kind of work on PE 3.7 (pe-puppetserver must still be restarted after
   the gem is installed)
 
-## [1.1.1] - 2014-11-21
+## 2014-11-21 Release 1.1.1
 ### Bugfixes:
 - Correct handling of `cmdpath` (using an array of paths instead of hardcoded
   path). Also adds `cmdpath` parameter
 - Fix permissions on private key (604 was a typo)
 - Add "Managed by puppet" header
 
-## [1.1.0] - 2014-10-15
+## 2014-10-15 Release 1.1.0
 ### Features:
 - Added `eyaml`, `eyaml_datadir`, & `eyaml_extension` parameters to hiera class
   for configuring hiera-eyaml
@@ -97,15 +118,15 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Correct datadir regex `{}` matching
 
-## [1.0.2] - 2014-05-01
+## 2014-05-01 Release 1.0.2
 - Remove swap files from package
 
-## [1.0.1] - 2014-03-25
+## 2014-03-25 Release 1.0.1
 ### Bugfixes:
 - Readme tweak
 - Use template instance variables to remove warnings
 
-## [1.0.0] - 2014-02-27
+## 2014-02-27 Release 1.0.0
 ### Features:
 - `backends` parameter for an array of hiera backends
 - `extra_config` parameter for a string of extra yaml config
@@ -113,17 +134,18 @@ All notable changes to this project will be documented in this file.
 ### Bugfixes:
 - Correct the yaml formatting
 
-## [0.3.1] - 2013-06-17
+## 2013-06-17 Release 0.3.1
 ### Bugfixes:
 - Docs!
 
-## [0.3.0] - 2013-06-17
+## 2013-06-17 Release 0.3.0
 ### Features:
 - PE + POSS support
 
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[2.1.0]: https://github.com/hunner/puppet-hiera/compare/2.0.1...2.1.0
 [2.0.1]: https://github.com/hunner/puppet-hiera/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/hunner/puppet-hiera/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/hunner/puppet-hiera/compare/1.4.0...1.4.1

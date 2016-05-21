@@ -1,6 +1,6 @@
 {
   "name": "puppet-hiera",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "author": "voxpupuli",
   "summary": "Deploy hiera.yaml with hierarchy, and datadir",
   "license": "BSD-2-Clause",
