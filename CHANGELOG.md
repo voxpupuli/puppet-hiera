@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## 2016-05-21 Release 2.1.0
+Note: this is the first release of the module in the voxpupuli namespace.
 ### Features:
 - Add parameters to give more control over package management:
   - `eyaml_name`
