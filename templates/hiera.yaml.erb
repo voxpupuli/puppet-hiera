@@ -21,8 +21,15 @@ end -%>
 <% if @eyaml_extension -%>
   :extension: <%= @eyaml_extension %>
 <% end -%>
-  :pkcs7_private_key: <%= @_keysdir %>/private_key.pkcs7.pem
-  :pkcs7_public_key:  <%= @_keysdir %>/public_key.pkcs7.pem
+  :pkcs7_private_key: <%= @_eyaml_pkcs7_private_key %>
+  :pkcs7_public_key:  <%= @_eyaml_pkcs7_public_key %>
+<% end -%>
+<% if @eyaml_gpg -%>
+  :encrypt_method: "gpg"
+  :gpg_gnupghome: "<%= @_keysdir-%>/gpg"
+<% if @eyaml_gpg_recipients -%>
+  :gpg_recipients: "<%= @eyaml_gpg_recipients %>"
+<% end -%>
 <% end -%>
 <% if @merge_behavior -%>
 

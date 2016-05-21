@@ -17,6 +17,7 @@ class hiera::params {
   $confdir        = $::settings::confdir
   $package_ensure = 'present'
   $package_name   = 'hiera'
+  $hierarchy      = []
   if str2bool($::is_pe) {
     $hiera_yaml     = '/etc/puppetlabs/puppet/hiera.yaml'
     $datadir        = '/etc/puppetlabs/puppet/hieradata'
@@ -47,14 +48,12 @@ class hiera::params {
       $cmdpath        = ['/opt/puppetlabs/puppet/bin', '/usr/bin', '/usr/local/bin']
       $datadir        = '/etc/puppetlabs/code/environments/%{::environment}/hieradata'
       $manage_package = false
-      $hierarchy      = undef
     } else {
       $master_service = 'puppetmaster'
       $provider       = 'gem'
       $cmdpath        = ['/usr/bin', '/usr/local/bin']
       $datadir        = "${confdir}/hieradata"
       $manage_package = true
-      $hierarchy      = []
     }
     if $::pe_server_version {
       $owner = 'pe-puppet'

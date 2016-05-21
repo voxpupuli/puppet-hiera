@@ -37,47 +37,68 @@
 # Copyright (C) 2012 Hunter Haugen, unless otherwise noted.
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 # Copyright (C) 2014 Terri Haber, unless otherwise noted.
+# Copyright (C) 2016 Vox Pupuli, unless otherwise noted.
 #
 class hiera (
-  $hierarchy          = $hiera::params::hierarchy,
-  $backends           = ['yaml'],
-  $hiera_yaml         = $hiera::params::hiera_yaml,
-  $create_symlink     = true,
-  $datadir            = $hiera::params::datadir,
-  $datadir_manage     = true,
-  $owner              = $hiera::params::owner,
-  $group              = $hiera::params::group,
-  $provider           = $hiera::params::provider,
-  $eyaml              = false,
-  $eyaml_name         = 'hiera-eyaml',
-  $eyaml_version      = undef,
-  $eyaml_source       = undef,
-  $eyaml_datadir      = undef,
-  $eyaml_extension    = undef,
-  $confdir            = $hiera::params::confdir,
-  $puppet_conf_manage = true,
-  $logger             = 'console',
-  $cmdpath            = $hiera::params::cmdpath,
-  $create_keys        = true,
-  $keysdir            = undef,
-  $deep_merge_name    = 'deep_merge',
-  $deep_merge_version = undef,
-  $deep_merge_source  = undef,
-  $deep_merge_options = {},
-  $merge_behavior     = undef,
-  $extra_config       = '',
-  $master_service     = $hiera::params::master_service,
-  $manage_package     = $hiera::params::manage_package,
-  $package_name       = $hiera::params::package_name,
-  $package_ensure     = $hiera::params::package_ensure,
+  $hierarchy               = $::hiera::params::hierarchy,
+  $backends                = ['yaml'],
+  $hiera_yaml              = $::hiera::params::hiera_yaml,
+  $create_symlink          = true,
+  $datadir                 = $::hiera::params::datadir,
+  $datadir_manage          = true,
+  $owner                   = $::hiera::params::owner,
+  $group                   = $::hiera::params::group,
+  $provider                = $::hiera::params::provider,
+  $eyaml                   = false,
+  $eyaml_name              = 'hiera-eyaml',
+  $eyaml_version           = undef,
+  $eyaml_source            = undef,
+  $eyaml_datadir           = undef,
+  $eyaml_extension         = undef,
+  $confdir                 = $::hiera::params::confdir,
+  $puppet_conf_manage      = true,
+  $logger                  = 'console',
+  $cmdpath                 = $::hiera::params::cmdpath,
+  $create_keys             = true,
+  $keysdir                 = undef,
+  $deep_merge_name         = 'deep_merge',
+  $deep_merge_version      = undef,
+  $deep_merge_source       = undef,
+  $deep_merge_options      = {},
+  $merge_behavior          = undef,
+  $extra_config            = '',
+  $master_service          = $::hiera::params::master_service,
+  $manage_package          = $::hiera::params::manage_package,
+  $package_name            = $::hiera::params::package_name,
+  $package_ensure          = $::hiera::params::package_ensure,
+  $eyaml_gpg_name          = 'hiera-eyaml-gpg',
+  $eyaml_gpg_version       = undef,
+  $eyaml_gpg_source        = undef,
+  $eyaml_gpg               = false,
+  $eyaml_gpg_recipients    = undef,
+  $eyaml_pkcs7_private_key = undef,
+  $eyaml_pkcs7_public_key  = undef,
 
   #Deprecated
-  $gem_source         = undef,
-) inherits hiera::params {
+  $gem_source              = undef,
+) inherits ::hiera::params {
+
   if $keysdir {
     $_keysdir = $keysdir
   } else {
     $_keysdir = "${confdir}/keys"
+  }
+
+  if $eyaml_pkcs7_private_key {
+    $_eyaml_pkcs7_private_key = $eyaml_pkcs7_private_key
+  } else {
+    $_eyaml_pkcs7_private_key = "${_keysdir}/private_key.pkcs7.pem"
+  }
+
+  if $eyaml_pkcs7_public_key {
+    $_eyaml_pkcs7_public_key = $eyaml_pkcs7_public_key
+  } else {
+    $_eyaml_pkcs7_public_key = "${_keysdir}/public_key.pkcs7.pem"
   }
 
   if $eyaml_source {
@@ -85,16 +106,25 @@ class hiera (
   } else {
     $_eyaml_source = $gem_source
   }
+
+  if $eyaml_gpg_source {
+    $_eyaml_gpg_source = $eyaml_gpg_source
+  } else {
+    $_eyaml_gpg_source = $gem_source
+  }
+
   File {
     owner => $owner,
     group => $group,
     mode  => '0644',
   }
+
   if ($datadir !~ /%\{.*\}/) and ($datadir_manage == true) {
     file { $datadir:
       ensure => directory,
     }
   }
+
   if $merge_behavior {
     unless $merge_behavior in ['native', 'deep', 'deeper'] {
       fail("${merge_behavior} merge behavior is invalid. Valid values are: native, deep, deeper")
@@ -103,12 +133,18 @@ class hiera (
       require hiera::deep_merge
     }
   }
-  if $eyaml {
-    require hiera::eyaml
+
+  if ( $eyaml_gpg ) or ( $eyaml ) {
     $eyaml_real_datadir = empty($eyaml_datadir) ? {
       false => $eyaml_datadir,
       true  => $datadir,
     }
+  }
+
+  if $eyaml_gpg {
+    require hiera::eyaml_gpg
+  } elsif $eyaml {
+    require hiera::eyaml
   }
 
   if $manage_package {

@@ -11,12 +11,12 @@
 # Copyright (C) 2016 Joseph Yaworski, unless otherwise noted.
 #
 class hiera::deep_merge {
-  $provider           = $hiera::provider
-  $deep_merge_version = $hiera::deep_merge_version
-  $deep_merge_source  = $hiera::deep_merge_source
-  $deep_merge_name    = $hiera::deep_merge_name
+  $provider           = $::hiera::provider
+  $deep_merge_version = $::hiera::deep_merge_version
+  $deep_merge_source  = $::hiera::deep_merge_source
+  $deep_merge_name    = $::hiera::deep_merge_name
 
-  hiera::install { 'deep_merge':
+  ::hiera::install { 'deep_merge':
     gem_name    => $deep_merge_name,
     provider    => $provider,
     gem_version => $deep_merge_version,
