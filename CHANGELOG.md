@@ -145,7 +145,7 @@ Note: this is the first release of the module in the voxpupuli namespace.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
-[2.1.0]: https://github.com/hunner/puppet-hiera/compare/2.0.1...2.1.0
+[2.1.0]: https://github.com/hunner/puppet-hiera/compare/2.0.1...v2.1.0
 [2.0.1]: https://github.com/hunner/puppet-hiera/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/hunner/puppet-hiera/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/hunner/puppet-hiera/compare/1.4.0...1.4.1

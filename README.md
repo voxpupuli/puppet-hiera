@@ -69,17 +69,15 @@ This module will also allow you to configure different options for logger and me
 
 For details and valid options see [Configuring Hiera](https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings).
 
-**Note:** For `merge_behavior` if you set deep or deeper you need to ensure the deep_merge Ruby gem is installed.
-
 ```puppet
 class { 'hiera':
-  hierarchy => [
+  hierarchy      => [
     '%{environment}/%{calling_class}',
     '%{environment}',
     'common',
   ],
-  logger    => 'console',
-  merge_behavior => 'deep'
+  logger         => 'console',
+  merge_behavior => 'deeper'
 }
 ```
 
@@ -97,7 +95,8 @@ The resulting output in /etc/puppet/hiera.yaml:
 
 :yaml:
    :datadir: /etc/puppet/hieradata
-:merge_behavior: deep
+
+:merge_behavior: deeper
 ```
 
 ### Hiera-Eyaml-GPG
@@ -153,7 +152,7 @@ gpg --batch --homedir /etc/puppetlabs/code-staging/keys/gpg --gen-key /tmp/gpg_a
 
 ```puppet
 class { 'hiera':
-  hierarchy => [
+  hierarchy            => [
     'nodes/%{::clientcert}',
     'locations/%{::location}',
     'environments/%{::applicationtier}',
@@ -324,7 +323,7 @@ The following parameters are available for the hiera class:
 
 ## Limitations
 
-The pe-puppetserver service must be restarted after hiera-eyaml is installed; this module will not do it for you. The `eyaml_version` parameter does not currently modify the eyaml version of the command-line gem on pe-puppetserver.
+The `eyaml_version` parameter does not currently modify the eyaml version of the command-line gem on pe-puppetserver.
 
 ## Development
 
