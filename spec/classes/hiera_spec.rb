@@ -25,7 +25,7 @@ describe 'hiera' do
       end
       describe 'hiera.yaml template' do
         context 'when eyaml = false' do
-          it 'should not contain :eyaml: section' do
+          it 'does not contain :eyaml: section' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             expect(content).not_to include(':eyaml:')
           end
@@ -40,7 +40,7 @@ describe 'hiera' do
         end
         context 'when eyaml = true' do
           let(:params) { { eyaml: true } }
-          it 'should contain an :eyaml: section' do
+          it 'contains an :eyaml: section' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             expect(content).to include(':eyaml:')
           end
@@ -55,7 +55,7 @@ describe 'hiera' do
               eyaml:                   true,
               eyaml_pkcs7_private_key: '/path/to/private.key'
             } }
-            it 'should use the provided private key path' do
+            it 'uses the provided private key path' do
               content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{:pkcs7_private_key: /path/to/private\.key})
             end
@@ -71,7 +71,7 @@ describe 'hiera' do
               eyaml:                  true,
               eyaml_pkcs7_public_key: '/path/to/public.key'
             } }
-            it 'should use the provided public key path' do
+            it 'uses the provided public key path' do
               content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{:pkcs7_public_key:  /path/to/public\.key})
             end
