@@ -32,7 +32,7 @@ describe 'hiera' do
               'common'
             ]
           } }
-          it 'should render correctly' do
+          it 'renders correctly' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
             hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
@@ -147,7 +147,7 @@ describe 'hiera' do
               'common'
             ]
           } }
-          it 'should render correctly' do
+          it 'renders correctly' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
             hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
