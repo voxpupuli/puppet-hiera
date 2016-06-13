@@ -8,7 +8,7 @@ describe 'hiera' do
           puppetversion: '3.8.6',
           is_pe: false,
           pe_version: '0.0.0',
-          pe_server_version: '0.0.0',
+          pe_server_version: '0.0.0'
         }
       end
       describe 'default params' do
@@ -17,7 +17,7 @@ describe 'hiera' do
       describe 'other params' do
         let(:params) { {
           eyaml: true,
-          merge_behavior: 'deeper',
+          merge_behavior: 'deeper'
         } }
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
@@ -29,7 +29,7 @@ describe 'hiera' do
             hierarchy: [
               '%{environment}/%{calling_class}',
               '%{environment}',
-              'common',
+              'common'
             ]
           } }
           it 'should render correctly' do
@@ -102,7 +102,7 @@ describe 'hiera' do
           puppetversion: '3.8.6 (Puppet Enterprise 3.8.0)',
           is_pe: true,
           pe_version: '3.8.0',
-          pe_server_version: '0.0.0',
+          pe_server_version: '0.0.0'
         }
       end
       describe 'default params' do
@@ -111,7 +111,7 @@ describe 'hiera' do
       describe 'other params' do
         let(:params) { {
           eyaml: true,
-          merge_behavior: 'deeper',
+          merge_behavior: 'deeper'
         } }
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
@@ -124,7 +124,7 @@ describe 'hiera' do
           puppetversion: Puppet.version,
           is_pe: false,
           pe_version: '0.0.0',
-          pe_server_version: '0.0.0',
+          pe_server_version: '0.0.0'
         }
       end
       describe 'default params' do
@@ -133,7 +133,7 @@ describe 'hiera' do
       describe 'other params' do
         let(:params) { {
           eyaml: true,
-          merge_behavior: 'deeper',
+          merge_behavior: 'deeper'
         } }
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
@@ -144,7 +144,7 @@ describe 'hiera' do
             hierarchy: [
               '%{environment}/%{calling_class}',
               '%{environment}',
-              'common',
+              'common'
             ]
           } }
           it 'should render correctly' do
@@ -164,7 +164,7 @@ describe 'hiera' do
           puppetversion: Puppet.version,
           pe_server_version: '2015.2.1',
           is_pe: true,
-          pe_version: '0.0.0',
+          pe_version: '0.0.0'
         }
       end
       describe 'default params' do
@@ -173,7 +173,7 @@ describe 'hiera' do
       describe 'other params' do
         let(:params) { {
           eyaml: true,
-          merge_behavior: 'deeper',
+          merge_behavior: 'deeper'
         } }
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
