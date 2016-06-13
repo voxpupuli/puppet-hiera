@@ -15,23 +15,27 @@ describe 'hiera' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper'
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
         it { should contain_package('hiera') }
       end
       describe 'hiera.yaml template' do
         describe ':hierarchy: section' do
-          let(:params) { {
-            hierarchy: [
-              '%{environment}/%{calling_class}',
-              '%{environment}',
-              'common'
-            ]
-          } }
+          let(:params) do
+            {
+              hierarchy: [
+                '%{environment}/%{calling_class}',
+                '%{environment}',
+                'common'
+              ]
+            }
+          end
           it 'renders correctly' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
@@ -68,10 +72,12 @@ describe 'hiera' do
             end
           end
           context 'when eyaml_pkcs7_private_key set' do
-            let(:params) { {
-              eyaml:                   true,
-              eyaml_pkcs7_private_key: '/path/to/private.key'
-            } }
+            let(:params) do
+              {
+                eyaml:                   true,
+                eyaml_pkcs7_private_key: '/path/to/private.key'
+              }
+            end
             it 'uses the provided private key path' do
               content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{:pkcs7_private_key: /path/to/private\.key})
@@ -84,10 +90,12 @@ describe 'hiera' do
             end
           end
           context 'when eyaml_pkcs7_public_key set' do
-            let(:params) { {
-              eyaml:                  true,
-              eyaml_pkcs7_public_key: '/path/to/public.key'
-            } }
+            let(:params) do
+              {
+                eyaml:                  true,
+                eyaml_pkcs7_public_key: '/path/to/public.key'
+              }
+            end
             it 'uses the provided public key path' do
               content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{:pkcs7_public_key:  /path/to/public\.key})
@@ -109,10 +117,12 @@ describe 'hiera' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper'
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
       end
@@ -131,22 +141,26 @@ describe 'hiera' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper'
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
       end
       describe 'hiera.yaml template' do
         describe ':hierarchy: section' do
-          let(:params) { {
-            hierarchy: [
-              '%{environment}/%{calling_class}',
-              '%{environment}',
-              'common'
-            ]
-          } }
+          let(:params) do
+            {
+              hierarchy: [
+                '%{environment}/%{calling_class}',
+                '%{environment}',
+                'common'
+              ]
+            }
+          end
           it 'renders correctly' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
@@ -171,10 +185,12 @@ describe 'hiera' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper'
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
       end
