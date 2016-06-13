@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'hiera' do
-  if Puppet.version =~ /(Puppet Enterprise 3|^3)/
+  if Puppet.version =~ %r{(Puppet Enterprise 3|^3)}
     context 'foss puppet 3' do
       let(:facts) do
         {
@@ -117,7 +117,7 @@ describe 'hiera' do
         it { should contain_class('hiera::deep_merge') }
       end
     end
-  elsif Puppet.version =~ /^4/
+  elsif Puppet.version =~ %r{^4}
     context 'foss puppet 4' do
       let(:facts) do
         {
