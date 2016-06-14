@@ -1,38 +1,42 @@
 require 'spec_helper'
 
 describe 'hiera' do
-  if Puppet.version =~ /(Puppet Enterprise 3|^3)/
+  if Puppet.version =~ %r{(Puppet Enterprise 3|^3)}
     context 'foss puppet 3' do
       let(:facts) do
         {
           puppetversion: '3.8.6',
           is_pe: false,
           pe_version: '0.0.0',
-          pe_server_version: '0.0.0',
+          pe_server_version: '0.0.0'
         }
       end
       describe 'default params' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper',
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
         it { should contain_package('hiera') }
       end
       describe 'hiera.yaml template' do
         describe ':hierarchy: section' do
-          let(:params) { {
-            hierarchy: [
-              '%{environment}/%{calling_class}',
-              '%{environment}',
-              'common',
-            ]
-          } }
-          it 'should render correctly' do
+          let(:params) do
+            {
+              hierarchy: [
+                '%{environment}/%{calling_class}',
+                '%{environment}',
+                'common'
+              ]
+            }
+          end
+          it 'renders correctly' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
             hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
@@ -68,10 +72,12 @@ describe 'hiera' do
             end
           end
           context 'when eyaml_pkcs7_private_key set' do
-            let(:params) { {
-              eyaml:                   true,
-              eyaml_pkcs7_private_key: '/path/to/private.key'
-            } }
+            let(:params) do
+              {
+                eyaml:                   true,
+                eyaml_pkcs7_private_key: '/path/to/private.key'
+              }
+            end
             it 'uses the provided private key path' do
               content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{:pkcs7_private_key: /path/to/private\.key})
@@ -84,10 +90,12 @@ describe 'hiera' do
             end
           end
           context 'when eyaml_pkcs7_public_key set' do
-            let(:params) { {
-              eyaml:                  true,
-              eyaml_pkcs7_public_key: '/path/to/public.key'
-            } }
+            let(:params) do
+              {
+                eyaml:                  true,
+                eyaml_pkcs7_public_key: '/path/to/public.key'
+              }
+            end
             it 'uses the provided public key path' do
               content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{:pkcs7_public_key:  /path/to/public\.key})
@@ -102,52 +110,58 @@ describe 'hiera' do
           puppetversion: '3.8.6 (Puppet Enterprise 3.8.0)',
           is_pe: true,
           pe_version: '3.8.0',
-          pe_server_version: '0.0.0',
+          pe_server_version: '0.0.0'
         }
       end
       describe 'default params' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper',
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
       end
     end
-  elsif Puppet.version =~ /^4/
+  elsif Puppet.version =~ %r{^4}
     context 'foss puppet 4' do
       let(:facts) do
         {
           puppetversion: Puppet.version,
           is_pe: false,
           pe_version: '0.0.0',
-          pe_server_version: '0.0.0',
+          pe_server_version: '0.0.0'
         }
       end
       describe 'default params' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper',
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
       end
       describe 'hiera.yaml template' do
         describe ':hierarchy: section' do
-          let(:params) { {
-            hierarchy: [
-              '%{environment}/%{calling_class}',
-              '%{environment}',
-              'common',
-            ]
-          } }
-          it 'should render correctly' do
+          let(:params) do
+            {
+              hierarchy: [
+                '%{environment}/%{calling_class}',
+                '%{environment}',
+                'common'
+              ]
+            }
+          end
+          it 'renders correctly' do
             content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
             hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
@@ -164,17 +178,19 @@ describe 'hiera' do
           puppetversion: Puppet.version,
           pe_server_version: '2015.2.1',
           is_pe: true,
-          pe_version: '0.0.0',
+          pe_version: '0.0.0'
         }
       end
       describe 'default params' do
         it { should compile.with_all_deps }
       end
       describe 'other params' do
-        let(:params) { {
-          eyaml: true,
-          merge_behavior: 'deeper',
-        } }
+        let(:params) do
+          {
+            eyaml: true,
+            merge_behavior: 'deeper'
+          }
+        end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
       end
