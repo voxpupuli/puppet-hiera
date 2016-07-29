@@ -130,7 +130,7 @@ class hiera (
       fail("${merge_behavior} merge behavior is invalid. Valid values are: native, deep, deeper")
     }
     if $merge_behavior != 'native' {
-      require hiera::deep_merge
+      require ::hiera::deep_merge
     }
   }
 
@@ -142,9 +142,9 @@ class hiera (
   }
 
   if $eyaml_gpg {
-    require hiera::eyaml_gpg
+    require ::hiera::eyaml_gpg
   } elsif $eyaml {
-    require hiera::eyaml
+    require ::hiera::eyaml
   }
 
   if $manage_package {
