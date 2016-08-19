@@ -1,6 +1,12 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## 2016-08-19 Release 2.1.1
+
+* Modulesync with latest Vox Pupuli defaults
+* Fix: Replace `to_yaml` in hiera.yaml template (PR #134)
+
+
 ## 2016-05-21 Release 2.1.0
 Note: this is the first release of the module in the voxpupuli namespace.
 ### Features:
@@ -21,6 +27,7 @@ Note: this is the first release of the module in the voxpupuli namespace.
 - Typo for `master_service` parameter in readme.
 - Improve dependency management around packages
 - Fix `hierarchy` parameter default on Puppet 4
+
 
 ## 2016-01-27 Release 2.0.1
 ### Fixes:
@@ -48,11 +55,13 @@ Note: this is the first release of the module in the voxpupuli namespace.
 - Fix hiera.yaml and keys/ directory being overwritten by file sync on PE 2015.x
 - Fix eyaml package provider detection on puppet versions >= 4
 
+
 ## 2016-01-08 Release 1.4.1
 ### Bugfixes:
 - Fix rubocop linting
 - Correct the name of the license file so the forge can find it.
 - Add travis testing
+
 
 ## 2016-01-05 Release 1.4.0
 ### Features:
@@ -67,14 +76,17 @@ Note: this is the first release of the module in the voxpupuli namespace.
 - Fixed hiera.yaml output to be consistent across puppet 3 and 4
 - Fixed stdlib metadata requirement.
 
+
 ## 2015-09-14 Release 1.3.2
 ### Bugfixes:
 - Detect correct user on 2015.2.0
 - Clean up hiera formatting.
 
+
 ## 2015-07-24 Release 1.3.1
 ### Bugfixes:
 - Allow `eyaml_version` to be undef (the default) on PE 3.7/3.8
+
 
 ## 2015-07-23 Release 1.3.0
 ### Features:
@@ -84,6 +96,7 @@ Note: this is the first release of the module in the voxpupuli namespace.
 ### Bugfixes:
 - Fix `eyaml_datadir` parameter default to `datadir` value
 - Handle cmdpath on different versions of puppet
+
 
 ## 2015-03-05 Release 1.2.0
 ### Features:
@@ -98,12 +111,14 @@ Note: this is the first release of the module in the voxpupuli namespace.
 - Make it kind of work on PE 3.7 (pe-puppetserver must still be restarted after
   the gem is installed)
 
+
 ## 2014-11-21 Release 1.1.1
 ### Bugfixes:
 - Correct handling of `cmdpath` (using an array of paths instead of hardcoded
   path). Also adds `cmdpath` parameter
 - Fix permissions on private key (604 was a typo)
 - Add "Managed by puppet" header
+
 
 ## 2014-10-15 Release 1.1.0
 ### Features:
@@ -118,13 +133,16 @@ Note: this is the first release of the module in the voxpupuli namespace.
 ### Bugfixes:
 - Correct datadir regex `{}` matching
 
+
 ## 2014-05-01 Release 1.0.2
 - Remove swap files from package
+
 
 ## 2014-03-25 Release 1.0.1
 ### Bugfixes:
 - Readme tweak
 - Use template instance variables to remove warnings
+
 
 ## 2014-02-27 Release 1.0.0
 ### Features:
@@ -134,9 +152,11 @@ Note: this is the first release of the module in the voxpupuli namespace.
 ### Bugfixes:
 - Correct the yaml formatting
 
+
 ## 2013-06-17 Release 0.3.1
 ### Bugfixes:
 - Docs!
+
 
 ## 2013-06-17 Release 0.3.0
 ### Features:
@@ -145,6 +165,7 @@ Note: this is the first release of the module in the voxpupuli namespace.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[2.1.1]: https://github.com/hunner/puppet-hiera/compare/2.1.0...v2.1.1
 [2.1.0]: https://github.com/hunner/puppet-hiera/compare/2.0.1...v2.1.0
 [2.0.1]: https://github.com/hunner/puppet-hiera/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/hunner/puppet-hiera/compare/1.4.1...2.0.0
