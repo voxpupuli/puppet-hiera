@@ -3,7 +3,7 @@
   "version": "2.1.1-rc0",
   "author": "voxpupuli",
   "summary": "Deploy hiera.yaml with hierarchy, and datadir",
-  "license": "BSD-2-Clause",
+  "license": "Apache-2.0",
   "source": "https://github.com/voxpupuli/puppet-hiera",
   "project_page": "https://github.com/voxpupuli/puppet-hiera",
   "issues_url": "https://github.com/voxpupuli/puppet-hiera/issues",
