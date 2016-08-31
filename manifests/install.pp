@@ -53,7 +53,11 @@ define hiera::install (
       } else {
         $gem_flag = undef
       }
-      if $gem_source {
+      if $gem_source and $gem_source =~ /^http/ {
+        # Do not attempt to validate_absolute_path if $gem_source is an URL
+        $source_flag = "--local --source ${gem_source}"
+      }
+      elsif $gem_source {
         # Use a local source, like the package providers would
         validate_absolute_path($gem_source)
         $source_flag = '--local'
