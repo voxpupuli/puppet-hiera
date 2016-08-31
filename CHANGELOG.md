@@ -1,6 +1,12 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## 2016-08-31 Release 2.1.2
+
+* Modulesync with latest Vox Pupuli defaults
+* Fix handling of gem_source (correctly handle URLs)
+
+
 ## 2016-08-19 Release 2.1.1
 
 * Modulesync with latest Vox Pupuli defaults
