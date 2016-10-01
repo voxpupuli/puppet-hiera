@@ -1,38 +1,17 @@
 # managed by puppet
 ---
-:backends:
-<% if @eyaml
-  @backends.unshift('eyaml')
-  @backends = @backends.uniq
-end -%>
-<%= @backends.map{|x| "  - #{x}"}.join("\n") %>
+<%= { 'backends' => @requested_backends }.to_yaml.gsub(/---\s+/, '') %>
 
 :logger: <%= @logger %>
 
 :hierarchy:
 <%= @hierarchy.map{|x| x  =~ /%/ ? "  - \"#{x}\"" : "  - #{x}"}.join("\n") %>
+<% @requested_backends.each do | backend_name | -%>
+<%# dump all the backend data to yaml format %>
+<%= { backend_name => @backend_data[backend_name] }.to_yaml.gsub(/---\s+/, '') -%>
+<%- end -%>
 
-:yaml:
-  :datadir: <%= @datadir %>
-<% if @eyaml -%>
-
-:eyaml:
-  :datadir: <%= @eyaml_real_datadir %>
-<% if @eyaml_extension -%>
-  :extension: <%= @eyaml_extension %>
-<% end -%>
-  :pkcs7_private_key: <%= @_eyaml_pkcs7_private_key %>
-  :pkcs7_public_key:  <%= @_eyaml_pkcs7_public_key %>
-<% end -%>
-<% if @eyaml_gpg -%>
-  :encrypt_method: "gpg"
-  :gpg_gnupghome: "<%= @_keysdir-%>/gpg"
-<% if @eyaml_gpg_recipients -%>
-  :gpg_recipients: "<%= @eyaml_gpg_recipients %>"
-<% end -%>
-<% end -%>
 <% if @merge_behavior -%>
-
 :merge_behavior: <%= @merge_behavior %>
 <% end -%>
 <% if @merge_behavior == 'deep' && !@deep_merge_options.empty? -%>

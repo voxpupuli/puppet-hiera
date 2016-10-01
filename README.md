@@ -46,6 +46,7 @@ class { 'hiera':
 }
 ```
 
+
 The resulting output in /etc/puppet/hiera.yaml:
 
 ```yaml
@@ -210,6 +211,33 @@ The following parameters are available for the hiera class:
 * `backends`  
   The list of backends.  
   Default: `['yaml']`
+  If you supply a additional backend you must also supply the backend data in
+  the `backend_options` hash.
+* `backend_options`
+  An optional hash of backend data for **any** backend.
+  Each key in the hash should be the name of the backend as listed in
+  the `backends` array.  You can also supply additional settings for the backend
+  by passing in a hash.  By default the `yaml` and `eyaml` backend data will be added
+  if you enable them via their respective parameters.  Any options you supply
+  for `yaml` and `eyaml` backend types will always override other parameters supplied
+  to the hiera class for that backend.
+
+  Example hiera data for the backend_options hash:
+
+  ```yaml
+  backend_options:
+    json:
+      datadir: '/etc/puppetlabs/puppet/%{::environment}/jsondata'
+    redis:
+      password: clearp@ssw0rd        # if your Redis server requires authentication
+      port: 6380                     # unless present, defaults to 6379
+      db: 1                          # unless present, defaults to 0
+      host: db.example.com           # unless present, defaults to localhost
+      path: /tmp/redis.sock          # overrides port if unixsocket exists
+      soft_connection_failure: true  # bypass exception if Redis server is unavailable; default is false
+      separator: /                   # unless present, defaults to :
+      deserialize: :json             # Try to deserialize; both :yaml and :json are supported
+  ```
 * `hiera_yaml`  
   The path to the hiera config file.  
   **Note**: Due to a bug, hiera.yaml is not placed in the codedir. Your puppet.conf `hiera_config` setting must match the configured value; see also `hiera::puppet_conf_manage`
