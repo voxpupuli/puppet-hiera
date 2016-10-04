@@ -1,6 +1,11 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## 2016-XX-XX Release 2.2.0
+* Add support for 3rd party backends #153
+This module now supports configuration of any backend via a new backend_options
+parameter.
+
 ## 2016-08-31 Release 2.1.2
 
 * Modulesync with latest Vox Pupuli defaults

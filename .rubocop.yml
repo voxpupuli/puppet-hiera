@@ -8,6 +8,7 @@ AllCops:
     - .vendor/**/*
     - pkg/**/*
     - spec/fixtures/**/*
+
 Lint/ConditionPosition:
   Enabled: True
 

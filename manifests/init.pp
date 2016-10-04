@@ -42,6 +42,7 @@
 class hiera (
   $hierarchy               = $::hiera::params::hierarchy,
   $backends                = ['yaml'],
+  $backend_options         = {},
   $hiera_yaml              = $::hiera::params::hiera_yaml,
   $create_symlink          = true,
   $datadir                 = $::hiera::params::datadir,
@@ -135,10 +136,18 @@ class hiera (
   }
 
   if ( $eyaml_gpg ) or ( $eyaml ) {
+
     $eyaml_real_datadir = empty($eyaml_datadir) ? {
       false => $eyaml_datadir,
       true  => $datadir,
     }
+    # the requested_backends has a side affect in that the eyaml will always be
+    # last for backend lookups.  This can be fixed by specifing the order in
+    # the backends parameter ie. ['yaml', 'eyaml', 'redis']
+    $requested_backends = unique(concat($backends, 'eyaml'))
+  } else {
+    $requested_backends = $backends
+    $eyaml_real_datadir = undef
   }
 
   if $eyaml_gpg {
@@ -153,16 +162,40 @@ class hiera (
       name   => $package_name,
     }
   }
+  # these are the default eyaml options that were interpolated in
+  # the above logic.  This was neccessary in order to maintain compability
+  # with prior versions of this module
+  $eyaml_options = {
+    'eyaml' => delete_undef_values({
+      'datadir'           => $eyaml_real_datadir,
+      'extension'         => $eyaml_extension,
+      'pkcs7_private_key' => $_eyaml_pkcs7_private_key,
+      'pkcs7_public_key'  => $_eyaml_pkcs7_public_key,
+      'encrypt_method'    => 'gpg',
+      'gpg_gnupghome'     => "${_keysdir}/gpg",
+      'gpg_recipients'    => $eyaml_gpg_recipients,
+    }),
+  }
+  $yaml_options = { 'yaml' => { 'datadir' => $datadir } }
+  # all the backend options are merged together into a single hash
+  # the user can override anything via the backend_options hash parameter
+  # which will override any data set in the eyaml or yaml parameters above.
+  # the template will only use the backends that were defined in the backends
+  # array even if there is info in the backend data hash
+  $backend_data = merge($yaml_options, $eyaml_options, $backend_options)
+  # if for some reason the user mispelled the backend in the backend_options lets
+  # catch that error here and notify the user
+  $missing_backends = difference($backends, keys($backend_data))
+  if count($missing_backends) > 0 {
+    fail("The supplied backends: ${missing_backends} are missing from the backend_options hash: ${backend_options}")
+  }
 
   # Template uses:
-  # - $eyaml
   # - $backends
+  # - $requested_backends
+  # - $backend_data
   # - $logger
   # - $hierarchy
-  # - $datadir
-  # - $eyaml_real_datadir
-  # - $eyaml_extension
-  # - $_keysdir
   # - $confdir
   # - $merge_behavior
   # - $deep_merge_options
