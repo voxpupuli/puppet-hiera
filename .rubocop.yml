@@ -4,11 +4,11 @@ AllCops:
   Include:
     - ./**/*.rb
   Exclude:
+    - files/**/*
     - vendor/**/*
     - .vendor/**/*
     - pkg/**/*
     - spec/fixtures/**/*
-
 Lint/ConditionPosition:
   Enabled: True
 
