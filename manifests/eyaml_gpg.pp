@@ -16,7 +16,6 @@ class hiera::eyaml_gpg {
   $group             = $::hiera::group
   $cmdpath           = $::hiera::cmdpath
   $_keysdir          = $::hiera::_keysdir
-  $eyaml_gpg_keygen  = $::hiera::eyaml_gpg_keygen
 
   require ::hiera::eyaml
 
