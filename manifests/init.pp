@@ -150,10 +150,19 @@ class hiera (
     $eyaml_real_datadir = undef
   }
 
+  # without these variables defined here puppet will puke when strict
+  # variables is enabled, which are needed for delete_undef_values
   if $eyaml_gpg {
+    $encrypt_method = 'gpg'
+    $gpg_gnupghome  = "${_keysdir}/gpg"
     require ::hiera::eyaml_gpg
   } elsif $eyaml {
     require ::hiera::eyaml
+    $encrypt_method = undef
+    $gpg_gnupghome  = undef
+  } else {
+    $encrypt_method = undef
+    $gpg_gnupghome  = undef
   }
 
   if $manage_package {
@@ -171,8 +180,8 @@ class hiera (
       'extension'         => $eyaml_extension,
       'pkcs7_private_key' => $_eyaml_pkcs7_private_key,
       'pkcs7_public_key'  => $_eyaml_pkcs7_public_key,
-      'encrypt_method'    => 'gpg',
-      'gpg_gnupghome'     => "${_keysdir}/gpg",
+      'encrypt_method'    => $encrypt_method,
+      'gpg_gnupghome'     => $gpg_gnupghome,
       'gpg_recipients'    => $eyaml_gpg_recipients,
     }),
   }
@@ -182,7 +191,7 @@ class hiera (
   # which will override any data set in the eyaml or yaml parameters above.
   # the template will only use the backends that were defined in the backends
   # array even if there is info in the backend data hash
-  $backend_data = merge($yaml_options, $eyaml_options, $backend_options)
+  $backend_data = deep_merge($yaml_options, $eyaml_options, $backend_options)
   # if for some reason the user mispelled the backend in the backend_options lets
   # catch that error here and notify the user
   $missing_backends = difference($backends, keys($backend_data))
