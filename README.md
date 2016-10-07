@@ -238,6 +238,11 @@ The following parameters are available for the hiera class:
       separator: /                   # unless present, defaults to :
       deserialize: :json             # Try to deserialize; both :yaml and :json are supported
   ```
+  
+  **NOTE:** The backend_options must **not** contain symbols as keys ie `:json:` despite the hiera config needing symbols.
+  The template will perform all the conversions to symbols in order for hiera to be happy.  Because puppet does not
+  know symbols there are minor annoyances when converting back and forth.
+  
 * `hiera_yaml`  
   The path to the hiera config file.  
   **Note**: Due to a bug, hiera.yaml is not placed in the codedir. Your puppet.conf `hiera_config` setting must match the configured value; see also `hiera::puppet_conf_manage`
