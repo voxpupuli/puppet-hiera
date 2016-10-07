@@ -124,28 +124,32 @@ describe 'hiera' do
           catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
         end
 
+        it 'encoding to not have ruby/sym' do
+          expect(content).not_to include('!ruby/sym')
+        end
+
         it 'include backends' do
-          backends = YAML.load(content)['backends']
+          backends = YAML.load(content)[:backends]
           expect(backends).to eq(%w(yaml eyaml json yamll))
         end
         it 'include json backend' do
-          backend = YAML.load(content)['json']
-          expect(backend['datadir']).to eq('/etc/puppet/json_data/data')
+          backend = YAML.load(content)[:json]
+          expect(backend[:datadir]).to eq('/etc/puppet/json_data/data')
         end
         it 'include yamll backend' do
-          backend = YAML.load(content)['yamll']
-          expect(backend['datadir']).to eq('/etc/puppet/yamll_data/data')
+          backend = YAML.load(content)[:yamll]
+          expect(backend[:datadir]).to eq('/etc/puppet/yamll_data/data')
         end
         # rubocop:disable RSpec/MultipleExpectations
         it 'include eyaml backend' do
-          eyaml_backend = YAML.load(content)['eyaml']
-          expect(eyaml_backend['datadir']).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
-          expect(eyaml_backend['pkcs7_private_key']).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
-          expect(eyaml_backend['pkcs7_public_key']).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
-          expect(eyaml_backend.keys).not_to include('encrypt_method')
-          expect(eyaml_backend.keys).not_to include('gpg_gnupghome')
-          expect(eyaml_backend.keys).not_to include('gpg_recipients')
-          expect(eyaml_backend.keys).not_to include('extension')
+          eyaml_backend = YAML.load(content)[:eyaml]
+          expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+          expect(eyaml_backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+          expect(eyaml_backend[:pkcs7_public_key]).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
+          expect(eyaml_backend.keys).not_to include(:encrypt_method)
+          expect(eyaml_backend.keys).not_to include(:gpg_gnupghome)
+          expect(eyaml_backend.keys).not_to include(:gpg_recipients)
+          expect(eyaml_backend.keys).not_to include(:extension)
         end
         context 'include gpg' do
           let(:params) do
@@ -166,14 +170,14 @@ describe 'hiera' do
             }
           end
           it 'include eyaml-gpg backend' do
-            eyaml_backend = YAML.load(content)['eyaml']
-            expect(eyaml_backend['datadir']).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
-            expect(eyaml_backend['pkcs7_private_key']).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
-            expect(eyaml_backend['pkcs7_public_key']).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
-            expect(eyaml_backend['encrypt_method']).to eq('gpg')
-            expect(eyaml_backend['gpg_gnupghome']).to eq('/etc/puppet/keys/gpg')
-            expect(eyaml_backend['gpg_recipients']).to eq(nil)
-            expect(eyaml_backend['extension']).to eq(nil)
+            eyaml_backend = YAML.load(content)[:eyaml]
+            expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+            expect(eyaml_backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+            expect(eyaml_backend[:pkcs7_public_key]).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
+            expect(eyaml_backend[:encrypt_method]).to eq('gpg')
+            expect(eyaml_backend[:gpg_gnupghome]).to eq('/etc/puppet/keys/gpg')
+            expect(eyaml_backend[:gpg_recipients]).to eq(nil)
+            expect(eyaml_backend[:extension]).to eq(nil)
           end
         end
         # rubocop:enable RSpec/MultipleExpectations
@@ -215,12 +219,12 @@ describe 'hiera' do
             }
           end
           it 'include yaml backend' do
-            backend = YAML.load(content)['yaml']
-            expect(backend['datadir']).to eq('/etc/puppet/yaml_data/data')
+            backend = YAML.load(content)[:yaml]
+            expect(backend[:datadir]).to eq('/etc/puppet/yaml_data/data')
           end
           it 'merge correctly' do
-            backend = YAML.load(content)['eyaml']
-            expect(backend['pkcs7_private_key']).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+            backend = YAML.load(content)[:eyaml]
+            expect(backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
           end
         end
       end
@@ -293,28 +297,32 @@ describe 'hiera' do
           catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
         end
 
+        it 'encoding to not have ruby/sym' do
+          expect(content).not_to include('!ruby/sym')
+        end
+
         it 'include backends' do
-          backends = YAML.load(content)['backends']
+          backends = YAML.load(content)[:backends]
           expect(backends).to eq(%w(yaml eyaml json yamll))
         end
         it 'include json backend' do
-          backend = YAML.load(content)['json']
-          expect(backend['datadir']).to eq('/etc/puppet/json_data/data')
+          backend = YAML.load(content)[:json]
+          expect(backend[:datadir]).to eq('/etc/puppet/json_data/data')
         end
         it 'include yamll backend' do
-          backend = YAML.load(content)['yamll']
-          expect(backend['datadir']).to eq('/etc/puppet/yamll_data/data')
+          backend = YAML.load(content)[:yamll]
+          expect(backend[:datadir]).to eq('/etc/puppet/yamll_data/data')
         end
         # rubocop:disable RSpec/MultipleExpectations
         it 'include eyaml backend' do
-          eyaml_backend = YAML.load(content)['eyaml']
-          expect(eyaml_backend['datadir']).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
-          expect(eyaml_backend['pkcs7_private_key']).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
-          expect(eyaml_backend['pkcs7_public_key']).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
-          expect(eyaml_backend.keys).not_to include('encrypt_method')
-          expect(eyaml_backend.keys).not_to include('gpg_gnupghome')
-          expect(eyaml_backend.keys).not_to include('gpg_recipients')
-          expect(eyaml_backend.keys).not_to include('extension')
+          eyaml_backend = YAML.load(content)[:eyaml]
+          expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+          expect(eyaml_backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+          expect(eyaml_backend[:pkcs7_public_key]).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
+          expect(eyaml_backend.keys).not_to include(:encrypt_method)
+          expect(eyaml_backend.keys).not_to include(:gpg_gnupghome)
+          expect(eyaml_backend.keys).not_to include(:gpg_recipients)
+          expect(eyaml_backend.keys).not_to include(:extension)
         end
         context 'include gpg' do
           let(:params) do
@@ -335,14 +343,14 @@ describe 'hiera' do
             }
           end
           it 'include eyaml-gpg backend' do
-            eyaml_backend = YAML.load(content)['eyaml']
-            expect(eyaml_backend['datadir']).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
-            expect(eyaml_backend['pkcs7_private_key']).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
-            expect(eyaml_backend['pkcs7_public_key']).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
-            expect(eyaml_backend['encrypt_method']).to eq('gpg')
-            expect(eyaml_backend['gpg_gnupghome']).to eq('/etc/puppet/keys/gpg')
-            expect(eyaml_backend['gpg_recipients']).to eq(nil)
-            expect(eyaml_backend['extension']).to eq(nil)
+            eyaml_backend = YAML.load(content)[:eyaml]
+            expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+            expect(eyaml_backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+            expect(eyaml_backend[:pkcs7_public_key]).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
+            expect(eyaml_backend[:encrypt_method]).to eq('gpg')
+            expect(eyaml_backend[:gpg_gnupghome]).to eq('/etc/puppet/keys/gpg')
+            expect(eyaml_backend[:gpg_recipients]).to eq(nil)
+            expect(eyaml_backend[:extension]).to eq(nil)
           end
         end
         # rubocop:enable RSpec/MultipleExpectations
@@ -384,12 +392,12 @@ describe 'hiera' do
             }
           end
           it 'include yaml backend' do
-            backend = YAML.load(content)['yaml']
-            expect(backend['datadir']).to eq('/etc/puppet/yaml_data/data')
+            backend = YAML.load(content)[:yaml]
+            expect(backend[:datadir]).to eq('/etc/puppet/yaml_data/data')
           end
           it 'merge correctly' do
-            backend = YAML.load(content)['eyaml']
-            expect(backend['pkcs7_private_key']).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+            backend = YAML.load(content)[:eyaml]
+            expect(backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
           end
         end
       end

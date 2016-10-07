@@ -196,7 +196,8 @@ class hiera (
   # catch that error here and notify the user
   $missing_backends = difference($backends, keys($backend_data))
   if count($missing_backends) > 0 {
-    fail("The supplied backends: ${missing_backends} are missing from the backend_options hash: ${backend_options}")
+    fail("The supplied backends: ${missing_backends} are missing from the backend_options hash:\n ${backend_options}\n
+    or you might be using symbols in your hiera data")
   }
 
   # Template uses:
