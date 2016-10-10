@@ -1,10 +1,15 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
-## 2016-XX-XX Release 2.2.0
-* Add support for 3rd party backends #153
-This module now supports configuration of any backend via a new backend_options
-parameter.
+## 2016-10-07 Release 2.2.0
+* Modulesync with latest Vox Pupuli defaults
+* Removes unused eyaml_gpg_keygen variable
+### Features:
+* Adds support for 3rd party backends #153
+
+This module now supports configuration of any backend via a new `backend_options`
+parameter.  This is a big deal as this opens the doors up to configuring any backend in a generic way.
+This is also backwards compatible with prior versions of this module.
 
 ## 2016-08-31 Release 2.1.2
 
@@ -176,6 +181,7 @@ Note: this is the first release of the module in the voxpupuli namespace.
 ### Bugfixes:
 - Only ensure datadir if it does not have `%{.*}`
 
+[2.2.0]: https://github.com/hunner/puppet-hiera/compare/2.1.1...v2.2.0
 [2.1.1]: https://github.com/hunner/puppet-hiera/compare/2.1.0...v2.1.1
 [2.1.0]: https://github.com/hunner/puppet-hiera/compare/2.0.1...v2.1.0
 [2.0.1]: https://github.com/hunner/puppet-hiera/compare/2.0.0...2.0.1

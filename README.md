@@ -241,7 +241,7 @@ The following parameters are available for the hiera class:
   
   **NOTE:** The backend_options must **not** contain symbols as keys ie `:json:` despite the hiera config needing symbols.
   The template will perform all the conversions to symbols in order for hiera to be happy.  Because puppet does not
-  know symbols there are minor annoyances when converting back and forth.
+  use symbols there are minor annoyances when converting back and forth and merge data together.
   
 * `hiera_yaml`  
   The path to the hiera config file.  
