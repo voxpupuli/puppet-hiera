@@ -185,7 +185,7 @@ describe 'hiera' do
             {
               eyaml_gpg: true,
               datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
-              backends: %w(yaml),
+              backends: %w(yaml)
             }
           end
           it 'include eyaml-gpg backend with eyaml unspecified' do
@@ -375,7 +375,7 @@ describe 'hiera' do
             {
               eyaml_gpg: true,
               datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
-              backends: %w(yaml),
+              backends: %w(yaml)
             }
           end
           it 'include eyaml-gpg backend with eyaml unspecified' do
