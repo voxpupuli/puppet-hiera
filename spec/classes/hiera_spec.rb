@@ -180,6 +180,23 @@ describe 'hiera' do
             expect(eyaml_backend[:extension]).to eq(nil)
           end
         end
+        context 'include gpg with eyaml unspecified' do
+          let(:params) do
+            {
+              eyaml_gpg: true,
+              datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
+              backends: %w(yaml),
+            }
+          end
+          it 'include eyaml-gpg backend with eyaml unspecified' do
+            backends = YAML.load(content)[:backends]
+            expect(backends).to eq(%w(eyaml yaml))
+            eyaml_backend = YAML.load(content)[:eyaml]
+            expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+            expect(eyaml_backend[:encrypt_method]).to eq('gpg')
+            expect(eyaml_backend[:gpg_gnupghome]).to eq('/etc/puppet/keys/gpg')
+          end
+        end
         # rubocop:enable RSpec/MultipleExpectations
         context 'bad data' do
           let(:params) do
