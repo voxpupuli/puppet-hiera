@@ -130,7 +130,7 @@ describe 'hiera' do
 
         it 'include backends' do
           backends = YAML.load(content)[:backends]
-          expect(backends).to eq(%w(yaml eyaml json yamll))
+          expect(backends).to eq(%w(eyaml yaml json yamll))
         end
         it 'include json backend' do
           backend = YAML.load(content)[:json]
@@ -190,7 +190,7 @@ describe 'hiera' do
           end
           it 'include eyaml-gpg backend with eyaml unspecified' do
             backends = YAML.load(content)[:backends]
-            expect(backends).to eq(%w(yaml eyaml))
+            expect(backends).to eq(%w(eyaml yaml))
             eyaml_backend = YAML.load(content)[:eyaml]
             expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
             expect(eyaml_backend[:encrypt_method]).to eq('gpg')
@@ -320,7 +320,7 @@ describe 'hiera' do
 
         it 'include backends' do
           backends = YAML.load(content)[:backends]
-          expect(backends).to eq(%w(yaml eyaml json yamll))
+          expect(backends).to eq(%w(eyaml yaml json yamll))
         end
         it 'include json backend' do
           backend = YAML.load(content)[:json]
@@ -380,7 +380,7 @@ describe 'hiera' do
           end
           it 'include eyaml-gpg backend with eyaml unspecified' do
             backends = YAML.load(content)[:backends]
-            expect(backends).to eq(%w(yaml eyaml))
+            expect(backends).to eq(%w(eyaml yaml))
             eyaml_backend = YAML.load(content)[:eyaml]
             expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
             expect(eyaml_backend[:encrypt_method]).to eq('gpg')
