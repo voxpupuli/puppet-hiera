@@ -80,6 +80,10 @@ class hiera (
   $eyaml_pkcs7_private_key = undef,
   $eyaml_pkcs7_public_key  = undef,
 
+  $ruby_gpg_name           = 'ruby_gpg',
+  $ruby_gpg_version        = undef,
+  $ruby_gpg_source         = undef,
+
   #Deprecated
   $gem_source              = undef,
 ) inherits ::hiera::params {

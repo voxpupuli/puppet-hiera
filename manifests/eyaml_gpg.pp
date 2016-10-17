@@ -8,9 +8,9 @@ class hiera::eyaml_gpg {
   $eyaml_gpg_version = $::hiera::eyaml_gpg_version
   $eyaml_gpg_source  = $::hiera::_eyaml_gpg_source
 
-  $ruby_gpg_name     = 'ruby_gpg'
-  $ruby_gpg_version  = undef
-  $ruby_gpg_source   = undef
+  $ruby_gpg_name     = $::hiera::ruby_gpg_name
+  $ruby_gpg_version  = $::hiera::ruby_gpg_version
+  $ruby_gpg_source   = $::hiera::ruby_gpg_source
 
   $owner             = $::hiera::owner
   $group             = $::hiera::group
