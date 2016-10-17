@@ -23,11 +23,20 @@ class hiera::eyaml {
   $create_keys   = $::hiera::create_keys
   $_keysdir      = $::hiera::_keysdir
 
-  ::hiera::install { 'eyaml':
-    gem_name    => $eyaml_name,
-    provider    => $provider,
-    gem_version => $eyaml_version,
-    gem_source  => $eyaml_source,
+  $manage_package = $::hiera::manage_package
+
+  if $manage_package {
+    ::hiera::install { 'eyaml':
+      gem_name    => $eyaml_name,
+      provider    => $provider,
+      gem_version => $eyaml_version,
+      gem_source  => $eyaml_source,
+    }
+    if $create_keys {
+      Hiera::Install['eyaml'] {
+        before => Exec['createkeys'],
+      }
+    }
   }
 
   File {
@@ -42,13 +51,14 @@ class hiera::eyaml {
   $keysdir = dirname($_keysdir)
 
   if ( $create_keys == true ) {
+
     exec { 'createkeys':
       user    => $owner,
       cwd     => $keysdir,
       command => 'eyaml createkeys',
       path    => $cmdpath,
       creates => "${_keysdir}/private_key.pkcs7.pem",
-      require => [ Hiera::Install['eyaml'], File[$_keysdir] ],
+      require => File[$_keysdir],
     }
 
     file { "${_keysdir}/private_key.pkcs7.pem":
