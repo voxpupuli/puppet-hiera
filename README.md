@@ -1,5 +1,6 @@
-# Hiera Puppet
-####Table of Contents
+# Hiera module for Puppet
+
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
@@ -13,11 +14,13 @@
 6. [Development - Guide for contributing to the module](#development)
 
 ## Module Description
+
 This module configures [Hiera](https://github.com/puppetlabs/hiera) for Puppet.
 
 ## Setup
 
 ### What hiera affects
+
 - Hiera yaml file
 - Hiera datadir
 - hiera-eyaml package
@@ -25,16 +28,23 @@ This module configures [Hiera](https://github.com/puppetlabs/hiera) for Puppet.
 - /etc/hiera.yaml for symlink
 
 ### Setup requirements
+
 If you are using the eyaml backend on:
-* Puppet Enterprise 3.3 or earlier then you will need the [puppetlabs-pe_gem](https://forge.puppetlabs.com/puppetlabs/pe_gem) module to install the eyaml gem using PE's gem command.
-* Puppet Enterprise 3.7 or 3.8 then you will need the [puppetlabs-pe_puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/pe_puppetserver_gem) module.
-* Puppet Enterprise 2015.x or FOSS puppetserver then you will need the [puppetlabs-puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/puppetserver_gem) module.
+
+* Puppet Enterprise 3.3 or earlier then you will need the [puppetlabs-pe_gem](https://forge.puppetlabs.com/puppetlabs/pe_gem)
+  module to install the eyaml gem using PE's gem command.
+* Puppet Enterprise 3.7 or 3.8 then you will need the [puppetlabs-pe_puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/pe_puppetserver_gem)
+  module.
+* Puppet Enterprise 2015.x or FOSS puppetserver then you will need the [puppetlabs-puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/puppetserver_gem)
+  module.
 
 ### Beginning with hiera
 
 Declaring the class with a given hierarchy is a pretty good starting point:
 
-This class will write out a hiera.yaml file in either /etc/puppetlabs/puppet/hiera.yaml or /etc/puppet/hiera.yaml (depending on if the node is running Puppet Enterprise or not).
+This class will write out a hiera.yaml file in either
+/etc/puppetlabs/puppet/hiera.yaml or /etc/puppet/hiera.yaml (depending on if the
+node is running Puppet Enterprise or not).
 
 ```puppet
 class { 'hiera':
@@ -45,7 +55,6 @@ class { 'hiera':
   ],
 }
 ```
-
 
 The resulting output in /etc/puppet/hiera.yaml:
 
@@ -66,7 +75,10 @@ The resulting output in /etc/puppet/hiera.yaml:
 ## Usage
 
 ## Reference
-This module will also allow you to configure different options for logger and merge_behavior.  The default behavior is to set logger to console and merge behavior to native.
+
+This module will also allow you to configure different options for logger and
+merge_behavior.  The default behavior is to set logger to console and merge
+behavior to native.
 
 For details and valid options see [Configuring Hiera](https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings).
 
@@ -102,9 +114,15 @@ The resulting output in /etc/puppet/hiera.yaml:
 
 ### Hiera-Eyaml-GPG
 
-The default PKCS#7 encryption scheme used by hiera-eyaml is perfect if only simple encryption and decryption is needed.
+The default PKCS#7 encryption scheme used by hiera-eyaml is perfect if only
+simple encryption and decryption is needed.
 
-However, if you are in a sizable team it helps to encrypt and decrypt data with multiple keys. This means that each team member can hold their own private key and so can the puppetmaster. Equally, each puppet master can have their own key if desired and when you need to rotate keys for either users or puppet masters, re-encrypting your files and changing the key everywhere does not need to be done in lockstep.
+However, if you are in a sizable team it helps to encrypt and decrypt data with
+multiple keys. This means that each team member can hold their own private key
+and so can the puppetmaster. Equally, each puppet master can have their own key
+if desired and when you need to rotate keys for either users or puppet masters,
+re-encrypting your files and changing the key everywhere does not need to be
+done in lockstep.
 
 #### Requirements
 
@@ -117,13 +135,18 @@ However, if you are in a sizable team it helps to encrypt and decrypt data with 
 
 #### GPG Keyring Creation Tips
 
-**RNG-TOOLS**
+##### RNG-TOOLS
 
-When generating a GPG keyring the system requires a good amount of entropy.  To help generate entropy to speed up the process then rng-tools package on RHEL based systems or equivilent can be used.  Note: Update the ```/etc/sysconfig/rngd``` or equivilent file to set the EXTRAOPTIONS to ```EXTRAOPTIONS="-r /dev/urandom -o /dev/random -t 5"```
+When generating a GPG keyring the system requires a good amount of entropy.
+To help generate entropy to speed up the process then rng-tools package on RHEL
+based systems or equivilent can be used.  Note: Update the ```/etc/sysconfig/rngd```
+or equivilent file to set the EXTRAOPTIONS to
+```EXTRAOPTIONS="-r /dev/urandom -o /dev/random -t 5"```
 
-**Keyring Generation**
+##### Keyring Generation
 
-Below is a sample GPG answers file that will assist in generating a passphraseless key
+Below is a sample GPG answers file that will assist in generating a
+passphraseless key
 
 ```bash
 cat << EOF >> /tmp/gpg_answers
@@ -143,7 +166,8 @@ Expire-Date: 0
 EOF
 ```
 
-You can then use the GPG answer file to generate your keyring within the /gpg sub-directory in the ```$keysdir```
+You can then use the GPG answer file to generate your keyring within the
+/gpg sub-directory in the ```$keysdir```
 
 ```bash
 gpg --batch --homedir /etc/puppetlabs/code-staging/keys/gpg --gen-key /tmp/gpg_answers
@@ -195,9 +219,11 @@ The resulting output in /etc/puppet/hiera.yaml:
 ### Classes
 
 #### Public Classes
+
 - hiera: Main class to configure hiera
 
 #### Private Classes
+
 - hiera::params: Handles variable conditionals
 - hiera::eyaml: Handles eyaml configuration
 
@@ -205,11 +231,11 @@ The resulting output in /etc/puppet/hiera.yaml:
 
 The following parameters are available for the hiera class:
 
-* `hierarchy`  
-  The hiera hierarchy.  
+* `hierarchy`
+  The hiera hierarchy.
   Default: `[]`
-* `backends`  
-  The list of backends.  
+* `backends`
+  The list of backends.
   Default: `['yaml']`
   If you supply a additional backend you must also supply the backend data in
   the `backend_options` hash.
@@ -238,62 +264,68 @@ The following parameters are available for the hiera class:
       separator: /                   # unless present, defaults to :
       deserialize: :json             # Try to deserialize; both :yaml and :json are supported
   ```
-  
-  **NOTE:** The backend_options must **not** contain symbols as keys ie `:json:` despite the hiera config needing symbols.
-  The template will perform all the conversions to symbols in order for hiera to be happy.  Because puppet does not
-  use symbols there are minor annoyances when converting back and forth and merge data together.
-  
-* `hiera_yaml`  
-  The path to the hiera config file.  
-  **Note**: Due to a bug, hiera.yaml is not placed in the codedir. Your puppet.conf `hiera_config` setting must match the configured value; see also `hiera::puppet_conf_manage`
+
+  **NOTE:** The backend_options must **not** contain symbols as keys ie `:json:`
+  despite the hiera config needing symbols. The template will perform all the
+  conversions to symbols in order for hiera to be happy.  Because puppet does
+  not use symbols there are minor annoyances when converting back and forth and
+  merge data together.
+* `hiera_yaml`
+  The path to the hiera config file.
+  **Note**: Due to a bug, hiera.yaml is not placed in the codedir. Your
+  puppet.conf `hiera_config` setting must match the configured value; see also
+  `hiera::puppet_conf_manage`
   Default:
     * `'/etc/puppet/hiera.yaml'` for Puppet Open Source
     * `'/etc/puppetlabs/puppet/hiera.yaml'` for Puppet Enterprise
 * `create_symlink`
   Whether to create the symlink `/etc/hiera.yaml`
   Default: true
-* `datadir`  
-  The path to the directory where hiera will look for databases.  
+* `datadir`
+  The path to the directory where hiera will look for databases.
   Default:
     * `'/etc/puppet/hieradata'` for Puppet Open Source
     * `'/etc/puppetlabs/puppet/hieradata'` for PE Puppet < 4
     * `'/etc/puppetlabs/code/environments/%{::environment}/hieradata'` for Puppet >= 4
-* `datadir_manage`  
-  Whether to create and manage the datadir as a file resource.  
+* `datadir_manage`
+  Whether to create and manage the datadir as a file resource.
   Default: `true`
-* `owner`  
-  The owner of managed files and directories.  
+* `owner`
+  The owner of managed files and directories.
   Default:
     * `'puppet'` for Puppet Open Source
     * `'pe-puppet'` for Puppet Enterprise
-* `group`  
-  The group owner of managed files and directories.  
+* `group`
+  The group owner of managed files and directories.
   Default:
     * `'puppet'` for Puppet Open Source
     * `'pe-puppet'` for Puppet Enterprise
-* `eyaml`  
-  Whether to install, configure, and enable [the eyaml backend][eyaml]. Also see the provider and master_service parameters.  
+* `eyaml`
+  Whether to install, configure, and enable [the eyaml backend][eyaml]. Also see
+  the provider and master_service parameters.
   Default: `false`
 * `eyaml_name`
   The name of the eyaml gem.
   Default: 'hiera-eyaml'
-* `eyaml_version`  
-  The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7', etc  
+* `eyaml_version`
+  The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7',
+  etc
   Default: `undef`
 * `eyaml_source`
   An alternate gem source for installing hiera-eyaml.
   Default: `undef`, uses gem backend default
-* `eyaml_datadir`  
-  The path to the directory where hiera will look for databases with the eyaml backend.  
+* `eyaml_datadir`
+  The path to the directory where hiera will look for databases with the eyaml backend.
   Default: same as `datadir`
-* `eyaml_extension`  
-  The file extension for the eyaml backend.  
+* `eyaml_extension`
+  The file extension for the eyaml backend.
   Default: `undef`, backend defaults to `'.eyaml'`
 * `deep_merge_name`
   The name of the deep_merge gem.
   Default: 'deep\_merge'
 * `deep_merge_version`
-  The version of deep\_merge to install. Accepts 'installed', 'latest', '2.0.7', etc.
+  The version of deep\_merge to install. Accepts 'installed', 'latest', '2.0.7',
+  etc.
   Default: `undef`
 * `deep_merge_source`
   An alternate gem source for installing deep_merge.
@@ -302,61 +334,69 @@ The following parameters are available for the hiera class:
   A hash of options to set in hiera.yaml for the deep merge behavior.
   Default: `{}`
 * `manage_package`
-  AA boolean for wether the hiera package should be managed. Defaults to `true` on FOSS 3 but `false` otherwise.
+  A boolean for wether the hiera package should be managed. Defaults to `true` on
+  FOSS 3 but `false` otherwise.
 * `package_name`
   Specifies the name of the hiera package. Default: 'hiera'
 * `package_ensure`
   Specifies the ensure value of the hiera package. Default: 'present'
-* `confdir`  
+* `confdir`
   The path to Puppet's confdir.
   Default: `$::settings::confdir` which should be the following:
     * `'/etc/puppet'` for Puppet Open Source
     * `'/etc/puppetlabs/puppet'` for Puppet Enterprise
-* `logger`  
-  Which hiera logger to use.  
-  **Note**: You need to manage any package/gem dependencies yourself.  
+* `logger`
+  Which hiera logger to use.
+  **Note**: You need to manage any package/gem dependencies yourself.
   Default: `undef`, hiera defaults to `'console'`
-* `cmdpath`  
-  Search paths for command binaries, like the `eyaml` command.  
-  The default should cover most cases.  
+* `cmdpath`
+  Search paths for command binaries, like the `eyaml` command.
+  The default should cover most cases.
   Default: `['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']`
-* `create_keys`  
-  Whether to create pkcs7 keys and manage key files for hiera-eyaml.  
-  This is useful if you need to distribute a pkcs7 key pair.  
+* `create_keys`
+  Whether to create pkcs7 keys and manage key files for hiera-eyaml.
+  This is useful if you need to distribute a pkcs7 key pair.
   Default: `true`
 * `merge_behavior`
-  Which hiera merge behavior to use. Valid values are 'native', 'deep', and 'deeper'. Deep and deeper values will install the deep\_merge gem into the puppet runtime.
+  Which hiera merge behavior to use. Valid values are 'native', 'deep', and
+  'deeper'. Deep and deeper values will install the deep\_merge gem into the
+  puppet runtime.
   Default: `undef`, hiera defaults to `'native'`
-* `extra_config`  
-  Arbitrary YAML content to append to the end of the hiera.yaml config file.  
-  This is useful for configuring backend-specific parameters.  
+* `extra_config`
+  Arbitrary YAML content to append to the end of the hiera.yaml config file.
+  This is useful for configuring backend-specific parameters.
   Default: `''`
 * `keysdir`
   Directory for hiera to manage for eyaml keys.
   Default: `$confdir/keys`
-  **Note:** If using PE 2013.x+ and code-manager set the keysdir under the ```$confdir/code-staging directory``` to allow the code manager to sync the keys to all PuppetServers Example:  ```/etc/puppetlabs/code-staging/keys```
+  **Note:** If using PE 2013.x+ and code-manager set the keysdir under the
+  ```$confdir/code-staging directory``` to allow the code manager to sync the
+  keys to all PuppetServers Example:  ```/etc/puppetlabs/code-staging/keys```
 * `puppet_conf_manage`
   Whether to manage the puppet.conf `hiera_config` value or not.
   Default: `true`
-* `provider`  
+* `provider`
   Which provider to use to install hiera-eyaml. Can be:
   * `puppetserver_gem` (PE 2015.x or FOSS using puppetserver)
   * `pe_puppetserver_gem` (PE 3.7 or 3.8)
   * `pe_gem` (PE pre-3.7)
   * `puppet_gem` (agent-only gem)
   * `gem` (FOSS using system ruby (ie puppetmaster))
-  **Note**: this module cannot detect FOSS puppetserver and you must pass `provider => 'puppetserver_gem'` for that to work. See also master_service.
+  **Note**: this module cannot detect FOSS puppetserver and you must pass
+  `provider => 'puppetserver_gem'` for that to work. See also master_service.
   Default: Depends on puppet version detected as specified above.
-* `master_service`  
-  The service name of the master to restart after package installation or hiera.yaml changes.  
-  **Note**: You must pass `master_service => 'puppetserver'` for FOSS puppetserver  
+* `master_service`
+  The service name of the master to restart after package installation or
+  hiera.yaml changes.
+  **Note**: You must pass `master_service => 'puppetserver'` for FOSS puppetserver
   Default: 'pe-puppetserver' for PE 2015.x, otherwise 'puppetmaster'
 
 [eyaml]: https://github.com/TomPoulton/hiera-eyaml
 
 ## Limitations
 
-The `eyaml_version` parameter does not currently modify the eyaml version of the command-line gem on pe-puppetserver.
+The `eyaml_version` parameter does not currently modify the eyaml version of the
+command-line gem on pe-puppetserver.
 
 ## Development
 
