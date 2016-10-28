@@ -43,7 +43,7 @@ describe 'hiera' do
   end
   describe file(hierayaml), node: master do
     its(:content) do
-      should match <<-EOS
+      is_expected.to match <<-EOS
 # managed by puppet
 ---
 :backends:
