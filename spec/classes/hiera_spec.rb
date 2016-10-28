@@ -25,6 +25,31 @@ describe 'hiera' do
         it { should contain_class('hiera::deep_merge') }
         it { should contain_package('hiera') }
       end
+      describe 'param manage_package => false' do
+        let(:params) do
+          {
+            eyaml: true,
+            eyaml_gpg: true,
+            manage_package: false,
+            keysdir: '/etc/keys'
+          }
+        end
+        it { is_expected.to compile }
+        it { should_not contain_hiera__install('eyaml') }
+        it { should_not contain_hiera__install('ruby_gpg') }
+        it { should_not contain_hiera__install('hiera-eyaml-gpg') }
+        it { should contain_exec('createkeys').that_requires('File[/etc/keys]') }
+      end
+      describe 'param manage_package => true and create_keys => true' do
+        let(:params) do
+          {
+            eyaml: true,
+            manage_package: true,
+            keysdir: '/etc/keys'
+          }
+        end
+        it { should contain_exec('createkeys').that_requires('Hiera::Install[eyaml]').that_requires('File[/etc/keys]') }
+      end
       describe 'hiera.yaml template' do
         describe ':hierarchy: section' do
           let(:params) do
@@ -292,6 +317,31 @@ describe 'hiera' do
         end
         it { should contain_class('hiera::eyaml') }
         it { should contain_class('hiera::deep_merge') }
+      end
+      describe 'param manage_package => false' do
+        let(:params) do
+          {
+            eyaml: true,
+            eyaml_gpg: true,
+            manage_package: false,
+            keysdir: '/etc/keys'
+          }
+        end
+        it { is_expected.to compile }
+        it { should_not contain_hiera__install('eyaml') }
+        it { should_not contain_hiera__install('ruby_gpg') }
+        it { should_not contain_hiera__install('hiera-eyaml-gpg') }
+        it { should contain_exec('createkeys').that_requires('File[/etc/keys]') }
+      end
+      describe 'param manage_package => true and create_keys => true' do
+        let(:params) do
+          {
+            eyaml: true,
+            manage_package: true,
+            keysdir: '/etc/keys'
+          }
+        end
+        it { should contain_exec('createkeys').that_requires('Hiera::Install[eyaml]').that_requires('File[/etc/keys]') }
       end
       describe 'other_backends' do
         let(:params) do

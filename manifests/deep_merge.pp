@@ -15,11 +15,14 @@ class hiera::deep_merge {
   $deep_merge_version = $::hiera::deep_merge_version
   $deep_merge_source  = $::hiera::deep_merge_source
   $deep_merge_name    = $::hiera::deep_merge_name
+  $manage_package     = $::hiera::manage_package
 
-  ::hiera::install { 'deep_merge':
-    gem_name    => $deep_merge_name,
-    provider    => $provider,
-    gem_version => $deep_merge_version,
-    gem_source  => $deep_merge_source,
+  if $manage_package {
+    ::hiera::install { 'deep_merge':
+      gem_name    => $deep_merge_name,
+      provider    => $provider,
+      gem_version => $deep_merge_version,
+      gem_source  => $deep_merge_source,
+    }
   }
 }
