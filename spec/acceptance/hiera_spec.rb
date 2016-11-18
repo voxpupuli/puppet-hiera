@@ -22,6 +22,7 @@ describe 'hiera' do
     raise "Unknown puppet version #{version}"
   end
   hierayaml = "#{confdir}/hiera.yaml"
+  keysdir = '/etc/custom_keys'
 
   describe 'puppet apply' do
     it 'creates a hiera.yaml' do
@@ -30,6 +31,7 @@ describe 'hiera' do
         eyaml              => true,
         merge_behavior     => 'deep',
         puppet_conf_manage => true,
+        keysdir            => '#{keysdir}',
         hierarchy          => [
           'virtual/%{::virtual}',
           'nodes/%{::trusted.certname}',
@@ -41,29 +43,31 @@ describe 'hiera' do
       apply_manifest_on(master, pp, catch_changes: true)
     end
   end
+  describe file("#{keysdir}/private_key.pkcs7.pem"), node: master do
+    it { is_expected.to be_file }
+  end
   describe file(hierayaml), node: master do
     its(:content) do
       is_expected.to match <<-EOS
 # managed by puppet
 ---
 :backends:
-  - eyaml
-  - yaml
-
+    - eyaml
+    - yaml
 :logger: console
 
 :hierarchy:
-  - "?virtual/%{::virtual}"?
-  - "?nodes/%{::trusted.certname}"?
+  - "virtual/%{::virtual}"
+  - "nodes/%{::trusted.certname}"
   - common
 
-:yaml:
-  :datadir: #{datadir}
-
 :eyaml:
-  :datadir: #{datadir}
-  :pkcs7_private_key: #{confdir}/keys/private_key.pkcs7.pem
-  :pkcs7_public_key:  #{confdir}/keys/public_key.pkcs7.pem
+    :datadir: #{datadir}
+    :pkcs7_private_key: #{keysdir}/private_key.pkcs7.pem
+    :pkcs7_public_key: #{keysdir}/public_key.pkcs7.pem
+:yaml:
+    :datadir: #{datadir}
+:merge_behavior: deep
 EOS
     end
   end
