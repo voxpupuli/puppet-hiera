@@ -46,6 +46,6 @@ class hiera::eyaml_gpg {
     ensure  => directory,
     recurse => true,
     purge   => false,
-    mode    => '0700',
+    mode    => '0600',
   }
 }
