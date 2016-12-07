@@ -36,7 +36,7 @@ class hiera::params {
   } else {
     if $::puppetversion and versioncmp($::puppetversion, '4.0.0') >= 0 {
       # Configure for AIO packaging.
-      if $::pe_server_version {
+      if getvar('::pe_server_version') {
         $master_service = 'pe-puppetserver'
         $provider       = 'puppetserver_gem'
       } else {
@@ -55,7 +55,7 @@ class hiera::params {
       $datadir        = "${confdir}/hieradata"
       $manage_package = true
     }
-    if $::pe_server_version {
+    if getvar('::pe_server_version') {
       $owner = 'pe-puppet'
       $group = 'pe-puppet'
     } else {
