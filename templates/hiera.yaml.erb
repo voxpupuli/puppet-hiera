@@ -18,7 +18,7 @@
 <% if @merge_behavior -%>
 :merge_behavior: <%= @merge_behavior %>
 <% end -%>
-<% if (@merge_behavior == 'deep' || @merge_behaviour == 'deeper') && !@deep_merge_options.empty? -%>
+<% if (@merge_behavior == 'deep' || @merge_behavior == 'deeper') && !@deep_merge_options.empty? -%>
 :deep_merge_options:
   <%- @deep_merge_options.each do |option_key, option_value| -%>
   :<%= option_key %>: <%= option_value %>
