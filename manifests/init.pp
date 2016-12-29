@@ -231,7 +231,7 @@ class hiera (
       path    => "${confdir}/puppet.conf",
       section => 'main',
       setting => 'hiera_config',
-      value   => $hiera_yaml,
+      value   => '$confdir/hiera.yaml',
     }
     $master_subscribe = [
       File[$hiera_yaml],

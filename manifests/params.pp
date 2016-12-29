@@ -19,8 +19,8 @@ class hiera::params {
   $package_name   = 'hiera'
   $hierarchy      = []
   if str2bool($::is_pe) {
-    $hiera_yaml     = '/etc/puppetlabs/puppet/hiera.yaml'
-    $datadir        = '/etc/puppetlabs/puppet/hieradata'
+    $hiera_yaml     = "${confdir}/hiera.yaml"
+    $datadir        = "${confdir}/hieradata"
     $owner          = 'pe-puppet'
     $group          = 'pe-puppet'
     $cmdpath        = ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
