@@ -9,12 +9,16 @@
   "issues_url": "https://github.com/voxpupuli/puppet-hiera/issues",
   "dependencies": [
     {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.6.0 < 5.0.0"
-    },
-    {
       "name": "puppetlabs/inifile",
       "version_requirement": ">= 1.4.1 < 2.0.0"
+    },
+    {
+      "name": "puppetlabs/puppetserver_gem",
+      "version_requirement": ">= 0.2.0 < 1.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.6.0 < 5.0.0"
     }
   ],
   "data_provider": null,
