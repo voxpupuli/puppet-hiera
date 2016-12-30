@@ -7,8 +7,7 @@ describe 'hiera' do
         {
           puppetversion: '3.8.6',
           is_pe: false,
-          pe_version: '0.0.0',
-          pe_server_version: '0.0.0'
+          pe_version: '0.0.0'
         }
       end
       describe 'default params' do
@@ -301,8 +300,7 @@ describe 'hiera' do
         {
           puppetversion: Puppet.version,
           is_pe: false,
-          pe_version: '0.0.0',
-          pe_server_version: '0.0.0'
+          pe_version: '0.0.0'
         }
       end
       describe 'default params' do
