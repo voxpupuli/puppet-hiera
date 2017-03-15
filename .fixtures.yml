@@ -2,5 +2,6 @@ fixtures:
   symlinks:
     "hiera": "#{source_dir}"
   repositories:
-    "stdlib": "git://github.com/puppetlabs/puppetlabs-stdlib.git"
-    "inifile": "git://github.com/puppetlabs/puppetlabs-inifile.git"
+    "inifile":          "git://github.com/puppetlabs/puppetlabs-inifile.git"
+    "puppetserver_gem": "git://github.com/puppetlabs/puppetlabs-puppetserver_gem.git"
+    "stdlib":           "git://github.com/puppetlabs/puppetlabs-stdlib.git"
