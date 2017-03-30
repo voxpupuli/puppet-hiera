@@ -59,7 +59,7 @@ define hiera::install (
       }
       elsif $gem_source {
         # Use a local source, like the package providers would
-        validate_absolute_path($gem_source)
+        assert_type(Stdlib::Absolutepath, $gem_source)
         $source_flag = '--local'
       } else {
         $source_flag = undef
