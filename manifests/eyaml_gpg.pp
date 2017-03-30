@@ -33,8 +33,7 @@ class hiera::eyaml_gpg {
       gem_version => $ruby_gpg_version,
       gem_source  => $ruby_gpg_source,
     }
-    ->
-    ::hiera::install { 'hiera-eyaml-gpg':
+    -> ::hiera::install { 'hiera-eyaml-gpg':
       gem_name    => $eyaml_gpg_name,
       provider    => $provider,
       gem_version => $eyaml_gpg_version,
