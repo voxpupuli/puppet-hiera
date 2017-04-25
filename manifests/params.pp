@@ -14,10 +14,12 @@
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 #
 class hiera::params {
-  $confdir        = $::settings::confdir
-  $package_ensure = 'present'
-  $package_name   = 'hiera'
-  $hierarchy      = []
+  $confdir          = $::settings::confdir
+  $hiera_version    = '3'
+  $hiera5_defaults  = {}
+  $package_ensure   = 'present'
+  $package_name     = 'hiera'
+  $hierarchy        = []
   if str2bool($::is_pe) {
     $hiera_yaml     = '/etc/puppetlabs/puppet/hiera.yaml'
     $datadir        = '/etc/puppetlabs/puppet/hieradata'

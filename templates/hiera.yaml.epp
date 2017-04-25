@@ -1,0 +1,67 @@
+# hiera.yaml Managed by Puppet
+version: <%= $hiera::hiera_version %>
+defaults:
+<%- if $hiera::hiera5_defaults and $hiera::hiera5_defaults.is_a(Hash) { -%>
+<%- $hiera::hiera5_defaults.each |$dk, $dv| { -%>
+  <%= $dk -%>: <%= $dv %>
+<% } -%>
+<% } -%>
+hierarchy:
+<%- $hiera::hierarchy.each |$hr| { %>
+<% if $hr['name'] and $hr['name'].is_a(String) { -%>
+  - name: "<%= $hr['name'] -%>"
+<% } -%>
+<% if $hr['path'] and $hr['path'].is_a(String) { -%>
+    path: "<%= $hr['path'] -%>"
+<% } -%>
+<% if $hr['paths'] and $hr['paths'].is_a(Array) { -%>
+    paths:
+      <%- $hr['paths'].each |$path| { -%>
+      - "<%= $path %>"
+      <%- } -%>
+<% } -%>
+<% if $hr['glob'] and $hr['glob'].is_a(String) { -%>
+    glob: "<%= $hr['glob'] -%>"
+<% } -%>
+<% if $hr['globs'] and $hr['globs'].is_a(Array) { -%>
+    globs:
+     <%- $hr['globs'].each |$glob| { -%>
+      - "<%= $glob %>"
+      <%- } -%>
+<% } -%>
+<% if $hr['uri'] and $hr['uri'].is_a(String) { -%>
+    uri: "<%= $hr['uri'] -%>"
+<% } -%>
+<% if $hr['uris'] and $hr['uris'].is_a(Array) { -%>
+    uris:
+     <%- $hr['uris'].each |$uri| { -%>
+      - "<%= $uri %>"
+      <%- } -%>
+<% } -%>
+<% if $hr['data_hash'] and $hr['data_hash'].is_a(String) { -%>
+    data_hash: "<%= $hr['data_hash'] -%>"
+<% } -%>
+<% if $hr['lookup_key'] and $hr['lookup_key'] == 'eyaml_lookup_key' { -%>
+    lookup_key: <%= $hr['lookup_key'] %>
+<% } -%>
+<% if $hr['data_dig'] and $hr['data_dig'].is_a(String) { -%>
+    data_dig: "<%= $hr['data_dig'] %>"
+<% } -%>
+<% if $hr['hiera3_backend'] and $hr['hiera3_backend'].is_a(String) { -%>
+    hiera3_backend: <%= $hr['hiera3_backend'] %>
+<% } -%>
+<% if $hr['options'] and $hr['options'].is_a(Hash) { -%>
+    <%- if $hr['options']['pkcs7_private_key'] and $hr['options']['pkcs7_private_key'].is_a(String) { -%>
+      pkcs7_private_key: <%= $hiera::keysdir -%>/<%= $hr['options']['pkcs7_private_key'] %>
+      <%- } -%>
+      <%- if $hr['options']['pkcs7_public_key'] and $hr['options']['pkcs7_public_key'].is_a(String) { -%>
+      pkcs7_public_key: <%= $hiera::keysdir -%>/<%= $hr['options']['pkcs7_public_key'] %>
+      <%- } -%>
+      <%- if $hr['options']['connections'] and $hr['options']['connections'].is_a(Hash) { -%>
+      connections:
+        <%- $hr['options']['connections'].each |$ck, $cv| { -%>
+        <%= $ck -%>: <%= $cv %>
+        <%- } -%>   
+      <%- } -%>
+<% } -%>     
+<% } -%>

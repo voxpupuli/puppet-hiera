@@ -44,6 +44,8 @@ class hiera (
   $backends                = ['yaml'],
   $backend_options         = {},
   $hiera_yaml              = $::hiera::params::hiera_yaml,
+  $hiera_version           = $::hiera::params::hiera_version,
+  $hiera5_defaults         = $::hiera::params::hiera5_defaults,
   $create_symlink          = true,
   $datadir                 = $::hiera::params::datadir,
   $datadir_manage          = true,
@@ -79,7 +81,6 @@ class hiera (
   $eyaml_gpg_recipients    = undef,
   $eyaml_pkcs7_private_key = undef,
   $eyaml_pkcs7_public_key  = undef,
-
   $ruby_gpg_name           = 'ruby_gpg',
   $ruby_gpg_version        = undef,
   $ruby_gpg_source         = undef,
@@ -214,9 +215,16 @@ class hiera (
   # - $merge_behavior
   # - $deep_merge_options
   # - $extra_config
+  
+  # Determine hiera version
+  case $hiera_version {
+    '5':      { $hiera_template = epp('hiera/hiera.yaml.epp') }       # Apply epp if hiera version is 5
+    default:  { $hiera_template = template('hiera/hiera.yaml.erb') }  # Apply erb for default version 3
+  }
+
   file { $hiera_yaml:
     ensure  => present,
-    content => template('hiera/hiera.yaml.erb'),
+    content =>  $hiera_template,
   }
   # Symlink for hiera command line tool
   if $create_symlink {
