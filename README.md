@@ -62,6 +62,20 @@ class { 'hiera':
   ],
 }
 ```
+## For Hiera version 5
+```puppet
+class { 'hiera':
+          hiera_version   =>  '5',
+          hiera5_defaults =>  {"datadir" => "data", "data_hash" => "yaml_data"},
+          hierarchy       =>  [
+                                {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{::virtual}.yaml"},
+                                {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{::trusted.cerntname}.yaml', 'nodes/%{::osfamily}.yaml']},
+                                {"name" =>  "Default yaml file", "path" =>  "common.yaml"},
+                              ],
+}
+```
+# Note: For Hiera version 5 when calling the class, please remember to pass '5' to 'hiera_version' as in the example above.
+# Also please note that 'hierarchy' is an array of hash in version 5.
 
 The resulting output in /etc/puppet/hiera.yaml:
 
@@ -77,6 +91,27 @@ The resulting output in /etc/puppet/hiera.yaml:
 
 :yaml:
    :datadir: /etc/puppet/hieradata
+```
+## Resulting output for Hiera 5
+
+```yaml
+# hiera.yaml Managed by Puppet
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+hierarchy:
+
+  - name: "Virtual yaml"
+    path: "virtual/%{::virtual}.yaml"
+
+  - name: "Nodes yaml"
+    paths:
+      - "nodes/%{::trusted.cerntname}.yaml"
+      - "nodes/%{::osfamily}.yaml"
+
+  - name: "Default yaml file"
+    path: "common.yaml"
 ```
 
 ## Usage
@@ -100,6 +135,7 @@ class { 'hiera':
   merge_behavior => 'deeper'
 }
 ```
+# For Hiera version 5 please see the example above in beginning with Hiera.
 
 The resulting output in /etc/puppet/hiera.yaml:
 
@@ -241,6 +277,15 @@ The following parameters are available for the hiera class:
 * `hierarchy`
   The hiera hierarchy.
   Default: `[]`
+  For Hiera verison 5.
+  Default: `[{}]`
+* `hiera5_defaults`
+  To set hiera 5 defaults.
+  Default: `{}`
+* `hiera_version`
+  Version format to layout hiera.yaml.
+  Should be a string.
+  Default: `3`
 * `backends`
   The list of backends.
   Default: `['yaml']`

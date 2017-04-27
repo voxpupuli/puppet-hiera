@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest Vox Pupuli modulesync defaults.
 These should not impact the functionality of the module.
 
+## 2017-04-27 - Release 2.4.1
+
+This is the first release with hiera version 5 support
+* Added support for hiera version 5
+* Added new epp template for hiera 5
+* Added new variables with type checking for hiera 5
+
 ## 2017-01-13 - Release 2.4.0
 
 This is the last release with Puppet 3 support!

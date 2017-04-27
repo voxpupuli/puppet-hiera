@@ -11,6 +11,7 @@
 # Installs either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml.
 # Links /etc/hiera.yaml to the above file.
 # Creates $datadir (if $datadir_manage == true).
+# Creates hiera.yaml in hiera version 5 format if hiera_version = 5 is passed to the class
 #
 # === Requires:
 #
@@ -24,6 +25,20 @@
 #       'common',
 #     ],
 #   }
+#
+# === Sample Usage for Hiera 5:
+#
+#   class { 'hiera':
+#     hiera_version   =>  '5',
+#     hiera5_defaults =>  {"datadir" => "data", "data_hash" => "yaml_data"},
+#     hierarchy       =>  [
+#                                 {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{::virtual}.yaml"},
+#                                 {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{::trusted.cerntname}.yaml', 'nodes/%{::osfamily}.yaml']},
+#                                 {"name" =>  "Global yaml file", "path" =>  "common.yaml"},
+#                         ],
+#   }
+#
+# Note: Please note that hiera 5 hierarchy should be an array of hash
 #
 # === Authors:
 #
@@ -40,53 +55,53 @@
 # Copyright (C) 2016 Vox Pupuli, unless otherwise noted.
 #
 class hiera (
-  $hierarchy               = $::hiera::params::hierarchy,
-  $backends                = ['yaml'],
-  $backend_options         = {},
-  $hiera_yaml              = $::hiera::params::hiera_yaml,
-  $hiera_version           = $::hiera::params::hiera_version,
-  $hiera5_defaults         = $::hiera::params::hiera5_defaults,
-  $create_symlink          = true,
-  $datadir                 = $::hiera::params::datadir,
-  $datadir_manage          = true,
-  $owner                   = $::hiera::params::owner,
-  $group                   = $::hiera::params::group,
-  $provider                = $::hiera::params::provider,
-  $eyaml                   = false,
-  $eyaml_name              = 'hiera-eyaml',
-  $eyaml_version           = undef,
-  $eyaml_source            = undef,
-  $eyaml_datadir           = undef,
-  $eyaml_extension         = undef,
-  $confdir                 = $::hiera::params::confdir,
-  $puppet_conf_manage      = true,
-  $logger                  = 'console',
-  $cmdpath                 = $::hiera::params::cmdpath,
-  $create_keys             = true,
-  $keysdir                 = undef,
-  $deep_merge_name         = 'deep_merge',
-  $deep_merge_version      = undef,
-  $deep_merge_source       = undef,
-  $deep_merge_options      = {},
-  $merge_behavior          = undef,
-  $extra_config            = '',
-  $master_service          = $::hiera::params::master_service,
-  $manage_package          = $::hiera::params::manage_package,
-  $package_name            = $::hiera::params::package_name,
-  $package_ensure          = $::hiera::params::package_ensure,
-  $eyaml_gpg_name          = 'hiera-eyaml-gpg',
-  $eyaml_gpg_version       = undef,
-  $eyaml_gpg_source        = undef,
-  $eyaml_gpg               = false,
-  $eyaml_gpg_recipients    = undef,
-  $eyaml_pkcs7_private_key = undef,
-  $eyaml_pkcs7_public_key  = undef,
-  $ruby_gpg_name           = 'ruby_gpg',
-  $ruby_gpg_version        = undef,
-  $ruby_gpg_source         = undef,
+  Variant[Array, Array[Hash]] $hierarchy    = $::hiera::params::hierarchy,
+  Optional[Enum['3','5']] $hiera_version    = $::hiera::params::hiera_version,
+  Hiera::Hiera5_defaults $hiera5_defaults   = $::hiera::params::hiera5_defaults,
+  $backends                                 = ['yaml'],
+  $backend_options                          = {},
+  $hiera_yaml                               = $::hiera::params::hiera_yaml,
+  $create_symlink                           = true,
+  $datadir                                  = $::hiera::params::datadir,
+  $datadir_manage                           = true,
+  $owner                                    = $::hiera::params::owner,
+  $group                                    = $::hiera::params::group,
+  $provider                                 = $::hiera::params::provider,
+  $eyaml                                    = false,
+  $eyaml_name                               = 'hiera-eyaml',
+  $eyaml_version                            = undef,
+  $eyaml_source                             = undef,
+  $eyaml_datadir                            = undef,
+  $eyaml_extension                          = undef,
+  $confdir                                  = $::hiera::params::confdir,
+  $puppet_conf_manage                       = true,
+  $logger                                   = 'console',
+  $cmdpath                                  = $::hiera::params::cmdpath,
+  $create_keys                              = true,
+  $keysdir                                  = undef,
+  $deep_merge_name                          = 'deep_merge',
+  $deep_merge_version                       = undef,
+  $deep_merge_source                        = undef,
+  $deep_merge_options                       = {},
+  $merge_behavior                           = undef,
+  $extra_config                             = '',
+  $master_service                           = $::hiera::params::master_service,
+  $manage_package                           = $::hiera::params::manage_package,
+  $package_name                             = $::hiera::params::package_name,
+  $package_ensure                           = $::hiera::params::package_ensure,
+  $eyaml_gpg_name                           = 'hiera-eyaml-gpg',
+  $eyaml_gpg_version                        = undef,
+  $eyaml_gpg_source                         = undef,
+  $eyaml_gpg                                = false,
+  $eyaml_gpg_recipients                     = undef,
+  $eyaml_pkcs7_private_key                  = undef,
+  $eyaml_pkcs7_public_key                   = undef,
+  $ruby_gpg_name                            = 'ruby_gpg',
+  $ruby_gpg_version                         = undef,
+  $ruby_gpg_source                          = undef,
 
   #Deprecated
-  $gem_source              = undef,
+  $gem_source                               = undef,
 ) inherits ::hiera::params {
 
   if $keysdir {
@@ -215,16 +230,31 @@ class hiera (
   # - $merge_behavior
   # - $deep_merge_options
   # - $extra_config
+
+  # Hiera 5 additional parameters:
+  # - hiera_version (String)
+  # - hiera5_defaults (Hash)
+  # - hierarchy (Array[Hash])
   
   # Determine hiera version
   case $hiera_version {
-    '5':      { $hiera_template = epp('hiera/hiera.yaml.epp') }       # Apply epp if hiera version is 5
-    default:  { $hiera_template = template('hiera/hiera.yaml.erb') }  # Apply erb for default version 3
+    '5':          { if $hierarchy !~ Hiera::Hiera5_hierarchy {
+                      fail("$hierarchy should be an array of hash")
+                    }
+                    else
+                    { $hiera_template = epp('hiera/hiera.yaml.epp',
+                                            {
+                                              "hiera_version"   => $hiera_version,
+                                              "hiera5_defaults" => $hiera5_defaults,
+                                              "hierarchy"       => $hierarchy 
+                                            })
+                    }
+                  }                                                         # Apply epp if hiera version is 5
+    default:      { $hiera_template = template('hiera/hiera.yaml.erb') }    # Apply erb for default version 3
   }
-
   file { $hiera_yaml:
     ensure  => present,
-    content =>  $hiera_template,
+    content => $hiera_template,
   }
   # Symlink for hiera command line tool
   if $create_symlink {
