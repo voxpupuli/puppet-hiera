@@ -397,6 +397,10 @@ The following parameters are available for the hiera class:
   hiera.yaml changes.
   **Note**: You must pass `master_service => 'puppetserver'` for FOSS puppetserver
   Default: 'pe-puppetserver' for PE 2015.x, otherwise 'puppetmaster'
+* `gem_install_options`
+  An array of install options to pass to the gem package resources.  Typically,
+  this parameter is used to specify a proxy server. eg
+  `gem_install_options => ['--http-proxy', 'http://proxy.example.com:3128']`
 
 [eyaml]: https://github.com/TomPoulton/hiera-eyaml
 

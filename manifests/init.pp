@@ -84,6 +84,8 @@ class hiera (
   $ruby_gpg_version        = undef,
   $ruby_gpg_source         = undef,
 
+  Optional[Array] $gem_install_options = undef,
+
   #Deprecated
   $gem_source              = undef,
 ) inherits ::hiera::params {
