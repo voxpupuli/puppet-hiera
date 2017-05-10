@@ -33,7 +33,7 @@
 #     hiera5_defaults =>  {"datadir" => "data", "data_hash" => "yaml_data"},
 #     hierarchy       =>  [
 #                                 {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{::virtual}.yaml"},
-#                                 {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{::trusted.cerntname}.yaml', 'nodes/%{::osfamily}.yaml']},
+#                                 {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml']},
 #                                 {"name" =>  "Global yaml file", "path" =>  "common.yaml"},
 #                         ],
 #   }
@@ -235,18 +235,18 @@ class hiera (
   # - hiera_version (String)
   # - hiera5_defaults (Hash)
   # - hierarchy (Array[Hash])
-  
+
   # Determine hiera version
   case $hiera_version {
     '5':          { if $hierarchy !~ Hiera::Hiera5_hierarchy {
-                      fail("$hierarchy should be an array of hash")
+                      fail{"${hierarchy} should be an array of hash":}
                     }
                     else
                     { $hiera_template = epp('hiera/hiera.yaml.epp',
                                             {
-                                              "hiera_version"   => $hiera_version,
-                                              "hiera5_defaults" => $hiera5_defaults,
-                                              "hierarchy"       => $hierarchy 
+                                              'hiera_version'   => $hiera_version,
+                                              'hiera5_defaults' => $hiera5_defaults,
+                                              'hierarchy'       => $hierarchy
                                             })
                     }
                   }                                                         # Apply epp if hiera version is 5
