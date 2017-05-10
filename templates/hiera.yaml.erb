@@ -1,6 +1,6 @@
 # managed by puppet
 ---
-<%= { :backends => @requested_backends }.to_yaml.gsub(/---\s+/, '').gsub(/\!ruby\/sym\s/, ':') -%>
+<%= { :backends => @requested_backends }.to_yaml.gsub(/---\s+/, '').gsub(/\!ruby\/sym\s/, ':').gsub(/\s+$/,'') -%>
 
 :logger: <%= @logger %>
 
@@ -12,7 +12,7 @@
 <%- all_backends = @backend_data.inject({}){|data,(k,v)| data[k.to_sym] = v; data} -%>
 <%# symobolize backend option keys because hiera backends assume the usage of symbols :( -%>
 <%- b_data = all_backends[backend_name.to_sym].inject({}){|data,(k,v)| data[k.to_sym] = v; data} -%>
-<%= { backend_name.to_sym => b_data }.to_yaml.gsub(/---\s+/, '').gsub(/\!ruby\/sym\s/, ':') -%>
+<%= { backend_name.to_sym => b_data }.to_yaml.gsub(/---\s+/, '').gsub(/\!ruby\/sym\s/, ':').gsub(/\s+$/,'') -%>
 <%- end -%>
 
 <% if @merge_behavior -%>
