@@ -4,11 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest Vox Pupuli modulesync defaults.
 These should not impact the functionality of the module.
 
+## 2017-05-10 - Release 3.0.0
+
+puppet/hiera no longer supports Puppet 3
+* [GH-191](https://github.com/voxpupuli/puppet-hiera/pull/191)
+  Replace validate_* calls with Puppet 4 data types
+* [GH-187](https://github.com/voxpupuli/puppet-hiera/issues/187)
+  Add parameter for passing gem install options.
+  Especially helpful for those who need to use an http proxy when installing gems.
+
 ## 2017-01-13 - Release 2.4.0
 
 This is the last release with Puppet 3 support!
 * Do not make files in the gnupg home executable
-* Support deep_merge_options with 'deeper' merge_behavior 
+* Support deep_merge_options with 'deeper' merge_behavior
 * Correct spelling of @merge_behavior in template
 * Bump min version_requirement for Puppet + deps
 * Strict variables fix for `pe_server_version`
