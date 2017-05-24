@@ -280,7 +280,7 @@ The following parameters are available for the hiera class:
   For Hiera verison 5.
   Default: `[{}]`
 * `hiera5_defaults`
-  To set hiera 5 defaults.
+  To set hiera 5 defaults. e.g. datadir, data_hash
   Default: `{}`
 * `hiera_version`
   Version format to layout hiera.yaml.
