@@ -529,7 +529,7 @@ describe 'hiera' do
       end
     end
     context 'hiera version 5' do
-      let (:facts) do
+      let(:facts) do
         {
           puppetversion: Puppet.version,
           pe_version: '0.0.0'
@@ -549,23 +549,23 @@ describe 'hiera' do
         it { is_expected.to contain_class('hiera::deep_merge') }
       end
       describe 'check if version exists' do
-          let (:params) do
-            {
-              hiera_version: '5',
-            }
-          end
-          let (:content) do
-            catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
-          end
-          it 'include version 5' do
-            expect(content).to include(%(version: 5\n))
-          end
+        let(:params) do
+          {
+            hiera_version: '5'
+          }
+        end
+        let(:content) do
+          catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+        end
+        it 'include version 5' do
+          expect(content).to include(%(version: 5\n))
+        end
       end
       describe 'check version 5 and defaults' do
-        let (:params) do
+        let(:params) do
           {
             hiera_version: '5',
-            hiera5_defaults: {'datadir' => 'data', 'data_hash' => 'yaml_data'}
+            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' }
           }
         end
         it 'has version 5 and defaults section' do
@@ -578,10 +578,10 @@ describe 'hiera' do
         end
       end
       describe 'check if lookup_key is passed to defaults' do
-        let (:params) do
+        let(:params) do
           {
             hiera_version: '5',
-            hiera5_defaults: {'datadir' => 'data', 'data_hash' => 'yaml_data', 'lookup_key' => 'eyaml_lookup_key'}
+            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'lookup_key' => 'eyaml_lookup_key' }
           }
         end
         it 'has lookup_key' do
@@ -595,10 +595,10 @@ describe 'hiera' do
         end
       end
       describe 'check if data_dig is passed to defaults' do
-        let (:params) do
+        let(:params) do
           {
             hiera_version: '5',
-            hiera5_defaults: {'datadir' => 'data', 'data_hash' => 'yaml_data', 'data_dig' => 'my_data_dig'}
+            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'data_dig' => 'my_data_dig' }
           }
         end
         it 'has data_dig' do
@@ -613,15 +613,15 @@ describe 'hiera' do
       end
       describe 'hiera5 hiera.yaml template' do
         describe 'hierarchy section' do
-          let (:params) do
+          let(:params) do
             {
               hiera_version: '5',
-              hiera5_defaults: {'datadir' => 'data', 'data_hash' => 'yaml_data'},
+              hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
               hierarchy:  [
-                            {"name" =>  "Virtual yaml", "path"     =>  "virtual/%{::virtual}.yaml"},
-                            {"name" =>  "Nodes yaml", "paths"      =>  ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml']},
-                            {"name" =>  "Global yaml file", "path" =>  "common.yaml"}
-                          ]
+                { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' },
+                { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml'] },
+                { 'name' => 'Global yaml file', 'path' => 'common.yaml' }
+              ]
             }
           end
           it 'renders correctly' do
