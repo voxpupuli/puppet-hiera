@@ -74,8 +74,8 @@ class { 'hiera':
                               ],
 }
 ```
-# Note: For Hiera version 5 when calling the class, please remember to pass '5' to 'hiera_version' as in the example above.
-# Also please note that 'hierarchy' is an array of hash in version 5.
+** Note: For Hiera version 5 when calling the class, please remember to pass '5' to 'hiera_version' as in the example above. **
+** Also please note that 'hierarchy' is an array of hash in version 5. **
 
 The resulting output in /etc/puppet/hiera.yaml:
 
