@@ -630,7 +630,7 @@ describe 'hiera' do
                   ]
                 }
               end
-              
+
               it 'renders correctly' do
                 content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
                 hierarchy_section  = %(hierarchy:\n\n)
