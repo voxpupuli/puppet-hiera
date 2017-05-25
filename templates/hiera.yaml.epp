@@ -1,0 +1,73 @@
+<%- |
+  String      $hiera_version,
+  Hash        $hiera5_defaults,
+  Array[Hash] $hierarchy,
+| -%>
+# hiera.yaml Managed by Puppet
+version: <%= $hiera_version %>
+defaults:
+<%- if $hiera5_defaults { -%>
+<%- $hiera5_defaults.each |$dk, $dv| { -%>
+  <%= $dk -%>: <%= $dv %>
+<% } -%>
+<% } -%>
+hierarchy:
+<%- $hierarchy.each |$hr| { %>
+<% if $hr['name'] { -%>
+  - name: "<%= $hr['name'] -%>"
+<% } -%>
+<% if $hr['path'] { -%>
+    path: "<%= $hr['path'] -%>"
+<% } -%>
+<% if $hr['paths'] { -%>
+    paths:
+      <%- $hr['paths'].each |$path| { -%>
+      - "<%= $path %>"
+      <%- } -%>
+<% } -%>
+<% if $hr['glob'] { -%>
+    glob: "<%= $hr['glob'] -%>"
+<% } -%>
+<% if $hr['globs'] { -%>
+    globs:
+     <%- $hr['globs'].each |$glob| { -%>
+      - "<%= $glob %>"
+      <%- } -%>
+<% } -%>
+<% if $hr['uri'] { -%>
+    uri: "<%= $hr['uri'] -%>"
+<% } -%>
+<% if $hr['uris'] { -%>
+    uris:
+     <%- $hr['uris'].each |$uri| { -%>
+      - "<%= $uri %>"
+      <%- } -%>
+<% } -%>
+<% if $hr['data_hash'] { -%>
+    data_hash: "<%= $hr['data_hash'] -%>"
+<% } -%>
+<% if $hr['lookup_key'] { -%>
+    lookup_key: <%= $hr['lookup_key'] %>
+<% } -%>
+<% if $hr['data_dig'] { -%>
+    data_dig: "<%= $hr['data_dig'] %>"
+<% } -%>
+<% if $hr['hiera3_backend'] { -%>
+    hiera3_backend: <%= $hr['hiera3_backend'] %>
+<% } -%>
+<% if $hr['options'] { -%>
+    options:
+    <%- if $hr['options']['pkcs7_private_key'] { -%>
+      pkcs7_private_key: <%= $hr['options']['pkcs7_private_key'] %>
+      <%- } -%>
+      <%- if $hr['options']['pkcs7_public_key'] { -%>
+      pkcs7_public_key: <%= $hr['options']['pkcs7_public_key'] %>
+      <%- } -%>
+      <%- if $hr['options']['connections'] { -%>
+      connections:
+        <%- $hr['options']['connections'].each |$ck, $cv| { -%>
+        <%= $ck -%>: <%= $cv %>
+        <%- } -%>   
+      <%- } -%>
+<% } -%>
+<% } -%>
