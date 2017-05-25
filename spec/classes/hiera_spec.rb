@@ -529,113 +529,122 @@ describe 'hiera' do
       end
     end
     context 'hiera version 5' do
-      let(:facts) do
-        {
-          puppetversion: Puppet.version,
-          pe_version: '0.0.0'
-        }
-      end
-      describe 'default params' do
-        it { is_expected.to compile.with_all_deps }
-      end
-      describe 'other params' do
-        let(:params) do
-          {
-            eyaml: true,
-            merge_behavior: 'deeper'
-          }
-        end
-        it { is_expected.to contain_class('hiera::eyaml') }
-        it { is_expected.to contain_class('hiera::deep_merge') }
-      end
-      describe 'check if version exists' do
-        let(:params) do
-          {
-            hiera_version: '5'
-          }
-        end
-        let(:content) do
-          catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
-        end
-        it 'include version 5' do
-          expect(content).to include(%(version: 5\n))
-        end
-      end
-      describe 'check version 5 and defaults' do
-        let(:params) do
-          {
-            hiera_version: '5',
-            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' }
-          }
-        end
-        it 'has version 5 and defaults section' do
-          content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
-          defaults_section  = %(version: 5\n)
-          defaults_section += %(defaults:\n)
-          defaults_section += %(  datadir: data\n)
-          defaults_section += %(  data_hash: yaml_data\n)
-          expect(content).to include(defaults_section)
-        end
-      end
-      describe 'check if lookup_key is passed to defaults' do
-        let(:params) do
-          {
-            hiera_version: '5',
-            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'lookup_key' => 'eyaml_lookup_key' }
-          }
-        end
-        it 'has lookup_key' do
-          content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
-          lookup_key  = %(version: 5\n)
-          lookup_key += %(defaults:\n)
-          lookup_key += %(  datadir: data\n)
-          lookup_key += %(  data_hash: yaml_data\n)
-          lookup_key += %(  lookup_key: eyaml_lookup_key\n)
-          expect(content).to include(lookup_key)
-        end
-      end
-      describe 'check if data_dig is passed to defaults' do
-        let(:params) do
-          {
-            hiera_version: '5',
-            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'data_dig' => 'my_data_dig' }
-          }
-        end
-        it 'has data_dig' do
-          content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
-          data_dig  = %(version: 5\n)
-          data_dig += %(defaults:\n)
-          data_dig += %(  datadir: data\n)
-          data_dig += %(  data_hash: yaml_data\n)
-          data_dig += %(  data_dig: my_data_dig\n)
-          expect(content).to include(data_dig)
-        end
-      end
-      describe 'hiera5 hiera.yaml template' do
-        describe 'hierarchy section' do
-          let(:params) do
-            {
-              hiera_version: '5',
-              hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
-              hierarchy:  [
-                { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' },
-                { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml'] },
-                { 'name' => 'Global yaml file', 'path' => 'common.yaml' }
-              ]
-            }
+      on_supported_os.each do |os, facts|
+        context "on #{os} " do
+          let :facts do
+            facts
           end
-          it 'renders correctly' do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
-            hierarchy_section  = %(hierarchy:\n\n)
-            hierarchy_section += %(  - name: "Virtual yaml"\n)
-            hierarchy_section += %(    path: "virtual/%{::virtual}.yaml"\n\n)
-            hierarchy_section += %(  - name: "Nodes yaml"\n)
-            hierarchy_section += %(    paths:\n)
-            hierarchy_section += %(      - "nodes/%{::trusted.certname}.yaml"\n)
-            hierarchy_section += %(      - "nodes/%{::osfamily}.yaml"\n\n)
-            hierarchy_section += %(  - name: "Global yaml file"\n)
-            hierarchy_section += %(    path: "common.yaml"\n)
-            expect(content).to include(hierarchy_section)
+
+          describe 'default params' do
+            it { is_expected.to compile.with_all_deps }
+          end
+          describe 'other params' do
+            let(:params) do
+              {
+                eyaml: true,
+                merge_behavior: 'deeper'
+              }
+            end
+
+            it { is_expected.to contain_class('hiera::eyaml') }
+            it { is_expected.to contain_class('hiera::deep_merge') }
+          end
+          describe 'check if version exists' do
+            let(:params) do
+              {
+                hiera_version: '5'
+              }
+            end
+
+            let(:content) do
+              catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            end
+
+            it 'include version 5' do
+              expect(content).to include(%(version: 5\n))
+            end
+          end
+          describe 'check version 5 and defaults' do
+            let(:params) do
+              {
+                hiera_version: '5',
+                hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' }
+              }
+            end
+
+            it 'has version 5 and defaults section' do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              defaults_section  = %(version: 5\n)
+              defaults_section += %(defaults:\n)
+              defaults_section += %(  datadir: data\n)
+              defaults_section += %(  data_hash: yaml_data\n)
+              expect(content).to include(defaults_section)
+            end
+          end
+          describe 'check if lookup_key is passed to defaults' do
+            let(:params) do
+              {
+                hiera_version: '5',
+                hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'lookup_key' => 'eyaml_lookup_key' }
+              }
+            end
+
+            it 'has lookup_key' do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              lookup_key  = %(version: 5\n)
+              lookup_key += %(defaults:\n)
+              lookup_key += %(  datadir: data\n)
+              lookup_key += %(  data_hash: yaml_data\n)
+              lookup_key += %(  lookup_key: eyaml_lookup_key\n)
+              expect(content).to include(lookup_key)
+            end
+          end
+          describe 'check if data_dig is passed to defaults' do
+            let(:params) do
+              {
+                hiera_version: '5',
+                hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'data_dig' => 'my_data_dig' }
+              }
+            end
+
+            it 'has data_dig' do
+              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              data_dig  = %(version: 5\n)
+              data_dig += %(defaults:\n)
+              data_dig += %(  datadir: data\n)
+              data_dig += %(  data_hash: yaml_data\n)
+              data_dig += %(  data_dig: my_data_dig\n)
+              expect(content).to include(data_dig)
+            end
+          end
+          describe 'hiera5 hiera.yaml template' do
+            describe 'hierarchy section' do
+              let(:params) do
+                {
+                  hiera_version: '5',
+                  hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
+                  hierarchy:  [
+                    { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' },
+                    { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml'] },
+                    { 'name' => 'Global yaml file', 'path' => 'common.yaml' }
+                  ]
+                }
+              end
+              
+              it 'renders correctly' do
+                content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+                hierarchy_section  = %(hierarchy:\n\n)
+                hierarchy_section += %(  - name: "Virtual yaml"\n)
+                hierarchy_section += %(    path: "virtual/%{::virtual}.yaml"\n\n)
+                hierarchy_section += %(  - name: "Nodes yaml"\n)
+                hierarchy_section += %(    paths:\n)
+                hierarchy_section += %(      - "nodes/%{::trusted.certname}.yaml"\n)
+                hierarchy_section += %(      - "nodes/%{::osfamily}.yaml"\n\n)
+                hierarchy_section += %(  - name: "Global yaml file"\n)
+                hierarchy_section += %(    path: "common.yaml"\n)
+                expect(content).to include(hierarchy_section)
+              end
+            end
           end
         end
       end
