@@ -241,7 +241,7 @@ class hiera (
   # Determine hiera version
   case $hiera_version {
     '5':  { if $hierarchy !~ Hiera::Hiera5_hierarchy {
-              fail("${hierarchy} should be an array of hash")
+              fail('${hierarchy} should be an array of hash')
             }
             else
               { $hiera_template = epp('hiera/hiera.yaml.epp',
