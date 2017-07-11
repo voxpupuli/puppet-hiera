@@ -11,13 +11,5 @@ type Hiera::Hiera5_hierarchy =  Array[Struct[{
                                   lookup_key      => Optional[Enum[eyaml_lookup_key]],
                                   data_dig        => Optional[String],
                                   hiera3_backend  => Optional[String],
-                                  options         => Optional[Struct[{
-                                    pkcs7_private_key   => Optional[String],
-                                    pkcs7_public_key    => Optional[String],
-                                    connections => Optional[Struct[{
-                                      dbname      => Optional[String],
-                                      collection  => Optional[String],
-                                      host        => Optional[String],
-                                      }]],
-                                    }]],
+                                  options         => Optional[Hash],
                                 }]]
