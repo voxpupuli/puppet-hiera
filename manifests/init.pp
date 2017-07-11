@@ -240,7 +240,7 @@ class hiera (
 
   # Determine hiera version
   case $hiera_version {
-    '5':  { if $hierarchy !~ Hiera::Hiera5_hierarchy {
+    '5':  { if ($hierarchy !~ Hiera::Hiera5_hierarchy) {
               fail('${hierarchy} should be an array of hash')
             }
             else
