@@ -57,17 +57,8 @@ hierarchy:
 <% } -%>
 <% if $hr['options'] { -%>
     options:
-    <%- if $hr['options']['pkcs7_private_key'] { -%>
-      pkcs7_private_key: <%= $hr['options']['pkcs7_private_key'] %>
-      <%- } -%>
-      <%- if $hr['options']['pkcs7_public_key'] { -%>
-      pkcs7_public_key: <%= $hr['options']['pkcs7_public_key'] %>
-      <%- } -%>
-      <%- if $hr['options']['connections'] { -%>
-      connections:
-        <%- $hr['options']['connections'].each |$ck, $cv| { -%>
-        <%= $ck -%>: <%= $cv %>
-        <%- } -%>   
-      <%- } -%>
+    <%- $hr['options'].each |$key,$value| { -%>
+      <%= $key %>: <%= $value %>
+    <%- } -%>
 <% } -%>
 <% } -%>
