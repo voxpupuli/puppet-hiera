@@ -62,7 +62,7 @@ class { 'hiera':
   ],
 }
 ```
-## For Hiera version 5
+### For Hiera version 5
 ```puppet
 class { 'hiera':
           hiera_version   =>  '5',
@@ -92,7 +92,7 @@ The resulting output in /etc/puppet/hiera.yaml:
 :yaml:
    :datadir: /etc/puppet/hieradata
 ```
-## Resulting output for Hiera 5
+### Resulting output for Hiera 5
 
 ```yaml
 # hiera.yaml Managed by Puppet
@@ -135,7 +135,7 @@ class { 'hiera':
   merge_behavior => 'deeper'
 }
 ```
-# For Hiera version 5 please see the example above in beginning with Hiera.
+## For Hiera version 5 please see the example above in beginning with Hiera.
 
 The resulting output in /etc/puppet/hiera.yaml:
 
