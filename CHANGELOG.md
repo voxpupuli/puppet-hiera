@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest Vox Pupuli modulesync defaults.
 These should not impact the functionality of the module.
 
+## 2017-08-29 - Release 3.1.0
+
+Introduce support for Hiera 5
+* [GH-194](https://github.com/voxpupuli/puppet-hiera/pull/197)
+  Add support for Hiera 5 hiera.yaml
+* [GH-197](https://github.com/voxpupuli/puppet-hiera/pull/197)
+  Fix bug in error code reporting type validation for hierarchy param
+* [GH-200](https://github.com/voxpupuli/puppet-hiera/pull/200)
+  Relax overly restrictive validation for hierarchy param
+
 ## 2017-05-10 - Release 3.0.0
 
 puppet/hiera no longer supports Puppet 3
