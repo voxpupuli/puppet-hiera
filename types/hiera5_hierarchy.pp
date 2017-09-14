@@ -10,6 +10,7 @@ type Hiera::Hiera5_hierarchy =  Array[Struct[{
                                   data_hash       => Optional[String],
                                   lookup_key      => Optional[String],
                                   data_dig        => Optional[String],
+                                  datadir         => Optional[String],
                                   hiera3_backend  => Optional[String],
                                   options         => Optional[Hash],
                                 }]]

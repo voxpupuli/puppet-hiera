@@ -52,6 +52,9 @@ hierarchy:
 <% if $hr['data_dig'] { -%>
     data_dig: "<%= $hr['data_dig'] %>"
 <% } -%>
+<% if $hr['datadir'] { -%>
+    datadir: "<%= $hr['datadir'] %>"
+<% } -%>
 <% if $hr['hiera3_backend'] { -%>
     hiera3_backend: <%= $hr['hiera3_backend'] %>
 <% } -%>
