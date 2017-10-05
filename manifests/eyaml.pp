@@ -23,7 +23,7 @@ class hiera::eyaml {
   $create_keys   = $::hiera::create_keys
   $_keysdir      = $::hiera::_keysdir
 
-  $manage_package = $::hiera::manage_package
+  $manage_package = $::hiera::manage_eyaml_package
 
   if $manage_package {
     ::hiera::install { 'eyaml':

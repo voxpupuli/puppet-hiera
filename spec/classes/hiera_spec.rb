@@ -343,9 +343,10 @@ describe 'hiera' do
         end
 
         it { is_expected.to compile }
-        it { is_expected.not_to contain_hiera__install('eyaml') }
-        it { is_expected.not_to contain_hiera__install('ruby_gpg') }
-        it { is_expected.not_to contain_hiera__install('hiera-eyaml-gpg') }
+        it { is_expected.not_to contain_package('hiera') }
+        it { is_expected.to contain_hiera__install('eyaml') }
+        it { is_expected.to contain_hiera__install('ruby_gpg') }
+        it { is_expected.to contain_hiera__install('hiera-eyaml-gpg') }
         it { is_expected.to contain_exec('createkeys').that_requires('File[/etc/keys]') }
       end
       describe 'param manage_package => true and create_keys => true' do

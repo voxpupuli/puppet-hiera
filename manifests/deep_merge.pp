@@ -15,7 +15,7 @@ class hiera::deep_merge {
   $deep_merge_version = $::hiera::deep_merge_version
   $deep_merge_source  = $::hiera::deep_merge_source
   $deep_merge_name    = $::hiera::deep_merge_name
-  $manage_package     = $::hiera::manage_package
+  $manage_package     = $::hiera::manage_deep_merge_package
 
   if $manage_package {
     ::hiera::install { 'deep_merge':
