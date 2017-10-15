@@ -17,7 +17,7 @@ class hiera::eyaml_gpg {
   $cmdpath           = $::hiera::cmdpath
   $_keysdir          = $::hiera::_keysdir
 
-  $manage_package = $::hiera::manage_package
+  $manage_package = $::hiera::manage_eyaml_gpg_package
 
   require ::hiera::eyaml
 
