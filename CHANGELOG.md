@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.3.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.0) (2017-10-15)
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.2.0...v3.3.0)
+
+**Implemented enhancements:**
+
+- Allow eyaml, eyaml\_gpg and deep\_merge packages to be installed independent of hiera package [\#208](https://github.com/voxpupuli/puppet-hiera/pull/208) ([treydock](https://github.com/treydock))
+
 ## [v3.2.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.2.0) (2017-09-17)
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.1.0...v3.2.0)
 
@@ -14,6 +21,10 @@ These should not affect the functionality of the module.
 **Closed issues:**
 
 - Release new tag incorporating \#197, \#200 [\#202](https://github.com/voxpupuli/puppet-hiera/issues/202)
+
+**Merged pull requests:**
+
+- Release 3.2.0 [\#207](https://github.com/voxpupuli/puppet-hiera/pull/207) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v3.1.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.1.0) (2017-08-31)
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.0.0...v3.1.0)
