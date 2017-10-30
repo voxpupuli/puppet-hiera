@@ -42,7 +42,7 @@ If you are using the eyaml backend on:
   module to install the eyaml gem using PE's gem command.
 * Puppet Enterprise 3.7 or 3.8 then you will need the [puppetlabs-pe_puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/pe_puppetserver_gem)
   module.
-* Puppet Enterprise 2015.x or FOSS puppetserver then you will need the [puppetlabs-puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/puppetserver_gem)
+* Puppet Enterprise 201x.y (ex: 2017.3) or FOSS puppetserver then you will need the [puppetlabs-puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/puppetserver_gem)
   module.
 
 ### Beginning with hiera
