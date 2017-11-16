@@ -12,6 +12,7 @@ AllCops:
     - Gemfile
     - Rakefile
     - Guardfile
+    - Vagrantfile
 Lint/ConditionPosition:
   Enabled: True
 
@@ -44,6 +45,9 @@ Style/HashSyntax:
 
 Style/RedundantReturn:
   Enabled: True
+
+Style/EndOfLine:
+  Enabled: False
 
 Lint/AmbiguousOperator:
   Enabled: True
@@ -535,3 +539,7 @@ Security/YAMLLoad:
 Style/FormatStringToken:
   Enabled: false
 
+# This is useful, but sometimes a little too picky about where unit tests files
+# are located.
+RSpec/FilePath:
+  Enabled: false
