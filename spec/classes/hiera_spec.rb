@@ -162,7 +162,7 @@ describe 'hiera' do
 
         it 'include backends' do
           backends = YAML.load(content)[:backends]
-          expect(backends).to eq(%w[eyaml yaml json yamll])
+          expect(backends).to eq(%w[yaml eyaml json yamll])
         end
         it 'include json backend' do
           backend = YAML.load(content)[:json]
