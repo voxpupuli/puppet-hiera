@@ -1,6 +1,6 @@
 {
   "name": "puppet-hiera",
-  "version": "3.3.2-rc0",
+  "version": "3.3.2",
   "author": "Vox Pupuli",
   "summary": "Deploy hiera.yaml with hierarchy, and datadir",
   "license": "Apache-2.0",

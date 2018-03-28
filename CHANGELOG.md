@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.3.2](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.2) (2018-03-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.1...v3.3.2)
+
+**Fixed bugs:**
+
+- Fix side affect in that the eyaml will always be first for backend lookups [\#216](https://github.com/voxpupuli/puppet-hiera/pull/216) ([mcmartins](https://github.com/mcmartins))
+
+**Merged pull requests:**
+
+- bump puppet to latest supported version 4.10.0 [\#217](https://github.com/voxpupuli/puppet-hiera/pull/217) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.3.1](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.1) (2017-12-09)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.0...v3.3.1)
@@ -11,7 +23,6 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - Update Setup Requirements [\#210](https://github.com/voxpupuli/puppet-hiera/pull/210) ([krisamundson](https://github.com/krisamundson))
-- Release 3.3.0 [\#209](https://github.com/voxpupuli/puppet-hiera/pull/209) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v3.3.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.0) (2017-10-16)
 
@@ -33,10 +44,6 @@ These should not affect the functionality of the module.
 
 - Release new tag incorporating \#197, \#200 [\#202](https://github.com/voxpupuli/puppet-hiera/issues/202)
 
-**Merged pull requests:**
-
-- Release 3.2.0 [\#207](https://github.com/voxpupuli/puppet-hiera/pull/207) ([bastelfreak](https://github.com/bastelfreak))
-
 ## [v3.1.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.1.0) (2017-08-31)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.0.0...v3.1.0)
@@ -52,7 +59,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 3.1.0 [\#203](https://github.com/voxpupuli/puppet-hiera/pull/203) ([reidmv](https://github.com/reidmv))
 - Minor README.md fixes [\#199](https://github.com/voxpupuli/puppet-hiera/pull/199) ([naeem98](https://github.com/naeem98))
 
 ## [v3.0.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.0.0) (2017-05-11)
@@ -69,10 +75,8 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 3.0.0 [\#196](https://github.com/voxpupuli/puppet-hiera/pull/196) ([alexjfisher](https://github.com/alexjfisher))
 - Add gem\_install\_options parameter [\#193](https://github.com/voxpupuli/puppet-hiera/pull/193) ([alexjfisher](https://github.com/alexjfisher))
 - Modulesync 0.19.0 [\#185](https://github.com/voxpupuli/puppet-hiera/pull/185) ([bastelfreak](https://github.com/bastelfreak))
-- release 2.4.0 [\#184](https://github.com/voxpupuli/puppet-hiera/pull/184) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v2.4.0](https://github.com/voxpupuli/puppet-hiera/tree/v2.4.0) (2017-01-13)
 
@@ -110,7 +114,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 2.3.0 [\#168](https://github.com/voxpupuli/puppet-hiera/pull/168) ([alexjfisher](https://github.com/alexjfisher))
 - modulesync 0.15.0 [\#167](https://github.com/voxpupuli/puppet-hiera/pull/167) ([bastelfreak](https://github.com/bastelfreak))
 - Update to new is\_expected.to syntax in favor of should [\#166](https://github.com/voxpupuli/puppet-hiera/pull/166) ([vStone](https://github.com/vStone))
 - Add missing badges [\#165](https://github.com/voxpupuli/puppet-hiera/pull/165) ([dhoppe](https://github.com/dhoppe))
@@ -130,7 +133,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- release for version 2.2.0 [\#157](https://github.com/voxpupuli/puppet-hiera/pull/157) ([logicminds](https://github.com/logicminds))
 - fixes issue with new backend merge logic [\#156](https://github.com/voxpupuli/puppet-hiera/pull/156) ([logicminds](https://github.com/logicminds))
 - modulesync 0.12.8 [\#155](https://github.com/voxpupuli/puppet-hiera/pull/155) ([bastelfreak](https://github.com/bastelfreak))
 - Fixes \#153 - Add support for 3rd party backends [\#154](https://github.com/voxpupuli/puppet-hiera/pull/154) ([logicminds](https://github.com/logicminds))
@@ -196,7 +198,6 @@ These should not affect the functionality of the module.
 - Fix issue where find returns exit code 0 regardless of a regex match [\#130](https://github.com/voxpupuli/puppet-hiera/pull/130) ([treydock](https://github.com/treydock))
 - Add new eyaml\_pkcs7\_public/private\_key params [\#127](https://github.com/voxpupuli/puppet-hiera/pull/127) ([alexjfisher](https://github.com/alexjfisher))
 - Allow puppetserver to be used with foss P3 [\#125](https://github.com/voxpupuli/puppet-hiera/pull/125) ([hunner](https://github.com/hunner))
-- Release 2.1.0 [\#123](https://github.com/voxpupuli/puppet-hiera/pull/123) ([hunner](https://github.com/hunner))
 - proper name for master\_service attribute [\#121](https://github.com/voxpupuli/puppet-hiera/pull/121) ([tuxmea](https://github.com/tuxmea))
 - Remove custom eyaml package from test [\#120](https://github.com/voxpupuli/puppet-hiera/pull/120) ([hunner](https://github.com/hunner))
 - GH-92: Default to undef for hierarchy on puppet 4+ [\#119](https://github.com/voxpupuli/puppet-hiera/pull/119) ([jyaworski](https://github.com/jyaworski))
@@ -212,7 +213,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 2.0.1 [\#112](https://github.com/voxpupuli/puppet-hiera/pull/112) ([hunner](https://github.com/hunner))
 - Fix rubocop trailing comma and errors [\#111](https://github.com/voxpupuli/puppet-hiera/pull/111) ([hunner](https://github.com/hunner))
 - Fixes bug in the latest push from PR \#102, that doesn't use the \_keysdir path when creating keys [\#110](https://github.com/voxpupuli/puppet-hiera/pull/110) ([smbambling](https://github.com/smbambling))
 
@@ -239,7 +239,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 1.4.1 [\#101](https://github.com/voxpupuli/puppet-hiera/pull/101) ([hunner](https://github.com/hunner))
 - Travis CI [\#100](https://github.com/voxpupuli/puppet-hiera/pull/100) ([rnelson0](https://github.com/rnelson0))
 - Add provider to class parameters [\#90](https://github.com/voxpupuli/puppet-hiera/pull/90) ([jyaworski](https://github.com/jyaworski))
 
@@ -253,7 +252,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 1.4.0 [\#99](https://github.com/voxpupuli/puppet-hiera/pull/99) ([hunner](https://github.com/hunner))
 - Only pass strings to versioncmp [\#98](https://github.com/voxpupuli/puppet-hiera/pull/98) ([hunner](https://github.com/hunner))
 - Added option to switch on/off the creation of the /etc/hiera.yaml [\#88](https://github.com/voxpupuli/puppet-hiera/pull/88) ([crayfishx](https://github.com/crayfishx))
 - Fixing 2015.2 handling [\#86](https://github.com/voxpupuli/puppet-hiera/pull/86) ([hunner](https://github.com/hunner))
@@ -265,7 +263,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 1.3.2 [\#81](https://github.com/voxpupuli/puppet-hiera/pull/81) ([hunner](https://github.com/hunner))
 - Clean up style of hiera.yaml.erb template [\#80](https://github.com/voxpupuli/puppet-hiera/pull/80) ([reidmv](https://github.com/reidmv))
 - Add default compatibility with PE 2015.2.0 [\#79](https://github.com/voxpupuli/puppet-hiera/pull/79) ([reidmv](https://github.com/reidmv))
 
@@ -288,7 +285,6 @@ These should not affect the functionality of the module.
 **Closed issues:**
 
 - eyaml datadir [\#61](https://github.com/voxpupuli/puppet-hiera/issues/61)
-- Generate a new release [\#48](https://github.com/voxpupuli/puppet-hiera/issues/48)
 - Allow user to specify version of hiera-eyaml [\#47](https://github.com/voxpupuli/puppet-hiera/issues/47)
 - Update Puppet Forge [\#26](https://github.com/voxpupuli/puppet-hiera/issues/26)
 
@@ -314,7 +310,6 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - Add eyaml gem version param [\#60](https://github.com/voxpupuli/puppet-hiera/pull/60) ([hunner](https://github.com/hunner))
-- Release 1.2.0 [\#59](https://github.com/voxpupuli/puppet-hiera/pull/59) ([hunner](https://github.com/hunner))
 - Terrimonster fix 37 prov [\#58](https://github.com/voxpupuli/puppet-hiera/pull/58) ([hunner](https://github.com/hunner))
 - Reformat parameters in README to be more readable [\#57](https://github.com/voxpupuli/puppet-hiera/pull/57) ([elyscape](https://github.com/elyscape))
 - Restructure/reformat change log [\#56](https://github.com/voxpupuli/puppet-hiera/pull/56) ([elyscape](https://github.com/elyscape))
@@ -336,7 +331,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 1.1.1 [\#41](https://github.com/voxpupuli/puppet-hiera/pull/41) ([hunner](https://github.com/hunner))
 - Make hiera::eyaml defaults come from base class [\#40](https://github.com/voxpupuli/puppet-hiera/pull/40) ([hunner](https://github.com/hunner))
 - Adds puppet forge link to readme [\#39](https://github.com/voxpupuli/puppet-hiera/pull/39) ([spuder](https://github.com/spuder))
 - Fix key generation [\#37](https://github.com/voxpupuli/puppet-hiera/pull/37) ([emning](https://github.com/emning))
@@ -357,7 +351,6 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - We want eyaml to come before yaml by default [\#29](https://github.com/voxpupuli/puppet-hiera/pull/29) ([hunner](https://github.com/hunner))
-- Release 1.1.0 [\#28](https://github.com/voxpupuli/puppet-hiera/pull/28) ([hunner](https://github.com/hunner))
 - Patch eyaml [\#27](https://github.com/voxpupuli/puppet-hiera/pull/27) ([hunner](https://github.com/hunner))
 - Add the ability to configure the eyaml file extension [\#25](https://github.com/voxpupuli/puppet-hiera/pull/25) ([awaxa](https://github.com/awaxa))
 - Extend template configuration options \(logger and merge\_behavior\) [\#22](https://github.com/voxpupuli/puppet-hiera/pull/22) ([pjfoley](https://github.com/pjfoley))
@@ -374,7 +367,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Release 1.0.1 [\#14](https://github.com/voxpupuli/puppet-hiera/pull/14) ([hunner](https://github.com/hunner))
 - fixed the README [\#12](https://github.com/voxpupuli/puppet-hiera/pull/12) ([dhgwilliam](https://github.com/dhgwilliam))
 - Stop Puppet 3 from squawking about variable access [\#11](https://github.com/voxpupuli/puppet-hiera/pull/11) ([hakamadare](https://github.com/hakamadare))
 
@@ -427,4 +419,4 @@ These should not affect the functionality of the module.
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
