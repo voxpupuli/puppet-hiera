@@ -166,10 +166,14 @@ class hiera (
       false => $eyaml_datadir,
       true  => $datadir,
     }
-    # the requested_backends has a side affect in that the eyaml will always be
-    # first for backend lookups.  This can be fixed by specifing the order in
-    # the backends parameter ie. ['yaml', 'eyaml', 'redis']
-    $requested_backends = unique(concat(['eyaml'], $backends))
+
+    # if eyaml is present in $backends, preserve its location!
+    if ( 'eyaml' in $backends ) {
+      $requested_backends = $backends
+    } else {
+      $requested_backends = unique(concat(['eyaml'], $backends))
+    }
+
   } else {
     $requested_backends = $backends
     $eyaml_real_datadir = undef
