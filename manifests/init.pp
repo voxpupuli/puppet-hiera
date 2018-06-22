@@ -102,6 +102,7 @@ class hiera (
   $ruby_gpg_name                            = 'ruby_gpg',
   $ruby_gpg_version                         = undef,
   $ruby_gpg_source                          = undef,
+  $backup                                   = false,
 
   Optional[Array] $gem_install_options = undef,
 
@@ -261,9 +262,18 @@ class hiera (
           }                                                             # Apply epp if hiera version is 5
     default:  { $hiera_template = template('hiera/hiera.yaml.erb') }    # Apply erb for default version 3
   }
-  file { $hiera_yaml:
-    ensure  => present,
-    content => $hiera_template,
+  if $backup {
+    file { $hiera_yaml:
+      ensure  => present,
+      content => $hiera_template,
+      backup  => '.bkp'
+    }
+  }
+  else {
+    file { $hiera_yaml:
+      ensure  => present,
+      content => $hiera_template,
+    }
   }
   # Symlink for hiera command line tool
   if $create_symlink {
