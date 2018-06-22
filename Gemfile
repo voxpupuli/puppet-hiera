@@ -12,7 +12,7 @@ end
 
 group :test do
   gem 'puppetlabs_spec_helper', '~> 2.6.0',                         :require => false
-  gem 'rspec-puppet', '~> 2.5',                                     :require => false
+#  gem 'rspec-puppet', '~> 2.5',                                     :require => false
   gem 'rspec-puppet-facts',                                         :require => false
   gem 'rspec-puppet-utils',                                         :require => false
   gem 'puppet-lint-leading_zero-check',                             :require => false
@@ -30,6 +30,11 @@ group :test do
   gem 'simplecov-console',                                          :require => false
   gem 'rack', '~> 1.0',                                             :require => false if RUBY_VERSION < '2.2.2'
   gem 'parallel_tests',                                             :require => false
+  if ENV['PUPPET_VERSION'] == '~> 4.0'
+    gem 'rspec-puppet', '<= 2.6.11', :require => false
+  else
+    gem 'rspec-puppet', '~> 2.5', :require => false
+  end
 end
 
 group :development do
