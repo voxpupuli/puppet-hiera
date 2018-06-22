@@ -266,7 +266,7 @@ class hiera (
     file { $hiera_yaml:
       ensure  => present,
       content => $hiera_template,
-      backup  => '.bkp'
+      backup  => '.bkp',
     }
   }
   else {
