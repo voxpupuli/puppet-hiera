@@ -32,4 +32,10 @@ RSpec.configure do |c|
   c.default_facts = default_facts
 end
 
+def get_content(subject, title)
+  is_expected.to contain_file(title)
+  content = subject.resource('file', title).send(:parameters)[:content]
+  content.split(/\n/).reject { |line| line =~ /(^#|^$|^\s+#)/ }
+end
+
 # vim: syntax=ruby
