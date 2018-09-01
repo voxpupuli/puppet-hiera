@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'puppet'
 
 describe 'hiera' do
   if Puppet.version =~ %r{(Puppet Enterprise 3|^3)}
