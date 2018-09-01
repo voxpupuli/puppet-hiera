@@ -379,7 +379,7 @@ describe 'hiera' do
           }
         end
         let(:content) do
-          catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+          get_content(catalogue, '/etc/puppet/hiera.yaml')
         end
 
         it 'encoding to not have ruby/sym' do
