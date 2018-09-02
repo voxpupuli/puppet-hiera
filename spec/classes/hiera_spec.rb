@@ -66,7 +66,7 @@ describe 'hiera' do
           end
 
           it 'renders correctly' do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
             hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
             hierarchy_section += %(  - "%{environment}"\n)
@@ -76,15 +76,15 @@ describe 'hiera' do
         end
         context 'when eyaml = false' do
           it 'does not contain eyaml: section' do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             expect(content).not_to include('eyaml:')
           end
           it do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             expect(content).not_to include('pkcs7_private_key')
           end
           it do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             expect(content).not_to include('pkcs7_public_key')
           end
         end
@@ -92,12 +92,12 @@ describe 'hiera' do
           let(:params) { { eyaml: true } }
 
           it 'contains an eyaml: section' do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             expect(content).to include('eyaml:')
           end
           context 'when eyaml_pkcs7_private_key not set (default)' do
             it do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{pkcs7_private_key: /etc/puppet/keys/private_key\.pkcs7\.pem})
             end
           end
@@ -110,13 +110,13 @@ describe 'hiera' do
             end
 
             it 'uses the provided private key path' do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{pkcs7_private_key: /path/to/private\.key})
             end
           end
           context 'when eyaml_pkcs7_public_key not set (default)' do
             it do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{pkcs7_public_key: /etc/puppet/keys/public_key\.pkcs7\.pem})
             end
           end
@@ -129,7 +129,7 @@ describe 'hiera' do
             end
 
             it 'uses the provided public key path' do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               expect(content).to match(%r{pkcs7_public_key: /path/to/public\.key})
             end
           end
@@ -153,7 +153,7 @@ describe 'hiera' do
           }
         end
         let(:content) do
-          catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+          catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
         end
 
         it 'encoding to not have ruby/sym' do
@@ -378,7 +378,7 @@ describe 'hiera' do
           }
         end
         let(:content) do
-          catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+          catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
         end
 
         it 'encoding to not have ruby/sym' do
@@ -401,8 +401,8 @@ describe 'hiera' do
         it 'include eyaml backend' do
           eyaml_backend = YAML.load(content)[:eyaml]
           expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
-          expect(eyaml_backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
-          expect(eyaml_backend[:pkcs7_public_key]).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
+          expect(eyaml_backend[:pkcs7_private_key]).to eq('/dev/null/keys/private_key.pkcs7.pem')
+          expect(eyaml_backend[:pkcs7_public_key]).to eq('/dev/null/keys/public_key.pkcs7.pem')
           expect(eyaml_backend.keys).not_to include(:encrypt_method)
           expect(eyaml_backend.keys).not_to include(:gpg_gnupghome)
           expect(eyaml_backend.keys).not_to include(:gpg_recipients)
@@ -430,10 +430,10 @@ describe 'hiera' do
           it 'include eyaml-gpg backend' do
             eyaml_backend = YAML.load(content)[:eyaml]
             expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
-            expect(eyaml_backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
-            expect(eyaml_backend[:pkcs7_public_key]).to eq('/etc/puppet/keys/public_key.pkcs7.pem')
+            expect(eyaml_backend[:pkcs7_private_key]).to eq('/dev/null/keys/private_key.pkcs7.pem')
+            expect(eyaml_backend[:pkcs7_public_key]).to eq('/dev/null/keys/public_key.pkcs7.pem')
             expect(eyaml_backend[:encrypt_method]).to eq('gpg')
-            expect(eyaml_backend[:gpg_gnupghome]).to eq('/etc/puppet/keys/gpg')
+            expect(eyaml_backend[:gpg_gnupghome]).to eq('/dev/null/keys/gpg')
             expect(eyaml_backend[:gpg_recipients]).to eq(nil)
             expect(eyaml_backend[:extension]).to eq(nil)
           end
@@ -453,7 +453,7 @@ describe 'hiera' do
             eyaml_backend = YAML.load(content)[:eyaml]
             expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
             expect(eyaml_backend[:encrypt_method]).to eq('gpg')
-            expect(eyaml_backend[:gpg_gnupghome]).to eq('/etc/puppet/keys/gpg')
+            expect(eyaml_backend[:gpg_gnupghome]).to eq('/dev/null/keys/gpg')
           end
         end
         # rubocop:enable RSpec/MultipleExpectations
@@ -502,7 +502,7 @@ describe 'hiera' do
           end
           it 'merge correctly' do
             backend = YAML.load(content)[:eyaml]
-            expect(backend[:pkcs7_private_key]).to eq('/etc/puppet/keys/private_key.pkcs7.pem')
+            expect(backend[:pkcs7_private_key]).to eq('/dev/null/keys/private_key.pkcs7.pem')
           end
         end
       end
@@ -519,7 +519,7 @@ describe 'hiera' do
           end
 
           it 'renders correctly' do
-            content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+            content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             hierarchy_section  = %(:hierarchy:\n)
             hierarchy_section += %(  - "%{environment}/%{calling_class}"\n)
             hierarchy_section += %(  - "%{environment}"\n)
@@ -583,7 +583,7 @@ describe 'hiera' do
             end
 
             let(:content) do
-              catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
             end
 
             it 'include version 5' do
@@ -599,7 +599,7 @@ describe 'hiera' do
             end
 
             it 'has version 5 and defaults section' do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               defaults_section  = %(version: 5\n)
               defaults_section += %(defaults:\n)
               defaults_section += %(  datadir: data\n)
@@ -616,7 +616,7 @@ describe 'hiera' do
             end
 
             it 'has lookup_key' do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               lookup_key  = %(version: 5\n)
               lookup_key += %(defaults:\n)
               lookup_key += %(  datadir: data\n)
@@ -634,7 +634,7 @@ describe 'hiera' do
             end
 
             it 'has data_dig' do
-              content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               data_dig  = %(version: 5\n)
               data_dig += %(defaults:\n)
               data_dig += %(  datadir: data\n)
@@ -658,7 +658,7 @@ describe 'hiera' do
               end
 
               it 'renders correctly' do
-                content = catalogue.resource('file', '/etc/puppet/hiera.yaml').send(:parameters)[:content]
+                content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
                 hierarchy_section  = %(hierarchy:\n\n)
                 hierarchy_section += %(  - name: "Virtual yaml"\n)
                 hierarchy_section += %(    path: "virtual/%{::virtual}.yaml"\n\n)
