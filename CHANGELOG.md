@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.3.3](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.3) (2018-09-07)
+## [v3.3.4](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.4) (2018-10-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.3...v3.3.4)
+
+**Merged pull requests:**
+
+- modulesync 2.2.0 and allow puppet 6.x and drop puppet 3 [\#236](https://github.com/voxpupuli/puppet-hiera/pull/236) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v3.3.3](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.3) (2018-09-09)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.2...v3.3.3)
 
