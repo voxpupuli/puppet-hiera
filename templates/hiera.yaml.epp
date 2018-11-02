@@ -60,8 +60,17 @@ hierarchy:
 <% } -%>
 <% if $hr['options'] { -%>
     options:
-    <%- $hr['options'].each |$key,$value| { -%>
+  <%- $hr['options'].each |$key,$value| { -%>
+    <%- if $value =~ Array { -%>
+      <%= $key %>:
+      <%- $value.each |$value| { -%>
+        - "<%= $value %>"
+      <%- } -%>
+    <%- } -%>
+    <%- else { -%>
       <%= $key %>: <%= $value %>
     <%- } -%>
-<% } -%>
+  <%- } -%>
+<%- } -%>
+
 <% } -%>

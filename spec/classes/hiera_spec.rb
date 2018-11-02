@@ -672,6 +672,42 @@ describe 'hiera' do
                 expect(content).to include(hierarchy_section)
               end
             end
+            describe 'hierarchy section with trocla backend' do
+              let(:params) do
+                {
+                  hiera_version: '5',
+                  hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
+                  hierarchy:  [
+                    { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' },
+                    { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml'] },
+                    { 'name' => 'Global yaml file', 'path' => 'common.yaml' },
+                    { 'name' => 'trocla', 'lookup_key' => 'trocla_lookup_key', 'options' => { 'trocla_hierarchy' => %w[nodes/%{facts.fqdn} roles/%{::role} defaults], 'config' => '/dev/null/etc/puppetlabs/puppet/troclarc.yaml' } }
+                  ]
+                }
+              end
+
+              it 'renders correctly' do
+                content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
+                hierarchy_section  = %(hierarchy:\n\n)
+                hierarchy_section += %(  - name: "Virtual yaml"\n)
+                hierarchy_section += %(    path: "virtual/%{::virtual}.yaml"\n\n)
+                hierarchy_section += %(  - name: "Nodes yaml"\n)
+                hierarchy_section += %(    paths:\n)
+                hierarchy_section += %(      - "nodes/%{::trusted.certname}.yaml"\n)
+                hierarchy_section += %(      - "nodes/%{::osfamily}.yaml"\n\n)
+                hierarchy_section += %(  - name: "Global yaml file"\n)
+                hierarchy_section += %(    path: "common.yaml"\n\n)
+                hierarchy_section += %(  - name: "trocla"\n)
+                hierarchy_section += %(    lookup_key: trocla_lookup_key\n)
+                hierarchy_section += %(    options:\n)
+                hierarchy_section += %(      trocla_hierarchy:\n)
+                hierarchy_section += %(        - "nodes/%{facts.fqdn}"\n)
+                hierarchy_section += %(        - "roles/%{::role}"\n)
+                hierarchy_section += %(        - "defaults"\n)
+                hierarchy_section += %(      config: /dev/null/etc/puppetlabs/puppet/troclarc.yaml\n)
+                expect(content).to include(hierarchy_section)
+              end
+            end
           end
         end
       end
