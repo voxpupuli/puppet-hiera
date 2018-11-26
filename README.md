@@ -385,8 +385,8 @@ The following parameters are available for the hiera class:
   A hash of options to set in hiera.yaml for the deep merge behavior.
   Default: `{}`
 * `manage_package`
-  A boolean for wether the hiera package should be managed. Defaults to `true` on
-  FOSS 3 but `false` otherwise.
+  A boolean for wether the hiera package should be managed.
+  Default: `false`
 * `package_name`
   Specifies the name of the hiera package. Default: 'hiera'
 * `package_ensure`
