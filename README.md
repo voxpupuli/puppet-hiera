@@ -336,7 +336,6 @@ The following parameters are available for the hiera class:
 * `datadir`
   The path to the directory where hiera will look for databases.
   Default:
-    * `'/etc/puppet/hieradata'` for Puppet Open Source
     * `'/etc/puppetlabs/puppet/hieradata'` for PE Puppet < 4
     * `'/etc/puppetlabs/code/environments/%{::environment}/hieradata'` for Puppet >= 4
 * `datadir_manage`
@@ -394,9 +393,7 @@ The following parameters are available for the hiera class:
   Specifies the ensure value of the hiera package. Default: 'present'
 * `confdir`
   The path to Puppet's confdir.
-  Default: `$::settings::confdir` which should be the following:
-    * `'/etc/puppet'` for Puppet Open Source
-    * `'/etc/puppetlabs/puppet'` for Puppet Enterprise
+  Default: `$::settings::confdir` which should be `'/etc/puppetlabs/puppet'`
 * `logger`
   Which hiera logger to use.
   **Note**: You need to manage any package/gem dependencies yourself.
