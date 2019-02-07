@@ -52,8 +52,8 @@ class hiera::params {
     $datadir        = '/etc/puppetlabs/code/environments/%{::environment}/hieradata'
     $manage_package = false
     if getvar('::pe_server_version') {
-      $owner = 'pe-puppet'
-      $group = 'pe-puppet'
+      $owner = 'root'
+      $group = 'root'
     } else {
       $owner = 'puppet'
       $group = 'puppet'
