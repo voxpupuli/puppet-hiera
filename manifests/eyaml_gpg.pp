@@ -12,8 +12,8 @@ class hiera::eyaml_gpg {
   $ruby_gpg_version  = $::hiera::ruby_gpg_version
   $ruby_gpg_source   = $::hiera::ruby_gpg_source
 
-  $owner             = $::hiera::owner
-  $group             = $::hiera::group
+  $owner             = $::hiera::eyaml_owner
+  $group             = $::hiera::eyaml_group
   $cmdpath           = $::hiera::cmdpath
   $_keysdir          = $::hiera::_keysdir
 
