@@ -262,7 +262,7 @@ class hiera (
     default:  { $hiera_template = template('hiera/hiera.yaml.erb') }    # Apply erb for default version 3
   }
   file { $hiera_yaml:
-    ensure  => present,
+    ensure  => file,
     content => $hiera_template,
   }
   # Symlink for hiera command line tool
