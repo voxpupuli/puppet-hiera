@@ -19,7 +19,7 @@ class hiera::eyaml_gpg {
 
   $manage_package = $::hiera::manage_eyaml_gpg_package
 
-  require ::hiera::eyaml
+  require hiera::eyaml
 
   File {
     owner => $owner,
