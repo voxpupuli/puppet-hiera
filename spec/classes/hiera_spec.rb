@@ -595,7 +595,14 @@ describe 'hiera' do
             let(:params) do
               {
                 hiera_version: '5',
-                hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' }
+                hiera5_defaults: {
+                  'datadir'   => 'data',
+                  'data_hash' => 'yaml_data',
+                  'options'   => {
+                    'pkcs7_private_key' => '/etc/pki/eyaml/private_key.pkcs7.pem',
+                    'pkcs7_public_key'  => '/etc/pki/eyaml/public_key.pkcs7.pem'
+                  }
+                }
               }
             end
 
@@ -605,6 +612,9 @@ describe 'hiera' do
               defaults_section += %(defaults:\n)
               defaults_section += %(  datadir: data\n)
               defaults_section += %(  data_hash: yaml_data\n)
+              defaults_section += %(  options:\n)
+              defaults_section += %(    pkcs7_private_key: /etc/pki/eyaml/private_key.pkcs7.pem\n)
+              defaults_section += %(    pkcs7_public_key: /etc/pki/eyaml/public_key.pkcs7.pem\n)
               expect(content).to include(defaults_section)
             end
           end

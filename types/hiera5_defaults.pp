@@ -4,5 +4,6 @@ type Hiera::Hiera5_defaults = Struct[{
                                 data_hash       =>  Enum['yaml_data', 'json_data', 'hocon_data'],
                                 lookup_key      =>  Optional[String],
                                 data_dig        =>  Optional[String],
-                                hiera3_backend  =>  Optional[String]
+                                hiera3_backend  =>  Optional[String],
+                                options         =>  Optional[Hash],
                               }]

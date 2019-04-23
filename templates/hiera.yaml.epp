@@ -8,7 +8,15 @@ version: <%= $hiera_version %>
 defaults:
 <%- if $hiera5_defaults { -%>
 <%- $hiera5_defaults.each |$dk, $dv| { -%>
+<%- if $dv =~ Hash[String,String] { -%>
+  <%= $dk -%>:
+<%- $dv.each |$ddk, $ddv| { -%>
+    <%= $ddk -%>: <%= $ddv %>
+<%- } -%>
+<%- } -%>
+<%- else { -%>
   <%= $dk -%>: <%= $dv %>
+<% } -%>
 <% } -%>
 <% } -%>
 hierarchy:
