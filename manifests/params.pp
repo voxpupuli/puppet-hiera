@@ -20,7 +20,7 @@ class hiera::params {
   $package_ensure   = 'present'
   $package_name     = 'hiera'
   $hierarchy        = []
-  if str2bool($::is_pe) {
+  if str2bool($facts['is_pe']) {
     $hiera_yaml     = '/etc/puppetlabs/puppet/hiera.yaml'
     $datadir        = '/etc/puppetlabs/puppet/hieradata'
     $owner          = 'pe-puppet'

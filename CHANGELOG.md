@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.4.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.4.0) (2019-04-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.4...v3.4.0)
+
+**Implemented enhancements:**
+
+- Support `hiera5\_defaults` `options` setting [\#253](https://github.com/voxpupuli/puppet-hiera/pull/253) ([alexjfisher](https://github.com/alexjfisher))
+- Extend Hiera 5 template to support trocla backend [\#238](https://github.com/voxpupuli/puppet-hiera/pull/238) ([m4rx0](https://github.com/m4rx0))
+
+**Merged pull requests:**
+
+- Make `data\_hash` in `hiera5\_defaults` optional [\#254](https://github.com/voxpupuli/puppet-hiera/pull/254) ([alexjfisher](https://github.com/alexjfisher))
+- Change hiera\_yaml to ensure file [\#247](https://github.com/voxpupuli/puppet-hiera/pull/247) ([m4rx0](https://github.com/m4rx0))
+- README.md: remove some obsolete Puppet Open Source default values [\#241](https://github.com/voxpupuli/puppet-hiera/pull/241) ([kenyon](https://github.com/kenyon))
+- README.md: remove note about FOSS Puppet 3 default [\#240](https://github.com/voxpupuli/puppet-hiera/pull/240) ([kenyon](https://github.com/kenyon))
+- README.md: correct default of hiera5\_defaults [\#239](https://github.com/voxpupuli/puppet-hiera/pull/239) ([kenyon](https://github.com/kenyon))
+
 ## [v3.3.4](https://github.com/voxpupuli/puppet-hiera/tree/v3.3.4) (2018-10-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.3...v3.3.4)
