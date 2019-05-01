@@ -66,8 +66,8 @@ class hiera (
   $datadir_manage                           = true,
   $owner                                    = $::hiera::params::owner,
   $group                                    = $::hiera::params::group,
-  $eyaml_owner                              = $::hiera::params::owner,
-  $eyaml_group                              = $::hiera::params::group,
+  $eyaml_owner                              = $::hiera::params::eyaml_owner,
+  $eyaml_group                              = $::hiera::params::eyaml_group,
   $provider                                 = $::hiera::params::provider,
   $eyaml                                    = false,
   $eyaml_name                               = 'hiera-eyaml',
@@ -250,7 +250,7 @@ class hiera (
   # Determine hiera version
   case $hiera_version {
     '5':  { if ($hierarchy !~ Hiera::Hiera5_hierarchy) {
-              fail("${hierarchy} should be an array of hash")
+              fail('`hierarchy` should be an array of hash')
             }
             else
               { $hiera_template = epp('hiera/hiera.yaml.epp',
