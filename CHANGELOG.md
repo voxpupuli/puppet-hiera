@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.4.1](https://github.com/voxpupuli/puppet-hiera/tree/v3.4.1) (2019-05-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.4.0...v3.4.1)
+
+**Fixed bugs:**
+
+- Permission contention on hiera.yaml between module and PE [\#260](https://github.com/voxpupuli/puppet-hiera/pull/260) ([rnelson0](https://github.com/rnelson0))
+
+**Closed issues:**
+
+- Permission contention on hiera.yaml between module and PE [\#245](https://github.com/voxpupuli/puppet-hiera/issues/245)
+
+**Merged pull requests:**
+
+- Allow `puppetlabs/inifile` 3.x [\#256](https://github.com/voxpupuli/puppet-hiera/pull/256) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [v3.4.0](https://github.com/voxpupuli/puppet-hiera/tree/v3.4.0) (2019-04-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v3.3.4...v3.4.0)
