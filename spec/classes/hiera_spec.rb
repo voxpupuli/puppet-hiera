@@ -309,7 +309,7 @@ describe 'hiera' do
         it { is_expected.to contain_class('hiera::deep_merge') }
       end
     end
-  elsif Puppet.version =~ %r{^4}
+  elsif Puppet.version =~ %r{^6}
     context 'foss puppet 4' do
       let(:facts) do
         {
