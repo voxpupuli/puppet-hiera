@@ -66,6 +66,7 @@ class hiera (
   $datadir_manage                           = true,
   $owner                                    = $::hiera::params::owner,
   $group                                    = $::hiera::params::group,
+  $mode                                     = $::hiera::params::mode,
   $eyaml_owner                              = $::hiera::params::eyaml_owner,
   $eyaml_group                              = $::hiera::params::eyaml_group,
   $provider                                 = $::hiera::params::provider,
@@ -144,7 +145,7 @@ class hiera (
   File {
     owner => $owner,
     group => $group,
-    mode  => '0644',
+    mode  => $mode,
   }
 
   if ($datadir !~ /%\{.*\}/) and ($datadir_manage == true) {
