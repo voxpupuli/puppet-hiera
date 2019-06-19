@@ -261,6 +261,7 @@ describe 'hiera' do
           let(:params) do
             {
               eyaml: true,
+              mode: '0640',
               merge_behavior: 'deeper'
             }
           end
