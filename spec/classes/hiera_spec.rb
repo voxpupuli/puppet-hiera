@@ -268,10 +268,10 @@ describe 'hiera' do
           it { is_expected.to contain_class('hiera::eyaml') }
           it { is_expected.to contain_class('hiera::deep_merge') }
           it 'has file mode 0640' do
-            is_expected.to contain_file('/etc/puppetlabs/puppet/hiera.yaml').with({
+            is_expected.to contain_file('/etc/puppetlabs/puppet/hiera.yaml').with(
               'ensure' => 'present',
-              'mode'   => '0640',
-            })
+              'mode'   => '0640'
+            )
           end
         end
         describe 'check if version exists' do
