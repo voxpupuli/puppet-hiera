@@ -261,12 +261,19 @@ describe 'hiera' do
           let(:params) do
             {
               eyaml: true,
+              mode: '0640',
               merge_behavior: 'deeper'
             }
           end
 
           it { is_expected.to contain_class('hiera::eyaml') }
           it { is_expected.to contain_class('hiera::deep_merge') }
+          it 'has file mode 0640' do
+            is_expected.to contain_file('/dev/null/hiera.yaml').with(
+              'ensure' => 'file',
+              'mode'   => '0640'
+            )
+          end
         end
         describe 'check if version exists' do
           let(:params) do
