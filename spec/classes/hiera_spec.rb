@@ -410,6 +410,29 @@ describe 'hiera' do
               expect(content).to include(hierarchy_section)
             end
           end
+          describe 'hierarchy section with hash as an options value' do
+            let(:params) do
+              {
+                hiera_version: '5',
+                hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
+                hierarchy:  [{
+                  'name'       => 'some backend',
+                  'lookup_key' => 'some_lookup_key',
+                  'options'    => {
+                    'hash_option' => {
+                      'some_key' => 'some_value'
+                    }
+                  }
+                }]
+              }
+            end
+
+            it 'contains the option value as a hash' do
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
+              options = YAML.load(content)['hierarchy'][0]['options']
+              expect(options).to include('hash_option' => { 'some_key' => 'some_value' })
+            end
+          end
         end
       end
     end
