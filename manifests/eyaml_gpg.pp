@@ -3,21 +3,21 @@
 # This calls install and configures hiera-eyaml-gpg
 #
 class hiera::eyaml_gpg {
-  $provider          = $::hiera::provider
-  $eyaml_gpg_name    = $::hiera::eyaml_gpg_name
-  $eyaml_gpg_version = $::hiera::eyaml_gpg_version
-  $eyaml_gpg_source  = $::hiera::_eyaml_gpg_source
+  $provider          = $hiera::provider
+  $eyaml_gpg_name    = $hiera::eyaml_gpg_name
+  $eyaml_gpg_version = $hiera::eyaml_gpg_version
+  $eyaml_gpg_source  = $hiera::_eyaml_gpg_source
 
-  $ruby_gpg_name     = $::hiera::ruby_gpg_name
-  $ruby_gpg_version  = $::hiera::ruby_gpg_version
-  $ruby_gpg_source   = $::hiera::ruby_gpg_source
+  $ruby_gpg_name     = $hiera::ruby_gpg_name
+  $ruby_gpg_version  = $hiera::ruby_gpg_version
+  $ruby_gpg_source   = $hiera::ruby_gpg_source
 
-  $owner             = $::hiera::eyaml_owner
-  $group             = $::hiera::eyaml_group
-  $cmdpath           = $::hiera::cmdpath
-  $_keysdir          = $::hiera::_keysdir
+  $owner             = $hiera::eyaml_owner
+  $group             = $hiera::eyaml_group
+  $cmdpath           = $hiera::cmdpath
+  $_keysdir          = $hiera::_keysdir
 
-  $manage_package = $::hiera::manage_eyaml_gpg_package
+  $manage_package = $hiera::manage_eyaml_gpg_package
 
   require hiera::eyaml
 
