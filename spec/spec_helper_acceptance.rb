@@ -1,5 +1,7 @@
 require 'beaker-rspec'
+require 'beaker-puppet'
 require 'beaker/puppet_install_helper'
+require 'beaker/module_install_helper'
 
 def wait_for_master(max_retries)
   1.upto(max_retries) do |retries|
@@ -24,32 +26,23 @@ def make_site_pp(pp, path = File.join(master['puppetpath'], 'manifests'))
 end
 # rubocop:enable AbcSize
 
-run_puppet_install_helper
-unless ENV['RS_PROVISION'] == 'no' || ENV['BEAKER_provision'] == 'no'
-  if ENV['PUPPET_INSTALL_TYPE'] == 'agent'
-    pp = <<-EOS
-    package { 'puppetserver': ensure => present, }
-    service { 'puppetserver': ensure => running, }
-    EOS
-    apply_manifest_on(master, pp)
-  end
-end
+run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
 
 RSpec.configure do |c|
-  # Project root
-  proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-
   # Readable test descriptions
   c.formatter = :documentation
 
   # Configure all nodes in nodeset
   c.before :suite do
-    # Install module and dependencies
-    puppet_module_install(source: proj_root, module_name: 'hiera')
+    install_module
+    install_module_dependencies
+    install_module_from_forge('puppetlabs-puppetserver_gem', '>= 0')
+
     hosts.each do |host|
-      on host, puppet('module', 'install', 'puppetlabs-stdlib'), acceptable_exit_codes: [0, 1]
-      on host, puppet('module', 'install', 'puppetlabs-inifile'), acceptable_exit_codes: [0, 1]
-      on host, puppet('module', 'install', 'puppetlabs-puppetserver_gem'), acceptable_exit_codes: [0, 1]
+      if ENV['PUPPET_INSTALL_TYPE'] == 'agent' && ENV['BEAKER_provision'] != 'no'
+        host.install_package('puppetserver')
+        on host, puppet('resource', 'service', 'puppetserver', 'ensure=running')
+      end
     end
   end
 end
