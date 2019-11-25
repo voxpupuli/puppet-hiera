@@ -75,6 +75,9 @@ hierarchy:
         - "<%= $value %>"
       <%- } -%>
     <%- } -%>
+    <%- elsif $value =~ Hash { -%>
+      <%= $key %>: <%= $value.to_json %>
+    <%- } -%>
     <%- else { -%>
       <%= $key %>: <%= $value %>
     <%- } -%>
