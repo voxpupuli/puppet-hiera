@@ -36,14 +36,7 @@ This module configures [Hiera](https://github.com/puppetlabs/hiera) for Puppet.
 
 ### Setup requirements
 
-If you are using the eyaml backend on:
-
-* Puppet Enterprise 3.3 or earlier then you will need the [puppetlabs-pe_gem](https://forge.puppetlabs.com/puppetlabs/pe_gem)
-  module to install the eyaml gem using PE's gem command.
-* Puppet Enterprise 3.7 or 3.8 then you will need the [puppetlabs-pe_puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/pe_puppetserver_gem)
-  module.
-* Puppet Enterprise 201x.y (ex: 2017.3) or FOSS puppetserver then you will need the [puppetlabs-puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/puppetserver_gem)
-  module.
+To use the eyaml backend with the modern puppetserver, you will need the [puppetlabs-puppetserver_gem](https://forge.puppetlabs.com/puppetlabs/puppetserver_gem) module.
 
 ### Beginning with hiera
 

@@ -15,6 +15,10 @@
     {
       "name": "puppetlabs/inifile",
       "version_requirement": ">= 1.4.1 < 5.0.0"
+    },
+    {
+      "name": "puppetlabs/puppetserver_gem",
+      "version:requirement": ">= 1.0.0 < 2.0.0"
     }
   ],
   "operatingsystem_support": [
