@@ -20,6 +20,7 @@ class hiera::params {
   $package_ensure   = 'present'
   $package_name     = 'hiera'
   $hierarchy        = []
+  $mode             = '0644'
   # Configure for AIO packaging.
   if $facts['pe_server_version'] {
     $master_service = 'pe-puppetserver'

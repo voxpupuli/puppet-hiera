@@ -261,12 +261,19 @@ describe 'hiera' do
           let(:params) do
             {
               eyaml: true,
+              mode: '0640',
               merge_behavior: 'deeper'
             }
           end
 
           it { is_expected.to contain_class('hiera::eyaml') }
           it { is_expected.to contain_class('hiera::deep_merge') }
+          it 'has file mode 0640' do
+            is_expected.to contain_file('/dev/null/hiera.yaml').with(
+              'ensure' => 'file',
+              'mode'   => '0640'
+            )
+          end
         end
         describe 'check if version exists' do
           let(:params) do
@@ -408,6 +415,29 @@ describe 'hiera' do
               hierarchy_section += %(        - "defaults"\n)
               hierarchy_section += %(      config: /dev/null/etc/puppetlabs/puppet/troclarc.yaml\n)
               expect(content).to include(hierarchy_section)
+            end
+          end
+          describe 'hierarchy section with hash as an options value' do
+            let(:params) do
+              {
+                hiera_version: '5',
+                hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
+                hierarchy:  [{
+                  'name'       => 'some backend',
+                  'lookup_key' => 'some_lookup_key',
+                  'options'    => {
+                    'hash_option' => {
+                      'some_key' => 'some_value'
+                    }
+                  }
+                }]
+              }
+            end
+
+            it 'contains the option value as a hash' do
+              content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
+              options = YAML.load(content)['hierarchy'][0]['options']
+              expect(options).to include('hash_option' => { 'some_key' => 'some_value' })
             end
           end
         end

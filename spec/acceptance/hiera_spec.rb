@@ -30,6 +30,7 @@ describe 'hiera' do
         eyaml              => true,
         merge_behavior     => 'deep',
         puppet_conf_manage => true,
+        mode               => '0640',
         hierarchy          => [
           'virtual/%{::virtual}',
           'nodes/%{::trusted.certname}',

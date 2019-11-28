@@ -4,7 +4,7 @@ define hiera::install (
   $provider,
   $gem_version         = undef,
   $gem_source          = undef,
-  $gem_install_options = $::hiera::gem_install_options,
+  $gem_install_options = $hiera::gem_install_options,
 ) {
 
   # $gem_install_options is typically used for specifying a proxy
@@ -37,7 +37,7 @@ define hiera::install (
     }
     $master_subscribe = Package[$gem_name]
   }
-  Service <| title == $::hiera::master_service |> {
+  Service <| title == $hiera::master_service |> {
     subscribe +> $master_subscribe,
   }
 }
