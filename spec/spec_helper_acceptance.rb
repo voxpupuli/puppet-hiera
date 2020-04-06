@@ -1,7 +1,12 @@
-require 'beaker-rspec'
-require 'beaker-puppet'
-require 'beaker/puppet_install_helper'
-require 'beaker/module_install_helper'
+require 'voxpupuli/acceptance/spec_helper_acceptance'
+
+configure_beaker do |host|
+  install_module_from_forge_on(host, 'puppetlabs-puppetserver_gem', '>= 0')
+  if ENV['PUPPET_INSTALL_TYPE'] == 'agent' && ENV['BEAKER_provision'] != 'no'
+    install_package(host, 'puppetserver')
+    on host, puppet('resource', 'service', 'puppetserver', 'ensure=running')
+  end
+end
 
 def wait_for_master(max_retries)
   1.upto(max_retries) do |retries|
@@ -23,26 +28,4 @@ def make_site_pp(pp, path = File.join(master['puppetpath'], 'manifests'))
   on master, "chmod -R 0755 #{path}"
   on master, "service #{(master['puppetservice'] || 'puppetserver')} restart"
   wait_for_master(3)
-end
-# rubocop:enable AbcSize
-
-run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
-
-RSpec.configure do |c|
-  # Readable test descriptions
-  c.formatter = :documentation
-
-  # Configure all nodes in nodeset
-  c.before :suite do
-    install_module
-    install_module_dependencies
-    install_module_from_forge('puppetlabs-puppetserver_gem', '>= 0')
-
-    hosts.each do |host|
-      if ENV['PUPPET_INSTALL_TYPE'] == 'agent' && ENV['BEAKER_provision'] != 'no'
-        host.install_package('puppetserver')
-        on host, puppet('resource', 'service', 'puppetserver', 'ensure=running')
-      end
-    end
-  end
 end
