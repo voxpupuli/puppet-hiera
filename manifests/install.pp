@@ -6,7 +6,6 @@ define hiera::install (
   $gem_source          = undef,
   $gem_install_options = $hiera::gem_install_options,
 ) {
-
   # $gem_install_options is typically used for specifying a proxy
   Package {
     install_options => $gem_install_options,

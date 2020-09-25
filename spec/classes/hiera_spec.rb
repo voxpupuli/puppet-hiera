@@ -59,13 +59,16 @@ describe 'hiera' do
           merge_behavior: 'deeper',
           eyaml: true,
           datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
-          backends: %w[yaml eyaml json yamll],
+          backends: %w[yaml eyaml json yamll redis],
           'backend_options' => {
             'json' => {
               'datadir' => '/etc/puppet/json_data/data'
             },
             'yamll' => {
               'datadir' => '/etc/puppet/yamll_data/data'
+            },
+            'redis' => {
+              'deserialize' => '!ruby/sym json'
             }
           }
         }
@@ -78,9 +81,13 @@ describe 'hiera' do
         expect(content).not_to include('!ruby/sym')
       end
 
+      it 'testing gsub and regex' do
+        expect('!ruby/sym json'.to_yaml.gsub(%r{---\s+}, '').gsub(%r{(?:'|")(\!ruby\/sym\s)(.*)(?:'|")}, ':\2')).to eq ":json\n"
+      end
+
       it 'include backends' do
         backends = YAML.load(content)[:backends]
-        expect(backends).to eq(%w[yaml eyaml json yamll])
+        expect(backends).to eq(%w[yaml eyaml json yamll redis])
       end
       it 'include json backend' do
         backend = YAML.load(content)[:json]
@@ -89,6 +96,10 @@ describe 'hiera' do
       it 'include yamll backend' do
         backend = YAML.load(content)[:yamll]
         expect(backend[:datadir]).to eq('/etc/puppet/yamll_data/data')
+      end
+      it 'include redis backend with deserialize' do
+        redis_backend = YAML.load(content)[:redis]
+        expect(redis_backend[:deserialize]).to eq(:json)
       end
       # rubocop:disable RSpec/MultipleExpectations
       it 'include eyaml backend' do
