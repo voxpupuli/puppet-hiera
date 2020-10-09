@@ -99,6 +99,7 @@ class hiera (
   $eyaml_gpg_version                        = undef,
   $eyaml_gpg_source                         = undef,
   $eyaml_gpg                                = false,
+  $eyaml_gpg_gnupghome_recurse              = true,
   $eyaml_gpg_recipients                     = undef,
   $eyaml_pkcs7_private_key                  = undef,
   $eyaml_pkcs7_public_key                   = undef,

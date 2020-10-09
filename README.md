@@ -166,6 +166,11 @@ done in lockstep.
 
 1. The GPG keyring must be passphraseless on the on the PuppetServer(Master).
 
+**Note:** You might need an older version of GPG to be able to create 
+passphraseless keys. You can install an old lxc container or something,
+to do this. Just copy the resulting .gnupg folder to the puppetserver and
+rename it to your gpg folder.
+
 1. The GPG keyring must live in the /gpg sub-directory in the ```$keysdir```.
 1. The GPG keyring must be owned by the Puppet user. ex: pe-puppet
 
@@ -364,6 +369,12 @@ The following parameters are available for the hiera class:
 * `eyaml_extension`
   The file extension for the eyaml backend.
   Default: `undef`, backend defaults to `'.eyaml'`
+* `eyaml_gpg_gnupghome_recurse`
+  Whether to recurse and set permissions in the gpgdir.
+  This is imporant to protect the key, but makes puppet agent
+  raise an error on each run. You can set the mode on these files
+  to 0600 by yourself and set this to false.
+  Default: true
 * `deep_merge_name`
   The name of the deep_merge gem.
   Default: 'deep\_merge'
