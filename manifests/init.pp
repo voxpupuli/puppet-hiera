@@ -205,7 +205,7 @@ class hiera (
   # the above logic.  This was neccessary in order to maintain compability
   # with prior versions of this module
   $eyaml_options = {
-    'eyaml' => delete_undef_values({
+    'eyaml' => delete_undef_values( {
       'datadir'           => $eyaml_real_datadir,
       'extension'         => $eyaml_extension,
       'pkcs7_private_key' => $_eyaml_pkcs7_private_key,
