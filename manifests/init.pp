@@ -112,7 +112,6 @@ class hiera (
   #Deprecated
   $gem_source                               = undef,
 ) inherits ::hiera::params {
-
   if $keysdir {
     $_keysdir = $keysdir
   } else {
@@ -165,7 +164,6 @@ class hiera (
   }
 
   if ( $eyaml_gpg ) or ( $eyaml ) {
-
     $eyaml_real_datadir = empty($eyaml_datadir) ? {
       false => $eyaml_datadir,
       true  => $datadir,
@@ -177,7 +175,6 @@ class hiera (
     } else {
       $requested_backends = unique(concat(['eyaml'], $backends))
     }
-
   } else {
     $requested_backends = $backends
     $eyaml_real_datadir = undef
@@ -208,6 +205,7 @@ class hiera (
   # the above logic.  This was neccessary in order to maintain compability
   # with prior versions of this module
   $eyaml_options = {
+
     'eyaml' => delete_undef_values({
       'datadir'           => $eyaml_real_datadir,
       'extension'         => $eyaml_extension,
@@ -253,9 +251,8 @@ class hiera (
   case $hiera_version {
     '5':  { if ($hierarchy !~ Hiera::Hiera5_hierarchy) {
               fail('`hierarchy` should be an array of hash')
-            }
-            else
-              { $hiera_template = epp('hiera/hiera.yaml.epp',
+            } else {
+              $hiera_template = epp('hiera/hiera.yaml.epp',
                                       {
                                         'hiera_version'   => $hiera_version,
                                         'hiera5_defaults' => $hiera5_defaults,
