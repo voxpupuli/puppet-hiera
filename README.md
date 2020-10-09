@@ -166,7 +166,7 @@ done in lockstep.
 
 1. The GPG keyring must be passphraseless on the on the PuppetServer(Master).
 
-**Note:** You might need an older version of GPG to be able to create 
+**Note:** You might need an older version of GPG to be able to create
 passphraseless keys. You can install an old lxc container or something,
 to do this. Just copy the resulting .gnupg folder to the puppetserver and
 rename it to your gpg folder.
