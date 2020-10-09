@@ -252,11 +252,11 @@ class hiera (
         fail('`hierarchy` should be an array of hash')
       } else {
         $hiera_template = epp('hiera/hiera.yaml.epp',
-            {
+          {
             'hiera_version'   => $hiera_version,
             'hiera5_defaults' => $hiera5_defaults,
             'hierarchy'       => $hierarchy
-            })
+        })
       }
     }                                                             # Apply epp if hiera version is 5
     default:  { $hiera_template = template('hiera/hiera.yaml.erb') }    # Apply erb for default version 3
