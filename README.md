@@ -165,12 +165,6 @@ done in lockstep.
 **Note:** This module will create a /gpg sub-directory in the ```$keysdir```.
 
 1. The GPG keyring must be passphraseless on the on the PuppetServer(Master).
-
-**Note:** You might need an older version of GPG to be able to create
-passphraseless keys. You can install an old lxc container or something,
-to do this. Just copy the resulting .gnupg folder to the puppetserver and
-rename it to your gpg folder.
-
 1. The GPG keyring must live in the /gpg sub-directory in the ```$keysdir```.
 1. The GPG keyring must be owned by the Puppet user. ex: pe-puppet
 
