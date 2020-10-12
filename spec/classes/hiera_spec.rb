@@ -28,7 +28,7 @@ describe 'hiera' do
     describe 'param manage_package => true' do
       let(:params) do
         {
-          manage_package: true,
+          manage_package: true
         }
       end
 
