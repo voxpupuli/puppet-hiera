@@ -188,6 +188,7 @@ cat << EOF >> /tmp/gpg_answers
 %echo Generating a Puppet Hiera GPG Key
 Key-Type: RSA
 Key-Length: 4096
+Key-Usage: encrypt
 Subkey-Type: ELG-E
 Subkey-Length: 4096
 Name-Real: Hiera Data
