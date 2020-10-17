@@ -25,13 +25,22 @@ describe 'hiera' do
       it { is_expected.to contain_class('hiera::eyaml') }
       it { is_expected.to contain_class('hiera::deep_merge') }
     end
+    describe 'param manage_package => true' do
+      let(:params) do
+        {
+          manage_package: true
+        }
+      end
+
+      it { is_expected.to contain_package('hiera').with('ensure' => 'present') }
+    end
     describe 'param manage_package => false' do
       let(:params) do
         {
           eyaml: true,
           eyaml_gpg: true,
           manage_package: false,
-          keysdir: '/etc/keys'
+          keysdir: '/dev/null/keys'
         }
       end
 
@@ -40,18 +49,18 @@ describe 'hiera' do
       it { is_expected.to contain_hiera__install('eyaml') }
       it { is_expected.to contain_hiera__install('ruby_gpg') }
       it { is_expected.to contain_hiera__install('hiera-eyaml-gpg') }
-      it { is_expected.to contain_exec('createkeys').that_requires('File[/etc/keys]') }
+      it { is_expected.to contain_exec('createkeys').that_requires('File[/dev/null/keys]') }
     end
     describe 'param manage_package => true and create_keys => true' do
       let(:params) do
         {
           eyaml: true,
           manage_package: true,
-          keysdir: '/etc/keys'
+          keysdir: '/dev/null/keys'
         }
       end
 
-      it { is_expected.to contain_exec('createkeys').that_requires('Hiera::Install[eyaml]').that_requires('File[/etc/keys]') }
+      it { is_expected.to contain_exec('createkeys').that_requires('Hiera::Install[eyaml]').that_requires('File[/dev/null/keys]') }
     end
     describe 'other_backends' do
       let(:params) do

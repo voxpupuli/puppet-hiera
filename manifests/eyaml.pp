@@ -51,7 +51,6 @@ class hiera::eyaml {
   $keysdir = dirname($_keysdir)
 
   if ( $create_keys == true ) {
-
     exec { 'createkeys':
       user    => $owner,
       cwd     => $keysdir,

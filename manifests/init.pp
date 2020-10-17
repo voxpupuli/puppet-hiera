@@ -99,6 +99,7 @@ class hiera (
   $eyaml_gpg_version                        = undef,
   $eyaml_gpg_source                         = undef,
   $eyaml_gpg                                = false,
+  Boolean $eyaml_gpg_gnupghome_recurse      = true,
   $eyaml_gpg_recipients                     = undef,
   $eyaml_pkcs7_private_key                  = undef,
   $eyaml_pkcs7_public_key                   = undef,
@@ -111,7 +112,6 @@ class hiera (
   #Deprecated
   $gem_source                               = undef,
 ) inherits ::hiera::params {
-
   if $keysdir {
     $_keysdir = $keysdir
   } else {
@@ -164,7 +164,6 @@ class hiera (
   }
 
   if ( $eyaml_gpg ) or ( $eyaml ) {
-
     $eyaml_real_datadir = empty($eyaml_datadir) ? {
       false => $eyaml_datadir,
       true  => $datadir,
@@ -176,7 +175,6 @@ class hiera (
     } else {
       $requested_backends = unique(concat(['eyaml'], $backends))
     }
-
   } else {
     $requested_backends = $backends
     $eyaml_real_datadir = undef
@@ -207,14 +205,14 @@ class hiera (
   # the above logic.  This was neccessary in order to maintain compability
   # with prior versions of this module
   $eyaml_options = {
-    'eyaml' => delete_undef_values({
-      'datadir'           => $eyaml_real_datadir,
-      'extension'         => $eyaml_extension,
-      'pkcs7_private_key' => $_eyaml_pkcs7_private_key,
-      'pkcs7_public_key'  => $_eyaml_pkcs7_public_key,
-      'encrypt_method'    => $encrypt_method,
-      'gpg_gnupghome'     => $gpg_gnupghome,
-      'gpg_recipients'    => $eyaml_gpg_recipients,
+    'eyaml' => delete_undef_values( {
+        'datadir'           => $eyaml_real_datadir,
+        'extension'         => $eyaml_extension,
+        'pkcs7_private_key' => $_eyaml_pkcs7_private_key,
+        'pkcs7_public_key'  => $_eyaml_pkcs7_public_key,
+        'encrypt_method'    => $encrypt_method,
+        'gpg_gnupghome'     => $gpg_gnupghome,
+        'gpg_recipients'    => $eyaml_gpg_recipients,
     }),
   }
   $yaml_options = { 'yaml' => { 'datadir' => $datadir } }
@@ -228,8 +226,8 @@ class hiera (
   # catch that error here and notify the user
   $missing_backends = difference($backends, keys($backend_data))
   if count($missing_backends) > 0 {
-    fail("The supplied backends: ${missing_backends} are missing from the backend_options hash:\n ${backend_options}\n
-    or you might be using symbols in your hiera data")
+  fail("The supplied backends: ${missing_backends} are missing from the backend_options hash:\n ${backend_options}\n
+  or you might be using symbols in your hiera data")
   }
 
   # Template uses:
@@ -251,17 +249,16 @@ class hiera (
   # Determine hiera version
   case $hiera_version {
     '5':  { if ($hierarchy !~ Hiera::Hiera5_hierarchy) {
-              fail('`hierarchy` should be an array of hash')
-            }
-            else
-              { $hiera_template = epp('hiera/hiera.yaml.epp',
-                                      {
-                                        'hiera_version'   => $hiera_version,
-                                        'hiera5_defaults' => $hiera5_defaults,
-                                        'hierarchy'       => $hierarchy
-                                      })
-              }
-          }                                                             # Apply epp if hiera version is 5
+        fail('`hierarchy` should be an array of hash')
+      } else {
+        $hiera_template = epp('hiera/hiera.yaml.epp',
+          {
+            'hiera_version'   => $hiera_version,
+            'hiera5_defaults' => $hiera5_defaults,
+            'hierarchy'       => $hierarchy
+        })
+      }
+    }                                                             # Apply epp if hiera version is 5
     default:  { $hiera_template = template('hiera/hiera.yaml.erb') }    # Apply erb for default version 3
   }
   file { $hiera_yaml:

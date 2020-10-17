@@ -16,7 +16,7 @@
 class hiera::params {
   $confdir          = $::settings::confdir
   $hiera_version    = '3'
-  $hiera5_defaults  = {'datadir' => 'data', 'data_hash' => 'yaml_data'}
+  $hiera5_defaults  = { 'datadir' => 'data', 'data_hash' => 'yaml_data' }
   $package_ensure   = 'present'
   $package_name     = 'hiera'
   $hierarchy        = []
