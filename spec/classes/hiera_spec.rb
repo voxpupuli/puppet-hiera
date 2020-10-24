@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'puppet'
 
+# rubocop:disable Security/YAMLLoad
 describe 'hiera' do
   context 'foss puppet 4' do
     let(:facts) do
@@ -99,7 +100,6 @@ describe 'hiera' do
         backend = YAML.load(content)[:yamll]
         expect(backend[:datadir]).to eq('/etc/puppet/yamll_data/data')
       end
-      # rubocop:disable RSpec/MultipleExpectations
       it 'include eyaml backend' do
         eyaml_backend = YAML.load(content)[:eyaml]
         expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
@@ -454,3 +454,4 @@ describe 'hiera' do
     end
   end
 end
+# rubocop:enable Security/YAMLLoad
