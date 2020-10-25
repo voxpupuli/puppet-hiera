@@ -227,7 +227,7 @@ class hiera (
   $missing_backends = difference($backends, keys($backend_data))
   if count($missing_backends) > 0 {
   fail("The supplied backends: ${missing_backends} are missing from the backend_options hash:\n ${backend_options}\n
-  or you might be using symbols in your hiera data")
+    or you might be using symbols in your hiera data")
   }
 
   # Template uses:
@@ -248,7 +248,8 @@ class hiera (
 
   # Determine hiera version
   case $hiera_version {
-    '5':  { if ($hierarchy !~ Hiera::Hiera5_hierarchy) {
+    '5':  {
+      if ($hierarchy !~ Hiera::Hiera5_hierarchy) {
         fail('`hierarchy` should be an array of hash')
       } else {
         $hiera_template = epp('hiera/hiera.yaml.epp',
@@ -256,7 +257,8 @@ class hiera (
             'hiera_version'   => $hiera_version,
             'hiera5_defaults' => $hiera5_defaults,
             'hierarchy'       => $hierarchy
-        })
+          }
+        )
       }
     }                                                             # Apply epp if hiera version is 5
     default:  { $hiera_template = template('hiera/hiera.yaml.erb') }    # Apply erb for default version 3
