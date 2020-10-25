@@ -111,7 +111,7 @@ class hiera (
 
   #Deprecated
   $gem_source                               = undef,
-) inherits ::hiera::params {
+) inherits hiera::params {
   if $keysdir {
     $_keysdir = $keysdir
   } else {
