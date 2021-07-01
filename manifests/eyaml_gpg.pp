@@ -44,6 +44,7 @@ class hiera::eyaml_gpg {
 
   file { "${_keysdir}/gpg":
     ensure  => directory,
+    ignore  => 'S.gpg-agent*',
     recurse => $eyaml_gpg_gnupghome_recurse,
     purge   => false,
     mode    => '0600',

@@ -15,6 +15,7 @@ describe 'hiera::eyaml_gpg' do
     it do
       is_expected.to contain_file('/dev/null/keys/gpg').with(
         'ensure'  => 'directory',
+        'ignore'  => 'S.gpg-agent*',
         'recurse' => true,
         'purge'   => false,
         'mode'    => '0600'
