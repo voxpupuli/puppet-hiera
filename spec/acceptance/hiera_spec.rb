@@ -2,7 +2,7 @@ require 'spec_helper_acceptance'
 
 describe 'hiera' do
   confdir = '/etc/puppetlabs/puppet'
-  datadir = '/etc/puppetlabs/code/environments/%{::environment}/hieradata'
+  datadir = '/etc/puppetlabs/code/environments/%{environment}/hieradata'
   actualdir = '/etc/puppetlabs/code/environments/production/hieradata'
   manifestsdir = '/etc/puppetlabs/code/environments/production/manifests'
   hierayaml = "#{confdir}/hiera.yaml"
@@ -16,8 +16,8 @@ describe 'hiera' do
         puppet_conf_manage => true,
         mode               => '0640',
         hierarchy          => [
-          'virtual/%{::virtual}',
-          'nodes/%{::trusted.certname}',
+          'virtual/%{virtual}',
+          'nodes/%{trusted.certname}',
           'common',
         ],
       }
@@ -38,8 +38,8 @@ describe 'hiera' do
 :logger: console
 
 :hierarchy:
-  - "?virtual/%{::virtual}"?
-  - "?nodes/%{::trusted.certname}"?
+  - "?virtual/%{virtual}"?
+  - "?nodes/%{trusted.certname}"?
   - common
 
 :eyaml:
