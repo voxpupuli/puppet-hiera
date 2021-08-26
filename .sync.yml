@@ -1,0 +1,2 @@
+.github/workflows/ci.yml:
+  pidfile_workaround: CentOS
