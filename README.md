@@ -61,8 +61,8 @@ class { 'hiera':
           hiera_version   =>  '5',
           hiera5_defaults =>  {"datadir" => "data", "data_hash" => "yaml_data"},
           hierarchy       =>  [
-                                {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{::virtual}.yaml"},
-                                {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml']},
+                                {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{virtual}.yaml"},
+                                {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{trusted.certname}.yaml', 'nodes/%{osfamily}.yaml']},
                                 {"name" =>  "Default yaml file", "path" =>  "common.yaml"},
                               ],
 }
@@ -96,12 +96,12 @@ defaults:
 hierarchy:
 
   - name: "Virtual yaml"
-    path: "virtual/%{::virtual}.yaml"
+    path: "virtual/%{virtual}.yaml"
 
   - name: "Nodes yaml"
     paths:
-      - "nodes/%{::trusted.certname}.yaml"
-      - "nodes/%{::osfamily}.yaml"
+      - "nodes/%{trusted.certname}.yaml"
+      - "nodes/%{osfamily}.yaml"
 
   - name: "Default yaml file"
     path: "common.yaml"
@@ -213,9 +213,9 @@ gpg --batch --homedir /etc/puppetlabs/code-staging/keys/gpg --gen-key /tmp/gpg_a
 ```puppet
 class { 'hiera':
   hierarchy            => [
-    'nodes/%{::clientcert}',
-    'locations/%{::location}',
-    'environments/%{::applicationtier}',
+    'nodes/%{clientcert}',
+    'locations/%{location}',
+    'environments/%{applicationtier}',
     'common',
   ],
   eyaml                => true,
@@ -233,9 +233,9 @@ The resulting output in /etc/puppet/hiera.yaml:
   - yaml
 :logger: console
 :hierarchy:
-  - "nodes/%{::clientcert}"
-  - "locations/%{::location}"
-  - "environments/%{::applicationtier}"
+  - "nodes/%{clientcert}"
+  - "locations/%{location}"
+  - "environments/%{applicationtier}"
   - common
 
 :yaml:
@@ -297,7 +297,7 @@ The following parameters are available for the hiera class:
   ```yaml
   backend_options:
     json:
-      datadir: '/etc/puppetlabs/puppet/%{::environment}/jsondata'
+      datadir: '/etc/puppetlabs/puppet/%{environment}/jsondata'
     redis:
       password: clearp@ssw0rd        # if your Redis server requires authentication
       port: 6380                     # unless present, defaults to 6379
@@ -329,7 +329,7 @@ The following parameters are available for the hiera class:
   The path to the directory where hiera will look for databases.
   Default:
     * `'/etc/puppetlabs/puppet/hieradata'` for PE Puppet < 4
-    * `'/etc/puppetlabs/code/environments/%{::environment}/hieradata'` for Puppet >= 4
+    * `'/etc/puppetlabs/code/environments/%{environment}/hieradata'` for Puppet >= 4
 * `datadir_manage`
   Whether to create and manage the datadir as a file resource.
   Default: `true`
@@ -391,7 +391,7 @@ The following parameters are available for the hiera class:
   Specifies the ensure value of the hiera package. Default: 'present'
 * `confdir`
   The path to Puppet's confdir.
-  Default: `$::settings::confdir` which should be `'/etc/puppetlabs/puppet'`
+  Default: `$settings::confdir` which should be `'/etc/puppetlabs/puppet'`
 * `logger`
   Which hiera logger to use.
   **Note**: You need to manage any package/gem dependencies yourself.

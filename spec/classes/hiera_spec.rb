@@ -68,7 +68,7 @@ describe 'hiera' do
         {
           merge_behavior: 'deeper',
           eyaml: true,
-          datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
+          datadir: '/etc/puppetlabs/code/environments/%{environment}/hieradata',
           backends: %w[yaml eyaml json yamll],
           'backend_options' => {
             'json' => {
@@ -102,7 +102,7 @@ describe 'hiera' do
       end
       it 'include eyaml backend' do
         eyaml_backend = YAML.load(content)[:eyaml]
-        expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+        expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{environment}/hieradata')
         expect(eyaml_backend[:pkcs7_private_key]).to eq('/dev/null/keys/private_key.pkcs7.pem')
         expect(eyaml_backend[:pkcs7_public_key]).to eq('/dev/null/keys/public_key.pkcs7.pem')
         expect(eyaml_backend.keys).not_to include(:encrypt_method)
@@ -116,7 +116,7 @@ describe 'hiera' do
             merge_behavior: 'deeper',
             eyaml: true,
             eyaml_gpg: true,
-            datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
+            datadir: '/etc/puppetlabs/code/environments/%{environment}/hieradata',
             backends: %w[yaml eyaml json yamll],
             'backend_options' => {
               'json' => {
@@ -131,7 +131,7 @@ describe 'hiera' do
 
         it 'include eyaml-gpg backend' do
           eyaml_backend = YAML.load(content)[:eyaml]
-          expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+          expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{environment}/hieradata')
           expect(eyaml_backend[:pkcs7_private_key]).to eq('/dev/null/keys/private_key.pkcs7.pem')
           expect(eyaml_backend[:pkcs7_public_key]).to eq('/dev/null/keys/public_key.pkcs7.pem')
           expect(eyaml_backend[:encrypt_method]).to eq('gpg')
@@ -144,7 +144,7 @@ describe 'hiera' do
         let(:params) do
           {
             eyaml_gpg: true,
-            datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
+            datadir: '/etc/puppetlabs/code/environments/%{environment}/hieradata',
             backends: %w[yaml]
           }
         end
@@ -153,7 +153,7 @@ describe 'hiera' do
           backends = YAML.load(content)[:backends]
           expect(backends).to eq(%w[eyaml yaml])
           eyaml_backend = YAML.load(content)[:eyaml]
-          expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{::environment}/hieradata')
+          expect(eyaml_backend[:datadir]).to eq('/etc/puppetlabs/code/environments/%{environment}/hieradata')
           expect(eyaml_backend[:encrypt_method]).to eq('gpg')
           expect(eyaml_backend[:gpg_gnupghome]).to eq('/dev/null/keys/gpg')
         end
@@ -164,7 +164,7 @@ describe 'hiera' do
           {
             merge_behavior: 'deeper',
             eyaml: true,
-            datadir: '/etc/puppetlabs/code/environments/%{::environment}/hieradata',
+            datadir: '/etc/puppetlabs/code/environments/%{environment}/hieradata',
             backends: %w[yaml yamlll],
             'backend_options' => {
               'yaml' => {
@@ -369,8 +369,8 @@ describe 'hiera' do
                 hiera_version: '5',
                 hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
                 hierarchy:  [
-                  { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' },
-                  { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml'] },
+                  { 'name' => 'Virtual yaml', 'path' => 'virtual/%{virtual}.yaml' },
+                  { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{trusted.certname}.yaml', 'nodes/%{osfamily}.yaml'] },
                   { 'name' => 'Global yaml file', 'path' => 'common.yaml' }
                 ]
               }
@@ -380,11 +380,11 @@ describe 'hiera' do
               content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               hierarchy_section  = %(hierarchy:\n\n)
               hierarchy_section += %(  - name: "Virtual yaml"\n)
-              hierarchy_section += %(    path: "virtual/%{::virtual}.yaml"\n\n)
+              hierarchy_section += %(    path: "virtual/%{virtual}.yaml"\n\n)
               hierarchy_section += %(  - name: "Nodes yaml"\n)
               hierarchy_section += %(    paths:\n)
-              hierarchy_section += %(      - "nodes/%{::trusted.certname}.yaml"\n)
-              hierarchy_section += %(      - "nodes/%{::osfamily}.yaml"\n\n)
+              hierarchy_section += %(      - "nodes/%{trusted.certname}.yaml"\n)
+              hierarchy_section += %(      - "nodes/%{osfamily}.yaml"\n\n)
               hierarchy_section += %(  - name: "Global yaml file"\n)
               hierarchy_section += %(    path: "common.yaml"\n)
               expect(content).to include(hierarchy_section)
@@ -396,10 +396,10 @@ describe 'hiera' do
                 hiera_version: '5',
                 hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data' },
                 hierarchy:  [
-                  { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' },
-                  { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml'] },
+                  { 'name' => 'Virtual yaml', 'path' => 'virtual/%{virtual}.yaml' },
+                  { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{trusted.certname}.yaml', 'nodes/%{osfamily}.yaml'] },
                   { 'name' => 'Global yaml file', 'path' => 'common.yaml' },
-                  { 'name' => 'trocla', 'lookup_key' => 'trocla_lookup_key', 'options' => { 'trocla_hierarchy' => %w[nodes/%{facts.fqdn} roles/%{::role} defaults], 'config' => '/dev/null/etc/puppetlabs/puppet/troclarc.yaml' } }
+                  { 'name' => 'trocla', 'lookup_key' => 'trocla_lookup_key', 'options' => { 'trocla_hierarchy' => %w[nodes/%{facts.fqdn} roles/%{role} defaults], 'config' => '/dev/null/etc/puppetlabs/puppet/troclarc.yaml' } }
                 ]
               }
             end
@@ -408,11 +408,11 @@ describe 'hiera' do
               content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
               hierarchy_section  = %(hierarchy:\n\n)
               hierarchy_section += %(  - name: "Virtual yaml"\n)
-              hierarchy_section += %(    path: "virtual/%{::virtual}.yaml"\n\n)
+              hierarchy_section += %(    path: "virtual/%{virtual}.yaml"\n\n)
               hierarchy_section += %(  - name: "Nodes yaml"\n)
               hierarchy_section += %(    paths:\n)
-              hierarchy_section += %(      - "nodes/%{::trusted.certname}.yaml"\n)
-              hierarchy_section += %(      - "nodes/%{::osfamily}.yaml"\n\n)
+              hierarchy_section += %(      - "nodes/%{trusted.certname}.yaml"\n)
+              hierarchy_section += %(      - "nodes/%{osfamily}.yaml"\n\n)
               hierarchy_section += %(  - name: "Global yaml file"\n)
               hierarchy_section += %(    path: "common.yaml"\n\n)
               hierarchy_section += %(  - name: "trocla"\n)
@@ -420,7 +420,7 @@ describe 'hiera' do
               hierarchy_section += %(    options:\n)
               hierarchy_section += %(      trocla_hierarchy:\n)
               hierarchy_section += %(        - "nodes/%{facts.fqdn}"\n)
-              hierarchy_section += %(        - "roles/%{::role}"\n)
+              hierarchy_section += %(        - "roles/%{role}"\n)
               hierarchy_section += %(        - "defaults"\n)
               hierarchy_section += %(      config: /dev/null/etc/puppetlabs/puppet/troclarc.yaml\n)
               expect(content).to include(hierarchy_section)

@@ -14,7 +14,7 @@
 # Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 #
 class hiera::params {
-  $confdir          = $::settings::confdir
+  $confdir          = $settings::confdir
   $hiera_version    = '3'
   $hiera5_defaults  = { 'datadir' => 'data', 'data_hash' => 'yaml_data' }
   $package_ensure   = 'present'
@@ -41,7 +41,7 @@ class hiera::params {
     $eyaml_group    = 'puppet'
   }
   $cmdpath        = ['/opt/puppetlabs/puppet/bin', '/usr/bin', '/usr/local/bin']
-  $datadir        = '/etc/puppetlabs/code/environments/%{::environment}/hieradata'
+  $datadir        = '/etc/puppetlabs/code/environments/%{environment}/hieradata'
   $manage_package = false
   $hiera_yaml = "${confdir}/hiera.yaml"
 }
