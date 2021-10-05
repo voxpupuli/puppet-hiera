@@ -378,13 +378,13 @@ describe 'hiera' do
 
             it 'renders correctly' do
               content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
-              hierarchy_section  = %(hierarchy:\n\n)
+              hierarchy_section  = %(hierarchy:\n)
               hierarchy_section += %(  - name: "Virtual yaml"\n)
-              hierarchy_section += %(    path: "virtual/%{virtual}.yaml"\n\n)
+              hierarchy_section += %(    path: "virtual/%{virtual}.yaml"\n)
               hierarchy_section += %(  - name: "Nodes yaml"\n)
               hierarchy_section += %(    paths:\n)
               hierarchy_section += %(      - "nodes/%{trusted.certname}.yaml"\n)
-              hierarchy_section += %(      - "nodes/%{osfamily}.yaml"\n\n)
+              hierarchy_section += %(      - "nodes/%{osfamily}.yaml"\n)
               hierarchy_section += %(  - name: "Global yaml file"\n)
               hierarchy_section += %(    path: "common.yaml"\n)
               expect(content).to include(hierarchy_section)
@@ -406,15 +406,15 @@ describe 'hiera' do
 
             it 'renders correctly' do
               content = catalogue.resource('file', '/dev/null/hiera.yaml').send(:parameters)[:content]
-              hierarchy_section  = %(hierarchy:\n\n)
+              hierarchy_section  = %(hierarchy:\n)
               hierarchy_section += %(  - name: "Virtual yaml"\n)
-              hierarchy_section += %(    path: "virtual/%{virtual}.yaml"\n\n)
+              hierarchy_section += %(    path: "virtual/%{virtual}.yaml"\n)
               hierarchy_section += %(  - name: "Nodes yaml"\n)
               hierarchy_section += %(    paths:\n)
               hierarchy_section += %(      - "nodes/%{trusted.certname}.yaml"\n)
-              hierarchy_section += %(      - "nodes/%{osfamily}.yaml"\n\n)
+              hierarchy_section += %(      - "nodes/%{osfamily}.yaml"\n)
               hierarchy_section += %(  - name: "Global yaml file"\n)
-              hierarchy_section += %(    path: "common.yaml"\n\n)
+              hierarchy_section += %(    path: "common.yaml"\n)
               hierarchy_section += %(  - name: "trocla"\n)
               hierarchy_section += %(    lookup_key: trocla_lookup_key\n)
               hierarchy_section += %(    options:\n)
