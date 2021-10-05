@@ -20,7 +20,7 @@ defaults:
 <% } -%>
 <% } -%>
 hierarchy:
-<%- $hierarchy.each |$hr| { %>
+<%- $hierarchy.each |$hr| { -%>
 <% if $hr['name'] { -%>
   - name: "<%= $hr['name'] -%>"
 <% } -%>
