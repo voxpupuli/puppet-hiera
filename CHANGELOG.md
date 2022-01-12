@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-hiera/tree/v5.0.0) (2022-01-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v4.0.1...v5.0.0)
+
+**Breaking changes:**
+
+- drop CentOS 6, RHEL 6 , Debian 8, Ubuntu 16.04. Add Debian 10 and Ubuntu 18.04 [\#298](https://github.com/voxpupuli/puppet-hiera/pull/298) ([Dan33l](https://github.com/Dan33l))
+- Drop support of Puppet 5 \(EOL\) [\#297](https://github.com/voxpupuli/puppet-hiera/pull/297) ([smortex](https://github.com/smortex))
+
+**Fixed bugs:**
+
+- Remove blank newline from epp template [\#300](https://github.com/voxpupuli/puppet-hiera/pull/300) ([jplindquist](https://github.com/jplindquist))
+
+**Merged pull requests:**
+
+- allow puppet \< 8.x [\#303](https://github.com/voxpupuli/puppet-hiera/pull/303) ([Dan33l](https://github.com/Dan33l))
+- add Ubuntu 20.04 as supported OS [\#302](https://github.com/voxpupuli/puppet-hiera/pull/302) ([Dan33l](https://github.com/Dan33l))
+
 ## [v4.0.1](https://github.com/voxpupuli/puppet-hiera/tree/v4.0.1) (2021-08-26)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v4.0.0...v4.0.1)
