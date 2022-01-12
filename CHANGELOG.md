@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.1](https://github.com/voxpupuli/puppet-hiera/tree/v5.0.1) (2022-01-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v5.0.0...v5.0.1)
+
+**Merged pull requests:**
+
+- Fix all dependencies must have a version\_requirement [\#305](https://github.com/voxpupuli/puppet-hiera/pull/305) ([Dan33l](https://github.com/Dan33l))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-hiera/tree/v5.0.0) (2022-01-12)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v4.0.1...v5.0.0)
