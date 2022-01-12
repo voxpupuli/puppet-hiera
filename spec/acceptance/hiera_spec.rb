@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'hiera' do
@@ -26,39 +28,42 @@ describe 'hiera' do
       apply_manifest_on(default, pp, catch_changes: true)
     end
   end
+
   describe file(hierayaml), node: default do
     its(:content) do
-      is_expected.to match <<-EOS
-# managed by puppet
----
-:backends:
-- eyaml
-- yaml
+      is_expected.to match <<~EOS
+        # managed by puppet
+        ---
+        :backends:
+        - eyaml
+        - yaml
 
-:logger: console
+        :logger: console
 
-:hierarchy:
-  - "?virtual/%{virtual}"?
-  - "?nodes/%{trusted.certname}"?
-  - common
+        :hierarchy:
+          - "?virtual/%{virtual}"?
+          - "?nodes/%{trusted.certname}"?
+          - common
 
-:eyaml:
-  :datadir: "?#{datadir}"?
-  :pkcs7_private_key: "?#{confdir}/keys/private_key.pkcs7.pem"?
-  :pkcs7_public_key: "?#{confdir}/keys/public_key.pkcs7.pem"?
+        :eyaml:
+          :datadir: "?#{datadir}"?
+          :pkcs7_private_key: "?#{confdir}/keys/private_key.pkcs7.pem"?
+          :pkcs7_public_key: "?#{confdir}/keys/public_key.pkcs7.pem"?
 
-:yaml:
-  :datadir: "?#{datadir}"?
+        :yaml:
+          :datadir: "?#{datadir}"?
 
-:merge_behavior: deep
-EOS
+        :merge_behavior: deep
+      EOS
     end
   end
+
   describe 'querying hiera' do
     before :all do
       on default, "mkdir -p #{actualdir}/production"
       on default, "echo myclass::value: 'found output' > #{actualdir}/common.yaml"
     end
+
     let(:pp) do
       <<-EOS
       class myclass {
@@ -72,9 +77,11 @@ EOS
     it 'finds it on the command line' do
       expect(on(default, 'hiera myclass::value environment=production').stdout.strip).to eq('found output')
     end
+
     it 'finds it in puppet apply' do
       expect(apply_manifest_on(default, pp, catch_failures: true).stdout.strip).to match(%r{found output})
     end
+
     it 'finds it in puppet agent' do
       make_site_pp(default, pp, manifestsdir)
       expect(on(default, puppet('agent', '-t', '--server', '$(hostname -f)'), acceptable_exit_codes: [0, 2]).stdout.strip).to match(%r{found output})
