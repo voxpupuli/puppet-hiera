@@ -18,7 +18,7 @@
     },
     {
       "name": "puppetlabs/puppetserver_gem",
-      "version:requirement": ">= 1.0.0 < 2.0.0"
+      "version_requirement": ">= 1.0.0 < 2.0.0"
     }
   ],
   "operatingsystem_support": [
