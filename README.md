@@ -205,7 +205,7 @@ You can then use the GPG answer file to generate your keyring within the
 /gpg sub-directory in the ```$keysdir```
 
 ```bash
-gpg --batch --homedir /etc/puppetlabs/code-staging/keys/gpg --gen-key /tmp/gpg_answers
+gpg --batch --homedir /etc/puppetlabs/puppet/keys/gpg --gen-key /tmp/gpg_answers
 ```
 
 #### Usage
