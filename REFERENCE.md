@@ -7,19 +7,19 @@
 ### Classes
 
 * [`hiera`](#hiera): == Class: hiera  This class handles installing the hiera.yaml for Puppet's use.  === Parameters:    See README.  === Actions:  Installs eithe
-* [`hiera::deep_merge`](#hieradeep_merge): == Class: hiera::deep_merge  This class installs and configures deep_merge  === Authors:  Joseph Yaworski <jyaworski@carotid.us>  === Copyrig
-* [`hiera::eyaml`](#hieraeyaml): == Class: hiera::eyaml  This class installs and configures hiera-eyaml  === Authors:  Terri Haber <terri@puppetlabs.com>  === Copyright:  Cop
-* [`hiera::eyaml_gpg`](#hieraeyaml_gpg): == Class hiera::eyaml_gpg  This calls install and configures hiera-eyaml-gpg
-* [`hiera::params`](#hieraparams): == Class: hiera::params  This class handles OS-specific configuration of the hiera module.  It looks for variables in top scope (probably fro
+* [`hiera::deep_merge`](#hiera--deep_merge): == Class: hiera::deep_merge  This class installs and configures deep_merge  === Authors:  Joseph Yaworski <jyaworski@carotid.us>  === Copyrig
+* [`hiera::eyaml`](#hiera--eyaml): == Class: hiera::eyaml  This class installs and configures hiera-eyaml  === Authors:  Terri Haber <terri@puppetlabs.com>  === Copyright:  Cop
+* [`hiera::eyaml_gpg`](#hiera--eyaml_gpg): == Class hiera::eyaml_gpg  This calls install and configures hiera-eyaml-gpg
+* [`hiera::params`](#hiera--params): == Class: hiera::params  This class handles OS-specific configuration of the hiera module.  It looks for variables in top scope (probably fro
 
 ### Defined types
 
-* [`hiera::install`](#hierainstall): Private define
+* [`hiera::install`](#hiera--install): Private define
 
 ### Data types
 
-* [`Hiera::Hiera5_defaults`](#hierahiera5_defaults): This will validate hiera 5 'defaults' hash
-* [`Hiera::Hiera5_hierarchy`](#hierahiera5_hierarchy): This will validate hiera 5 hierarchy array hash
+* [`Hiera::Hiera5_defaults`](#Hiera--Hiera5_defaults): This will validate hiera 5 'defaults' hash
+* [`Hiera::Hiera5_hierarchy`](#Hiera--Hiera5_hierarchy): This will validate hiera 5 hierarchy array hash
 
 ## Classes
 
@@ -85,61 +85,61 @@ Copyright (C) 2016 Vox Pupuli, unless otherwise noted.
 
 The following parameters are available in the `hiera` class:
 
-* [`hierarchy`](#hierarchy)
-* [`hiera_version`](#hiera_version)
-* [`hiera5_defaults`](#hiera5_defaults)
-* [`backends`](#backends)
-* [`backend_options`](#backend_options)
-* [`hiera_yaml`](#hiera_yaml)
-* [`create_symlink`](#create_symlink)
-* [`datadir`](#datadir)
-* [`datadir_manage`](#datadir_manage)
-* [`owner`](#owner)
-* [`group`](#group)
-* [`mode`](#mode)
-* [`eyaml_owner`](#eyaml_owner)
-* [`eyaml_group`](#eyaml_group)
-* [`provider`](#provider)
-* [`eyaml`](#eyaml)
-* [`eyaml_name`](#eyaml_name)
-* [`eyaml_version`](#eyaml_version)
-* [`eyaml_source`](#eyaml_source)
-* [`eyaml_datadir`](#eyaml_datadir)
-* [`eyaml_extension`](#eyaml_extension)
-* [`confdir`](#confdir)
-* [`puppet_conf_manage`](#puppet_conf_manage)
-* [`logger`](#logger)
-* [`cmdpath`](#cmdpath)
-* [`create_keys`](#create_keys)
-* [`keysdir`](#keysdir)
-* [`deep_merge_name`](#deep_merge_name)
-* [`deep_merge_version`](#deep_merge_version)
-* [`deep_merge_source`](#deep_merge_source)
-* [`deep_merge_options`](#deep_merge_options)
-* [`merge_behavior`](#merge_behavior)
-* [`extra_config`](#extra_config)
-* [`master_service`](#master_service)
-* [`manage_package`](#manage_package)
-* [`manage_eyaml_package`](#manage_eyaml_package)
-* [`manage_deep_merge_package`](#manage_deep_merge_package)
-* [`manage_eyaml_gpg_package`](#manage_eyaml_gpg_package)
-* [`package_name`](#package_name)
-* [`package_ensure`](#package_ensure)
-* [`eyaml_gpg_name`](#eyaml_gpg_name)
-* [`eyaml_gpg_version`](#eyaml_gpg_version)
-* [`eyaml_gpg_source`](#eyaml_gpg_source)
-* [`eyaml_gpg`](#eyaml_gpg)
-* [`eyaml_gpg_gnupghome_recurse`](#eyaml_gpg_gnupghome_recurse)
-* [`eyaml_gpg_recipients`](#eyaml_gpg_recipients)
-* [`eyaml_pkcs7_private_key`](#eyaml_pkcs7_private_key)
-* [`eyaml_pkcs7_public_key`](#eyaml_pkcs7_public_key)
-* [`ruby_gpg_name`](#ruby_gpg_name)
-* [`ruby_gpg_version`](#ruby_gpg_version)
-* [`ruby_gpg_source`](#ruby_gpg_source)
-* [`gem_install_options`](#gem_install_options)
-* [`gem_source`](#gem_source)
+* [`hierarchy`](#-hiera--hierarchy)
+* [`hiera_version`](#-hiera--hiera_version)
+* [`hiera5_defaults`](#-hiera--hiera5_defaults)
+* [`backends`](#-hiera--backends)
+* [`backend_options`](#-hiera--backend_options)
+* [`hiera_yaml`](#-hiera--hiera_yaml)
+* [`create_symlink`](#-hiera--create_symlink)
+* [`datadir`](#-hiera--datadir)
+* [`datadir_manage`](#-hiera--datadir_manage)
+* [`owner`](#-hiera--owner)
+* [`group`](#-hiera--group)
+* [`mode`](#-hiera--mode)
+* [`eyaml_owner`](#-hiera--eyaml_owner)
+* [`eyaml_group`](#-hiera--eyaml_group)
+* [`provider`](#-hiera--provider)
+* [`eyaml`](#-hiera--eyaml)
+* [`eyaml_name`](#-hiera--eyaml_name)
+* [`eyaml_version`](#-hiera--eyaml_version)
+* [`eyaml_source`](#-hiera--eyaml_source)
+* [`eyaml_datadir`](#-hiera--eyaml_datadir)
+* [`eyaml_extension`](#-hiera--eyaml_extension)
+* [`confdir`](#-hiera--confdir)
+* [`puppet_conf_manage`](#-hiera--puppet_conf_manage)
+* [`logger`](#-hiera--logger)
+* [`cmdpath`](#-hiera--cmdpath)
+* [`create_keys`](#-hiera--create_keys)
+* [`keysdir`](#-hiera--keysdir)
+* [`deep_merge_name`](#-hiera--deep_merge_name)
+* [`deep_merge_version`](#-hiera--deep_merge_version)
+* [`deep_merge_source`](#-hiera--deep_merge_source)
+* [`deep_merge_options`](#-hiera--deep_merge_options)
+* [`merge_behavior`](#-hiera--merge_behavior)
+* [`extra_config`](#-hiera--extra_config)
+* [`master_service`](#-hiera--master_service)
+* [`manage_package`](#-hiera--manage_package)
+* [`manage_eyaml_package`](#-hiera--manage_eyaml_package)
+* [`manage_deep_merge_package`](#-hiera--manage_deep_merge_package)
+* [`manage_eyaml_gpg_package`](#-hiera--manage_eyaml_gpg_package)
+* [`package_name`](#-hiera--package_name)
+* [`package_ensure`](#-hiera--package_ensure)
+* [`eyaml_gpg_name`](#-hiera--eyaml_gpg_name)
+* [`eyaml_gpg_version`](#-hiera--eyaml_gpg_version)
+* [`eyaml_gpg_source`](#-hiera--eyaml_gpg_source)
+* [`eyaml_gpg`](#-hiera--eyaml_gpg)
+* [`eyaml_gpg_gnupghome_recurse`](#-hiera--eyaml_gpg_gnupghome_recurse)
+* [`eyaml_gpg_recipients`](#-hiera--eyaml_gpg_recipients)
+* [`eyaml_pkcs7_private_key`](#-hiera--eyaml_pkcs7_private_key)
+* [`eyaml_pkcs7_public_key`](#-hiera--eyaml_pkcs7_public_key)
+* [`ruby_gpg_name`](#-hiera--ruby_gpg_name)
+* [`ruby_gpg_version`](#-hiera--ruby_gpg_version)
+* [`ruby_gpg_source`](#-hiera--ruby_gpg_source)
+* [`gem_install_options`](#-hiera--gem_install_options)
+* [`gem_source`](#-hiera--gem_source)
 
-##### <a name="hierarchy"></a>`hierarchy`
+##### <a name="-hiera--hierarchy"></a>`hierarchy`
 
 Data type: `Variant[Array, Array[Hash]]`
 
@@ -147,7 +147,7 @@ Data type: `Variant[Array, Array[Hash]]`
 
 Default value: `$hiera::params::hierarchy`
 
-##### <a name="hiera_version"></a>`hiera_version`
+##### <a name="-hiera--hiera_version"></a>`hiera_version`
 
 Data type: `Optional[Enum['3','5']]`
 
@@ -155,7 +155,7 @@ Data type: `Optional[Enum['3','5']]`
 
 Default value: `$hiera::params::hiera_version`
 
-##### <a name="hiera5_defaults"></a>`hiera5_defaults`
+##### <a name="-hiera--hiera5_defaults"></a>`hiera5_defaults`
 
 Data type: `Hiera::Hiera5_defaults`
 
@@ -163,7 +163,7 @@ Data type: `Hiera::Hiera5_defaults`
 
 Default value: `$hiera::params::hiera5_defaults`
 
-##### <a name="backends"></a>`backends`
+##### <a name="-hiera--backends"></a>`backends`
 
 Data type: `Any`
 
@@ -171,7 +171,7 @@ Data type: `Any`
 
 Default value: `['yaml']`
 
-##### <a name="backend_options"></a>`backend_options`
+##### <a name="-hiera--backend_options"></a>`backend_options`
 
 Data type: `Any`
 
@@ -179,7 +179,7 @@ Data type: `Any`
 
 Default value: `{}`
 
-##### <a name="hiera_yaml"></a>`hiera_yaml`
+##### <a name="-hiera--hiera_yaml"></a>`hiera_yaml`
 
 Data type: `Any`
 
@@ -187,15 +187,15 @@ Data type: `Any`
 
 Default value: `$hiera::params::hiera_yaml`
 
-##### <a name="create_symlink"></a>`create_symlink`
+##### <a name="-hiera--create_symlink"></a>`create_symlink`
 
 Data type: `Any`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="datadir"></a>`datadir`
+##### <a name="-hiera--datadir"></a>`datadir`
 
 Data type: `Any`
 
@@ -203,15 +203,15 @@ Data type: `Any`
 
 Default value: `$hiera::params::datadir`
 
-##### <a name="datadir_manage"></a>`datadir_manage`
+##### <a name="-hiera--datadir_manage"></a>`datadir_manage`
 
 Data type: `Any`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="owner"></a>`owner`
+##### <a name="-hiera--owner"></a>`owner`
 
 Data type: `Any`
 
@@ -219,7 +219,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::owner`
 
-##### <a name="group"></a>`group`
+##### <a name="-hiera--group"></a>`group`
 
 Data type: `Any`
 
@@ -227,7 +227,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::group`
 
-##### <a name="mode"></a>`mode`
+##### <a name="-hiera--mode"></a>`mode`
 
 Data type: `Any`
 
@@ -235,7 +235,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::mode`
 
-##### <a name="eyaml_owner"></a>`eyaml_owner`
+##### <a name="-hiera--eyaml_owner"></a>`eyaml_owner`
 
 Data type: `Any`
 
@@ -243,7 +243,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::eyaml_owner`
 
-##### <a name="eyaml_group"></a>`eyaml_group`
+##### <a name="-hiera--eyaml_group"></a>`eyaml_group`
 
 Data type: `Any`
 
@@ -251,7 +251,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::eyaml_group`
 
-##### <a name="provider"></a>`provider`
+##### <a name="-hiera--provider"></a>`provider`
 
 Data type: `Any`
 
@@ -259,15 +259,15 @@ Data type: `Any`
 
 Default value: `$hiera::params::provider`
 
-##### <a name="eyaml"></a>`eyaml`
+##### <a name="-hiera--eyaml"></a>`eyaml`
 
 Data type: `Any`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="eyaml_name"></a>`eyaml_name`
+##### <a name="-hiera--eyaml_name"></a>`eyaml_name`
 
 Data type: `Any`
 
@@ -275,39 +275,39 @@ Data type: `Any`
 
 Default value: `'hiera-eyaml'`
 
-##### <a name="eyaml_version"></a>`eyaml_version`
+##### <a name="-hiera--eyaml_version"></a>`eyaml_version`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="eyaml_source"></a>`eyaml_source`
-
-Data type: `Any`
-
-
-
-Default value: ``undef``
-
-##### <a name="eyaml_datadir"></a>`eyaml_datadir`
+##### <a name="-hiera--eyaml_source"></a>`eyaml_source`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="eyaml_extension"></a>`eyaml_extension`
+##### <a name="-hiera--eyaml_datadir"></a>`eyaml_datadir`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="confdir"></a>`confdir`
+##### <a name="-hiera--eyaml_extension"></a>`eyaml_extension`
+
+Data type: `Any`
+
+
+
+Default value: `undef`
+
+##### <a name="-hiera--confdir"></a>`confdir`
 
 Data type: `Any`
 
@@ -315,15 +315,15 @@ Data type: `Any`
 
 Default value: `$hiera::params::confdir`
 
-##### <a name="puppet_conf_manage"></a>`puppet_conf_manage`
+##### <a name="-hiera--puppet_conf_manage"></a>`puppet_conf_manage`
 
 Data type: `Any`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="logger"></a>`logger`
+##### <a name="-hiera--logger"></a>`logger`
 
 Data type: `Any`
 
@@ -331,7 +331,7 @@ Data type: `Any`
 
 Default value: `'console'`
 
-##### <a name="cmdpath"></a>`cmdpath`
+##### <a name="-hiera--cmdpath"></a>`cmdpath`
 
 Data type: `Any`
 
@@ -339,23 +339,23 @@ Data type: `Any`
 
 Default value: `$hiera::params::cmdpath`
 
-##### <a name="create_keys"></a>`create_keys`
+##### <a name="-hiera--create_keys"></a>`create_keys`
 
 Data type: `Any`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="keysdir"></a>`keysdir`
+##### <a name="-hiera--keysdir"></a>`keysdir`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="deep_merge_name"></a>`deep_merge_name`
+##### <a name="-hiera--deep_merge_name"></a>`deep_merge_name`
 
 Data type: `Any`
 
@@ -363,23 +363,23 @@ Data type: `Any`
 
 Default value: `'deep_merge'`
 
-##### <a name="deep_merge_version"></a>`deep_merge_version`
+##### <a name="-hiera--deep_merge_version"></a>`deep_merge_version`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="deep_merge_source"></a>`deep_merge_source`
+##### <a name="-hiera--deep_merge_source"></a>`deep_merge_source`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="deep_merge_options"></a>`deep_merge_options`
+##### <a name="-hiera--deep_merge_options"></a>`deep_merge_options`
 
 Data type: `Any`
 
@@ -387,15 +387,15 @@ Data type: `Any`
 
 Default value: `{}`
 
-##### <a name="merge_behavior"></a>`merge_behavior`
+##### <a name="-hiera--merge_behavior"></a>`merge_behavior`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_config"></a>`extra_config`
+##### <a name="-hiera--extra_config"></a>`extra_config`
 
 Data type: `Any`
 
@@ -403,7 +403,7 @@ Data type: `Any`
 
 Default value: `''`
 
-##### <a name="master_service"></a>`master_service`
+##### <a name="-hiera--master_service"></a>`master_service`
 
 Data type: `Any`
 
@@ -411,7 +411,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::master_service`
 
-##### <a name="manage_package"></a>`manage_package`
+##### <a name="-hiera--manage_package"></a>`manage_package`
 
 Data type: `Any`
 
@@ -419,31 +419,31 @@ Data type: `Any`
 
 Default value: `$hiera::params::manage_package`
 
-##### <a name="manage_eyaml_package"></a>`manage_eyaml_package`
+##### <a name="-hiera--manage_eyaml_package"></a>`manage_eyaml_package`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="manage_deep_merge_package"></a>`manage_deep_merge_package`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="manage_eyaml_gpg_package"></a>`manage_eyaml_gpg_package`
+##### <a name="-hiera--manage_deep_merge_package"></a>`manage_deep_merge_package`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-hiera--manage_eyaml_gpg_package"></a>`manage_eyaml_gpg_package`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-hiera--package_name"></a>`package_name`
 
 Data type: `Any`
 
@@ -451,7 +451,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::package_name`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-hiera--package_ensure"></a>`package_ensure`
 
 Data type: `Any`
 
@@ -459,7 +459,7 @@ Data type: `Any`
 
 Default value: `$hiera::params::package_ensure`
 
-##### <a name="eyaml_gpg_name"></a>`eyaml_gpg_name`
+##### <a name="-hiera--eyaml_gpg_name"></a>`eyaml_gpg_name`
 
 Data type: `Any`
 
@@ -467,63 +467,63 @@ Data type: `Any`
 
 Default value: `'hiera-eyaml-gpg'`
 
-##### <a name="eyaml_gpg_version"></a>`eyaml_gpg_version`
+##### <a name="-hiera--eyaml_gpg_version"></a>`eyaml_gpg_version`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="eyaml_gpg_source"></a>`eyaml_gpg_source`
-
-Data type: `Any`
-
-
-
-Default value: ``undef``
-
-##### <a name="eyaml_gpg"></a>`eyaml_gpg`
+##### <a name="-hiera--eyaml_gpg_source"></a>`eyaml_gpg_source`
 
 Data type: `Any`
 
 
 
-Default value: ``false``
+Default value: `undef`
 
-##### <a name="eyaml_gpg_gnupghome_recurse"></a>`eyaml_gpg_gnupghome_recurse`
+##### <a name="-hiera--eyaml_gpg"></a>`eyaml_gpg`
+
+Data type: `Any`
+
+
+
+Default value: `false`
+
+##### <a name="-hiera--eyaml_gpg_gnupghome_recurse"></a>`eyaml_gpg_gnupghome_recurse`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="eyaml_gpg_recipients"></a>`eyaml_gpg_recipients`
-
-Data type: `Any`
-
-
-
-Default value: ``undef``
-
-##### <a name="eyaml_pkcs7_private_key"></a>`eyaml_pkcs7_private_key`
+##### <a name="-hiera--eyaml_gpg_recipients"></a>`eyaml_gpg_recipients`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="eyaml_pkcs7_public_key"></a>`eyaml_pkcs7_public_key`
+##### <a name="-hiera--eyaml_pkcs7_private_key"></a>`eyaml_pkcs7_private_key`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ruby_gpg_name"></a>`ruby_gpg_name`
+##### <a name="-hiera--eyaml_pkcs7_public_key"></a>`eyaml_pkcs7_public_key`
+
+Data type: `Any`
+
+
+
+Default value: `undef`
+
+##### <a name="-hiera--ruby_gpg_name"></a>`ruby_gpg_name`
 
 Data type: `Any`
 
@@ -531,39 +531,39 @@ Data type: `Any`
 
 Default value: `'ruby_gpg'`
 
-##### <a name="ruby_gpg_version"></a>`ruby_gpg_version`
+##### <a name="-hiera--ruby_gpg_version"></a>`ruby_gpg_version`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ruby_gpg_source"></a>`ruby_gpg_source`
+##### <a name="-hiera--ruby_gpg_source"></a>`ruby_gpg_source`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="gem_install_options"></a>`gem_install_options`
+##### <a name="-hiera--gem_install_options"></a>`gem_install_options`
 
 Data type: `Optional[Array]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="gem_source"></a>`gem_source`
+##### <a name="-hiera--gem_source"></a>`gem_source`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="hieradeep_merge"></a>`hiera::deep_merge`
+### <a name="hiera--deep_merge"></a>`hiera::deep_merge`
 
 == Class: hiera::deep_merge
 
@@ -577,7 +577,7 @@ Joseph Yaworski <jyaworski@carotid.us>
 
 Copyright (C) 2016 Joseph Yaworski, unless otherwise noted.
 
-### <a name="hieraeyaml"></a>`hiera::eyaml`
+### <a name="hiera--eyaml"></a>`hiera::eyaml`
 
 == Class: hiera::eyaml
 
@@ -591,13 +591,13 @@ Terri Haber <terri@puppetlabs.com>
 
 Copyright (C) 2014 Terri Haber, unless otherwise noted.
 
-### <a name="hieraeyaml_gpg"></a>`hiera::eyaml_gpg`
+### <a name="hiera--eyaml_gpg"></a>`hiera::eyaml_gpg`
 
 == Class hiera::eyaml_gpg
 
 This calls install and configures hiera-eyaml-gpg
 
-### <a name="hieraparams"></a>`hiera::params`
+### <a name="hiera--params"></a>`hiera::params`
 
 == Class: hiera::params
 
@@ -616,7 +616,7 @@ Copyright (C) 2013 Mike Arnold, unless otherwise noted.
 
 ## Defined types
 
-### <a name="hierainstall"></a>`hiera::install`
+### <a name="hiera--install"></a>`hiera::install`
 
 Private define
 
@@ -624,41 +624,41 @@ Private define
 
 The following parameters are available in the `hiera::install` defined type:
 
-* [`gem_name`](#gem_name)
-* [`provider`](#provider)
-* [`gem_version`](#gem_version)
-* [`gem_source`](#gem_source)
-* [`gem_install_options`](#gem_install_options)
+* [`gem_name`](#-hiera--install--gem_name)
+* [`provider`](#-hiera--install--provider)
+* [`gem_version`](#-hiera--install--gem_version)
+* [`gem_source`](#-hiera--install--gem_source)
+* [`gem_install_options`](#-hiera--install--gem_install_options)
 
-##### <a name="gem_name"></a>`gem_name`
-
-Data type: `Any`
-
-
-
-##### <a name="provider"></a>`provider`
+##### <a name="-hiera--install--gem_name"></a>`gem_name`
 
 Data type: `Any`
 
 
 
-##### <a name="gem_version"></a>`gem_version`
+##### <a name="-hiera--install--provider"></a>`provider`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
-
-##### <a name="gem_source"></a>`gem_source`
+##### <a name="-hiera--install--gem_version"></a>`gem_version`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="gem_install_options"></a>`gem_install_options`
+##### <a name="-hiera--install--gem_source"></a>`gem_source`
+
+Data type: `Any`
+
+
+
+Default value: `undef`
+
+##### <a name="-hiera--install--gem_install_options"></a>`gem_install_options`
 
 Data type: `Any`
 
@@ -668,7 +668,7 @@ Default value: `$hiera::gem_install_options`
 
 ## Data types
 
-### <a name="hierahiera5_defaults"></a>`Hiera::Hiera5_defaults`
+### <a name="Hiera--Hiera5_defaults"></a>`Hiera::Hiera5_defaults`
 
 This will validate hiera 5 'defaults' hash
 
@@ -685,7 +685,7 @@ Struct[{
                               }]
 ```
 
-### <a name="hierahiera5_hierarchy"></a>`Hiera::Hiera5_hierarchy`
+### <a name="Hiera--Hiera5_hierarchy"></a>`Hiera::Hiera5_hierarchy`
 
 This will validate hiera 5 hierarchy array hash
 
