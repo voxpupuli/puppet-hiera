@@ -26,7 +26,7 @@ class hiera::eyaml {
   $manage_package = $hiera::manage_eyaml_package
 
   if $manage_package {
-    ::hiera::install { 'eyaml':
+    hiera::install { 'eyaml':
       gem_name    => $eyaml_name,
       provider    => $provider,
       gem_version => $eyaml_version,

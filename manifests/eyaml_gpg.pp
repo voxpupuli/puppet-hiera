@@ -28,13 +28,13 @@ class hiera::eyaml_gpg {
   }
 
   if $manage_package {
-    ::hiera::install { 'ruby_gpg':
+    hiera::install { 'ruby_gpg':
       gem_name    => $ruby_gpg_name,
       provider    => $provider,
       gem_version => $ruby_gpg_version,
       gem_source  => $ruby_gpg_source,
     }
-    -> ::hiera::install { 'hiera-eyaml-gpg':
+    -> hiera::install { 'hiera-eyaml-gpg':
       gem_name    => $eyaml_gpg_name,
       provider    => $provider,
       gem_version => $eyaml_gpg_version,

@@ -10,7 +10,7 @@ describe 'hiera::install' do
       end
       let :pre_condition do
         [
-          'include ::hiera'
+          'include hiera'
         ]
       end
 
