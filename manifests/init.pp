@@ -1,10 +1,134 @@
-# == Class: hiera
+# @summary This class handles installing the hiera.yaml for Puppet's use.
 #
-# This class handles installing the hiera.yaml for Puppet's use.
+# @param hierarchy
+#   The hiera hierarchy. Default: [] For Hiera verison 5. Default: [{}]
+# @param hiera_version
+#   To set hiera 5 defaults. e.g. datadir, data_hash. Default: {'datadir' => 'data', 'data_hash' => 'yaml_data'}
+# @param hiera5_defaults
+#   Version format to layout hiera.yaml. Should be a string. Default: 3
+# @param backends
+#   The list of backends. Default: ['yaml'] If you supply a additional backend you must also supply the backend data in the backend_options hash.
+# @param backend_options
+#   An optional hash of backend data for any backend. Each key in the hash should be the name of the backend as listed in the backends array. You can also supply additional settings for the backend by passing in a hash. By default the yaml and eyaml backend data will be added if you enable them via their respective parameters. Any options you supply for yaml and eyaml backend types will always override other parameters supplied to the hiera class for that backend.
 #
-# === Parameters:
+#Example hiera data for the backend_options hash:
 #
-#   See README.
+#backend_options:
+#  json:
+#    datadir: '/etc/puppetlabs/puppet/%{environment}/jsondata'
+#  redis:
+#    password: clearp@ssw0rd        # if your Redis server requires authentication
+#    port: 6380                     # unless present, defaults to 6379
+#    db: 1                          # unless present, defaults to 0
+#    host: db.example.com           # unless present, defaults to localhost
+#    path: /tmp/redis.sock          # overrides port if unixsocket exists
+#    soft_connection_failure: true  # bypass exception if Redis server is unavailable; default is false
+#    separator: /                   # unless present, defaults to :
+#    deserialize: :json             # Try to deserialize; both :yaml and :json are supported
+#
+#NOTE: The backend_options must not contain symbols as keys ie :json: despite the hiera config needing symbols. The template will perform all the conversions to symbols in order for hiera to be happy. Because puppet does not use symbols there are minor annoyances when converting back and forth and merge data together.
+# @param hiera_yaml
+#   The path to the hiera config file. Note: Due to a bug, hiera.yaml is not placed in the codedir. Your puppet.conf hiera_config setting must match the configured value; see also hiera::puppet_conf_manage Default:
+#
+#    '/etc/puppet/hiera.yaml' for Puppet Open Source
+#    '/etc/puppetlabs/puppet/hiera.yaml' for Puppet Enterprise
+#
+# @param create_symlink
+#   Whether to create the symlink /etc/hiera.yaml Default: true
+# @param datadir
+#   The path to the directory where hiera will look for databases. Default:
+#
+#    '/etc/puppetlabs/puppet/hieradata' for PE Puppet < 4
+#    '/etc/puppetlabs/code/environments/%{environment}/hieradata' for Puppet >= 4
+#
+# @param datadir_manage
+#   Whether to create and manage the datadir as a file resource. Default: true
+# @param owner
+#   The owner of managed files and directories. Default:
+#
+#    'puppet' for Puppet Open Source
+#    'pe-puppet' for Puppet Enterprise
+#
+# @param group
+#   The group owner of managed files and directories. Default:
+#
+#    'puppet' for Puppet Open Source
+#    'pe-puppet' for Puppet Enterprise
+#
+# @param mode
+# @param eyaml_owner
+# @param eyaml_group
+# @param provider
+#   Which provider to use to install hiera-eyaml. Can be:
+#
+#    puppetserver_gem (PE 2015.x or FOSS using puppetserver)
+#    pe_puppetserver_gem (PE 3.7 or 3.8)
+#    pe_gem (PE pre-3.7)
+#    puppet_gem (agent-only gem)
+#    gem (FOSS using system ruby (ie puppetmaster)) Note: this module cannot detect FOSS puppetserver and you must pass provider => 'puppetserver_gem' for that to work. See also master_service. Default: Depends on puppet version detected as specified above.
+#
+# @param eyaml
+#   Whether to install, configure, and enable the eyaml backend. Also see the provider and master_service parameters. Default: false
+# @param eyaml_name
+#   The name of the eyaml gem. Default: 'hiera-eyaml'
+# @param eyaml_version
+#   The version of hiera-eyaml to install. Accepts 'installed', 'latest', '2.0.7', etc Default: undef
+# @param eyaml_source
+#   An alternate gem source for installing hiera-eyaml. Default: undef, uses gem backend default
+# @param eyaml_datadir
+#   The path to the directory where hiera will look for databases with the eyaml backend. Default: same as datadir
+# @param eyaml_extension
+#   The file extension for the eyaml backend. Default: undef, backend defaults to '.eyaml'
+# @param confdir
+#   The path to Puppet's confdir. Default: $settings::confdir which should be '/etc/puppetlabs/puppet'
+# @param puppet_conf_manage
+#   Whether to manage the puppet.conf hiera_config value or not. Default: true
+# @param logger
+#   Which hiera logger to use. Note: You need to manage any package/gem dependencies yourself. Default: undef, hiera defaults to 'console'
+# @param cmdpath
+#   Search paths for command binaries, like the eyaml command. The default should cover most cases. Default: ['/opt/puppet/bin', '/usr/bin', '/usr/local/bin']
+# @param create_keys
+#   Whether to create pkcs7 keys and manage key files for hiera-eyaml. This is useful if you need to distribute a pkcs7 key pair. Default: true
+# @param keysdir
+#   Directory for hiera to manage for eyaml keys. Default: $confdir/keys Note: If using PE 2013.x+ and code-manager set the keysdir under the $confdir/code-staging directory to allow the code manager to sync the keys to all PuppetServers Example: /etc/puppetlabs/code-staging/keys
+# @param deep_merge_name
+#   The name of the deep_merge gem. Default: 'deep_merge'
+# @param deep_merge_version
+#   The version of deep_merge to install. Accepts 'installed', 'latest', '2.0.7', etc. Default: undef
+# @param deep_merge_source
+#   An alternate gem source for installing deep_merge. Default: undef, uses gem backend default
+# @param deep_merge_options
+#   A hash of options to set in hiera.yaml for the deep merge behavior. Default: {}
+# @param merge_behavior
+#   Which hiera merge behavior to use. Valid values are 'native', 'deep', and 'deeper'. Deep and deeper values will install the deep_merge gem into the puppet runtime. Default: undef, hiera defaults to 'native'
+# @param extra_config
+#   Arbitrary YAML content to append to the end of the hiera.yaml config file. This is useful for configuring backend-specific parameters. Default: ''
+# @param master_service
+#   The service name of the master to restart after package installation or hiera.yaml changes. Note: You must pass master_service => 'puppetserver' for FOSS puppetserver Default: 'pe-puppetserver' for PE 2015.x, otherwise 'puppetmaster'
+# @param manage_package
+#   A boolean for wether the hiera package should be managed. Default: false
+# @param manage_eyaml_package
+# @param manage_deep_merge_package
+# @param manage_eyaml_gpg_package
+# @param package_name
+#   Specifies the name of the hiera package. Default: 'hiera'
+# @param package_ensure
+#   Specifies the ensure value of the hiera package. Default: 'present'
+# @param eyaml_gpg_name
+# @param eyaml_gpg_version
+# @param eyaml_gpg_source
+# @param eyaml_gpg
+# @param eyaml_gpg_gnupghome_recurse
+#   Whether to recurse and set permissions in the gpgdir. This is imporant to protect the key, but makes puppet agent raise an error on each run. You can set the mode on these files to 0600 by yourself and set this to false. Default: true
+# @param eyaml_gpg_recipients
+# @param eyaml_pkcs7_private_key
+# @param eyaml_pkcs7_public_key
+# @param ruby_gpg_name
+# @param ruby_gpg_version
+# @param ruby_gpg_source
+# @param gem_install_options
+#   An array of install options to pass to the gem package resources. Typically, this parameter is used to specify a proxy server. eg gem_install_options => ['--http-proxy', 'http://proxy.example.com:3128']
+# @param gem_source
 #
 # === Actions:
 #
