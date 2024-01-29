@@ -3,7 +3,7 @@
 require 'voxpupuli/acceptance/spec_helper_acceptance'
 
 configure_beaker do |host|
-  install_module_from_forge_on(host, 'puppetlabs-puppetserver_gem', '>= 0')
+  install_puppet_module_via_pmt_on(host, 'puppetlabs-puppetserver_gem')
   unless ENV['BEAKER_provision'] == 'no'
     install_package(host, 'puppetserver')
     on host, puppet('resource', 'service', 'puppetserver', 'ensure=running')
