@@ -6,11 +6,16 @@
 
 ### Classes
 
+#### Public Classes
+
 * [`hiera`](#hiera): This class handles installing the hiera.yaml for Puppet's use. Creates either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml in set hiera version and links /etc/hiera.yaml to it. Creates $datadir (if $datadir_manage == true).
 * [`hiera::deep_merge`](#hiera--deep_merge): This class installs and configures deep_merge
-* [`hiera::eyaml`](#hiera--eyaml): This class installs and configures hiera-eyaml
 * [`hiera::eyaml_gpg`](#hiera--eyaml_gpg): This calls install and configures hiera-eyaml-gpg
 * [`hiera::params`](#hiera--params): This class handles OS-specific configuration of the hiera module. It looks for variables in top scope (probably from an ENC such as Dashboard). If the variable doesn't exist in top scope, it falls back to a hard coded default value.
+
+#### Private Classes
+
+* `hiera::eyaml`: This class installs and configures hiera-eyaml
 
 ### Defined types
 
@@ -545,12 +550,6 @@ Default value: `undef`
 === Copyright:
 
 Copyright (C) 2016 Joseph Yaworski, unless otherwise noted.
-
-### <a name="hiera--eyaml"></a>`hiera::eyaml`
-
-=== Copyright:
-
-Copyright (C) 2014 Terri Haber, unless otherwise noted.
 
 ### <a name="hiera--eyaml_gpg"></a>`hiera::eyaml_gpg`
 

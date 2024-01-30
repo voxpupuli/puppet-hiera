@@ -1,3 +1,5 @@
+# @api private
+#
 # @summary
 #   This class installs and configures hiera-eyaml
 #
