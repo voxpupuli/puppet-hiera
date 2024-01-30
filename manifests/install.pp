@@ -1,10 +1,6 @@
 # @summary Private define
 #
-# @param gem_name
-# @param provider
-# @param gem_version
-# @param gem_source
-# @param gem_install_options
+# @api private
 #
 define hiera::install (
   $gem_name,
