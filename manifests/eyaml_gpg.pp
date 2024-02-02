@@ -1,6 +1,5 @@
-# == Class hiera::eyaml_gpg
-#
-# This calls install and configures hiera-eyaml-gpg
+# @summary 
+#   This calls install and configures hiera-eyaml-gpg
 #
 class hiera::eyaml_gpg {
   $provider                     = $hiera::provider

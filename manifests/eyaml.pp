@@ -1,10 +1,10 @@
-# == Class: hiera::eyaml
+# @api private
 #
-# This class installs and configures hiera-eyaml
+# @summary
+#   This class installs and configures hiera-eyaml
 #
-# === Authors:
-#
-# Terri Haber <terri@puppetlabs.com>
+# @author
+#   Terri Haber <terri@puppetlabs.com>
 #
 # === Copyright:
 #

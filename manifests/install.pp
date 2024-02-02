@@ -1,4 +1,7 @@
-# Private define
+# @summary Private define
+#
+# @api private
+#
 define hiera::install (
   $gem_name,
   $provider,

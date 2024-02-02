@@ -1,10 +1,8 @@
-# == Class: hiera::deep_merge
+# @summary
+#   This class installs and configures deep_merge
 #
-# This class installs and configures deep_merge
-#
-# === Authors:
-#
-# Joseph Yaworski <jyaworski@carotid.us>
+# @author
+#   Joseph Yaworski <jyaworski@carotid.us>
 #
 # === Copyright:
 #
