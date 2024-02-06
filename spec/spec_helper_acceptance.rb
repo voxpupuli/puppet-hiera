@@ -26,7 +26,11 @@ end
 def make_site_pp(host, pp, path)
   on host, "mkdir -p #{path}"
   create_remote_file(host, File.join(path, 'site.pp'), pp)
-  on host, "chown -R #{puppet_user(host)}:#{puppet_group(host)} #{path}"
+  if Facter.value('pe_server_version')
+    on host, "chown -R root:root #{path}"
+  else
+    on host, "chown -R puppet:puppet #{path}"
+  end
   on host, "chmod -R 0755 #{path}"
   on host, 'service puppetserver restart'
   wait_for_puppetserver(host, 3)
