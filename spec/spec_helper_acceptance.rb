@@ -3,10 +3,10 @@
 require 'voxpupuli/acceptance/spec_helper_acceptance'
 
 configure_beaker do |host|
-  install_module_from_forge_on(host, 'puppetlabs-puppetserver_gem', '>= 0')
+  install_puppet_module_via_pmt_on(host, 'puppetlabs-puppetserver_gem')
   unless ENV['BEAKER_provision'] == 'no'
     install_package(host, 'puppetserver')
-    on host, puppet('resource', 'service', 'puppetserver', 'ensure=running')
+    on host, 'puppet resource service puppetserver ensure=running'
   end
 end
 
@@ -26,7 +26,7 @@ end
 def make_site_pp(host, pp, path)
   on host, "mkdir -p #{path}"
   create_remote_file(host, File.join(path, 'site.pp'), pp)
-  on host, "chown -R #{puppet_user(host)}:#{puppet_group(host)} #{path}"
+  on host, "chown -R puppet:puppet #{path}"
   on host, "chmod -R 0755 #{path}"
   on host, 'service puppetserver restart'
   wait_for_puppetserver(host, 3)
