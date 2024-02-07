@@ -24,6 +24,7 @@ def wait_for_puppetserver(host, max_retries)
 end
 
 def make_site_pp(host, pp, path)
+  let(:facts)
   on host, "mkdir -p #{path}"
   create_remote_file(host, File.join(path, 'site.pp'), pp)
   if Facter.value('pe_server_version')
