@@ -84,7 +84,7 @@ describe 'hiera' do
 
     it 'finds it in puppet agent' do
       make_site_pp(default, pp, manifestsdir)
-      expect(on(default, puppet('agent', '-t', '--server', '$(hostname -f)'), acceptable_exit_codes: [0, 2]).stdout.strip).to match(%r{found output})
+      expect(on(default, 'puppet agent -t --server $(hostname -f)', acceptable_exit_codes: [0, 2]).stdout.strip).to match(%r{found output})
     end
   end
 end
