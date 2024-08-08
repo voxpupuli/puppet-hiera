@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.0](https://github.com/voxpupuli/puppet-hiera/tree/v6.0.0) (2024-08-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v5.0.1...v6.0.0)
+
+**Breaking changes:**
+
+- Drop EOL CentOS 8 [\#336](https://github.com/voxpupuli/puppet-hiera/pull/336) ([Dan33l](https://github.com/Dan33l))
+- Drop EOL el7 and Debian 10 [\#335](https://github.com/voxpupuli/puppet-hiera/pull/335) ([Dan33l](https://github.com/Dan33l))
+- Drop Ubuntu 18.04 support [\#320](https://github.com/voxpupuli/puppet-hiera/pull/320) ([zilchms](https://github.com/zilchms))
+- Drop Puppet 6 support [\#312](https://github.com/voxpupuli/puppet-hiera/pull/312) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- puppetlabs/inifile: Allow 6.x [\#326](https://github.com/voxpupuli/puppet-hiera/pull/326) ([zilchms](https://github.com/zilchms))
+- puppetlabs/stdlib: Allow 9.x [\#325](https://github.com/voxpupuli/puppet-hiera/pull/325) ([zilchms](https://github.com/zilchms))
+- Add RedHat 8 and 9 support [\#324](https://github.com/voxpupuli/puppet-hiera/pull/324) ([zilchms](https://github.com/zilchms))
+- Add CentOS 8 and 9 support [\#323](https://github.com/voxpupuli/puppet-hiera/pull/323) ([zilchms](https://github.com/zilchms))
+- Add Debian 11 support [\#322](https://github.com/voxpupuli/puppet-hiera/pull/322) ([zilchms](https://github.com/zilchms))
+- Add Ubuntu 22.04 support [\#321](https://github.com/voxpupuli/puppet-hiera/pull/321) ([zilchms](https://github.com/zilchms))
+- Add RHEL 8 support [\#307](https://github.com/voxpupuli/puppet-hiera/pull/307) ([tq-t](https://github.com/tq-t))
+
+**Merged pull requests:**
+
+- Add documentation and move parameter documentation from README to REFERENCE [\#318](https://github.com/voxpupuli/puppet-hiera/pull/318) ([zilchms](https://github.com/zilchms))
+- Remove legacy top-scope syntax [\#316](https://github.com/voxpupuli/puppet-hiera/pull/316) ([smortex](https://github.com/smortex))
+- Update GPG example to match defaults [\#310](https://github.com/voxpupuli/puppet-hiera/pull/310) ([davidsandilands](https://github.com/davidsandilands))
+
 ## [v5.0.1](https://github.com/voxpupuli/puppet-hiera/tree/v5.0.1) (2022-01-12)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v5.0.0...v5.0.1)
