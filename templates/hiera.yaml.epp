@@ -33,6 +33,12 @@ hierarchy:
       - "<%= $path %>"
       <%- } -%>
 <% } -%>
+<% if $hr['mapped_paths'] { -%>
+    mapped_paths:
+      - "<%= $hr['mapped_paths'][0] %>"
+      - "<%= $hr['mapped_paths'][1] %>"
+      - "<%= $hr['mapped_paths'][2] %>"
+<% } -%>
 <% if $hr['glob'] { -%>
     glob: "<%= $hr['glob'] -%>"
 <% } -%>
