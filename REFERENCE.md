@@ -571,13 +571,13 @@ Alias of
 
 ```puppet
 Struct[{
-                                datadir        => Optional[String],
-                                data_hash      => Optional[Enum['yaml_data', 'json_data', 'hocon_data']],
-                                lookup_key     => Optional[String],
-                                data_dig       => Optional[String],
-                                hiera3_backend => Optional[String],
-                                options        => Optional[Hash],
-                              }]
+    datadir        => Optional[String],
+    data_hash      => Optional[Enum['yaml_data', 'json_data', 'hocon_data']],
+    lookup_key     => Optional[String],
+    data_dig       => Optional[String],
+    hiera3_backend => Optional[String],
+    options        => Optional[Hash],
+}]
 ```
 
 ### <a name="Hiera--Hiera5_hierarchy"></a>`Hiera::Hiera5_hierarchy`
@@ -588,19 +588,19 @@ Alias of
 
 ```puppet
 Array[Struct[{
-                                  name            => String,
-                                  path            => Optional[String],
-                                  paths           => Optional[Array[String]],
-                                  glob            => Optional[String],
-                                  globs           => Optional[Array[String]],
-                                  uri             => Optional[String],
-                                  uris            => Optional[Array[String]],
-                                  data_hash       => Optional[String],
-                                  lookup_key      => Optional[String],
-                                  data_dig        => Optional[String],
-                                  datadir         => Optional[String],
-                                  hiera3_backend  => Optional[String],
-                                  options         => Optional[Hash],
-                                }]]
+      name            => String,
+      path            => Optional[String],
+      paths           => Optional[Array[String]],
+      glob            => Optional[String],
+      globs           => Optional[Array[String]],
+      uri             => Optional[String],
+      uris            => Optional[Array[String]],
+      data_hash       => Optional[String],
+      lookup_key      => Optional[String],
+      data_dig        => Optional[String],
+      datadir         => Optional[String],
+      hiera3_backend  => Optional[String],
+      options         => Optional[Hash],
+}]]
 ```
 
