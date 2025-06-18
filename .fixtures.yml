@@ -1,4 +1,5 @@
+---
 fixtures:
   repositories:
-    "stdlib": "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-    "inifile": "https://github.com/puppetlabs/puppetlabs-inifile.git"
+    inifile: https://github.com/puppetlabs/puppetlabs-inifile.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
