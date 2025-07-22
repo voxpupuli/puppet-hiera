@@ -62,7 +62,7 @@ class { 'hiera':
           hiera5_defaults =>  {"datadir" => "data", "data_hash" => "yaml_data"},
           hierarchy       =>  [
                                 {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{virtual}.yaml"},
-                                {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{trusted.certname}.yaml', 'nodes/%{osfamily}.yaml']},
+                                {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{trusted.certname}.yaml', 'nodes/%{facts.os.family}.yaml']},
                                 {"name" =>  "Default yaml file", "path" =>  "common.yaml"},
                               ],
 }
@@ -101,7 +101,7 @@ hierarchy:
   - name: "Nodes yaml"
     paths:
       - "nodes/%{trusted.certname}.yaml"
-      - "nodes/%{osfamily}.yaml"
+      - "nodes/%{facts.os.family}.yaml"
 
   - name: "Default yaml file"
     path: "common.yaml"
