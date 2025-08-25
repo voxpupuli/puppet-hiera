@@ -84,6 +84,16 @@ describe 'hiera' do
           it { is_expected.to contain_exec('createkeys').that_requires('Hiera::Install[eyaml]') }
           it { is_expected.to contain_file('/dev/null/keys/private_key.pkcs7.pem').with_ensure('file').with_mode('0600').that_requires('Exec[createkeys]') }
           it { is_expected.to contain_file('/dev/null/keys/public_key.pkcs7.pem').with_ensure('file').with_mode('0644').that_requires('Exec[createkeys]') }
+
+          it do
+            is_expected.to contain_file('/etc/eyaml/config.yaml').
+              with_ensure('file').
+              with_owner('root').
+              with_group('root').
+              with_mode('0644').
+              with_content(%r{pkcs7_private_key: /dev/null/keys/private_key.pkcs7.pem}).
+              with_content(%r{pkcs7_public_key: /dev/null/keys/public_key.pkcs7.pem})
+          end
         end
 
         describe 'other_backends' do

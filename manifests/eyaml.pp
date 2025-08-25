@@ -77,5 +77,28 @@ class hiera::eyaml {
       mode    => '0644',
       require => Exec['createkeys'],
     }
+
+    file { '/etc/eyaml':
+      ensure => directory,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+    }
+
+    file { '/etc/eyaml/config.yaml':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      # https://github.com/voxpupuli/puppet-lint-strict_indent-check/issues/20
+      # lint:ignore:strict_indent
+      content => @("CONF"),
+        ---
+        # This file is managed by puppet.
+        pkcs7_private_key: ${privkey}
+        pkcs7_public_key: ${pubkey}
+        | CONF
+      # lint:endignore
+    }
   }
 }
