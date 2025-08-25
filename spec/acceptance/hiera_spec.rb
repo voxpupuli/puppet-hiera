@@ -67,7 +67,7 @@ describe 'hiera' do
     let(:pp) do
       <<-EOS
       class myclass {
-        $value = hiera('myclass::value')
+        $value = lookup('myclass::value')
         notify { $value: }
       }
       include myclass
@@ -75,7 +75,7 @@ describe 'hiera' do
     end
 
     it 'finds it on the command line' do
-      expect(on(default, 'hiera myclass::value environment=production').stdout.strip).to eq('found output')
+      expect(on(default, 'puppet lookup myclass::value environment=production').stdout.strip).to eq('--- found output')
     end
 
     it 'finds it in puppet apply' do

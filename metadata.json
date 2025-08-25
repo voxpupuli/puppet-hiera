@@ -45,15 +45,14 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "20.04",
         "22.04"
       ]
     }
   ],
   "requirements": [
     {
-      "name": "puppet",
-      "version_requirement": ">= 7.0.0 < 8.0.0"
+      "name": "openvox",
+      "version_requirement": ">= 8.19.0 < 9.0.0"
     }
   ]
 }
