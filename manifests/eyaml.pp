@@ -50,23 +50,29 @@ class hiera::eyaml {
 
   $keysdir = dirname($_keysdir)
 
-  if ( $create_keys == true ) {
+  if $create_keys {
+    $privkey = $hiera::_eyaml_pkcs7_private_key
+    $pubkey = $hiera::_eyaml_pkcs7_public_key
+
     exec { 'createkeys':
       user    => $owner,
-      cwd     => $keysdir,
-      command => 'eyaml createkeys',
+      command => [
+        'eyaml',
+        'createkeys',
+        "--pkcs7-private-key=${privkey}",
+        "--pkcs7-public-key=${pubkey}",
+      ],
       path    => $cmdpath,
-      creates => "${_keysdir}/private_key.pkcs7.pem",
-      require => File[$_keysdir],
+      creates => $privkey,
     }
 
-    file { "${_keysdir}/private_key.pkcs7.pem":
+    file { $privkey:
       ensure  => file,
       mode    => '0600',
       require => Exec['createkeys'],
     }
 
-    file { "${_keysdir}/public_key.pkcs7.pem":
+    file { $pubkey:
       ensure  => file,
       mode    => '0644',
       require => Exec['createkeys'],

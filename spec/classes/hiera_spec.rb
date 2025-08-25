@@ -43,7 +43,9 @@ describe 'hiera' do
               eyaml: true,
               eyaml_gpg: true,
               manage_package: false,
-              keysdir: '/dev/null/keys'
+              keysdir: '/dev/null/keys',
+              eyaml_pkcs7_private_key: '/dev/null/keys/private_key.pem',
+              eyaml_pkcs7_public_key: '/dev/null/keys/public_key.pem'
             }
           end
 
@@ -52,7 +54,22 @@ describe 'hiera' do
           it { is_expected.to contain_hiera__install('eyaml') }
           it { is_expected.to contain_hiera__install('ruby_gpg') }
           it { is_expected.to contain_hiera__install('hiera-eyaml-gpg') }
-          it { is_expected.to contain_exec('createkeys').that_requires('File[/dev/null/keys]') }
+
+          it do
+            is_expected.to contain_exec('createkeys').
+              with_command(
+                [
+                  'eyaml',
+                  'createkeys',
+                  '--pkcs7-private-key=/dev/null/keys/private_key.pem',
+                  '--pkcs7-public-key=/dev/null/keys/public_key.pem'
+                ]
+              ).
+              with_creates('/dev/null/keys/private_key.pem')
+          end
+
+          it { is_expected.to contain_file('/dev/null/keys/private_key.pem').with_ensure('file').with_mode('0600').that_requires('Exec[createkeys]') }
+          it { is_expected.to contain_file('/dev/null/keys/public_key.pem').with_ensure('file').with_mode('0644').that_requires('Exec[createkeys]') }
         end
 
         describe 'param manage_package => true and create_keys => true' do
@@ -64,7 +81,9 @@ describe 'hiera' do
             }
           end
 
-          it { is_expected.to contain_exec('createkeys').that_requires('Hiera::Install[eyaml]').that_requires('File[/dev/null/keys]') }
+          it { is_expected.to contain_exec('createkeys').that_requires('Hiera::Install[eyaml]') }
+          it { is_expected.to contain_file('/dev/null/keys/private_key.pkcs7.pem').with_ensure('file').with_mode('0600').that_requires('Exec[createkeys]') }
+          it { is_expected.to contain_file('/dev/null/keys/public_key.pkcs7.pem').with_ensure('file').with_mode('0644').that_requires('Exec[createkeys]') }
         end
 
         describe 'other_backends' do
