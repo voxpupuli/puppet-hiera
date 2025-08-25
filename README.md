@@ -55,22 +55,38 @@ class { 'hiera':
   ],
 }
 ```
+
 ### For Hiera version 5
+
 ```puppet
 class { 'hiera':
-          hiera_version   =>  '5',
-          hiera5_defaults =>  {"datadir" => "data", "data_hash" => "yaml_data"},
-          hierarchy       =>  [
-                                {"name" =>  "Virtual yaml", "path"  =>  "virtual/%{virtual}.yaml"},
-                                {"name" =>  "Nodes yaml", "paths" =>  ['nodes/%{trusted.certname}.yaml', 'nodes/%{facts.os.family}.yaml']},
-                                {"name" =>  "Default yaml file", "path" =>  "common.yaml"},
-                              ],
+  hiera_version   =>  '5',
+  hiera5_defaults =>  {
+    "datadir" => "data",
+    "data_hash" => "yaml_data",
+  },
+  hierarchy       =>  [
+    {
+      "name" => "Virtual yaml",
+      "path"  =>  "virtual/%{virtual}.yaml",
+    },
+    {
+      "name" => "Nodes yaml",
+      "paths" => ['nodes/%{trusted.certname}.yaml',
+      'nodes/%{facts.os.family}.yaml'],
+    },
+    {
+      "name" => "Default yaml file",
+      "path" => "common.yaml",
+    },
+  ],
 }
 ```
-** Note: For Hiera version 5 when calling the class, please remember to pass '5' to 'hiera_version' as in the example above. **
-** Also please note that 'hierarchy' is an array of hash in version 5. **
 
-The resulting output in /etc/puppet/hiera.yaml:
+* Note: For Hiera version 5 when calling the class, please remember to pass '5' to 'hiera_version' as in the example above.
+* Also please note that `hierarchy` is an array of hashes in version 5.
+
+The resulting output in `/etc/puppet/hiera.yaml`:
 
 ```yaml
 ---
@@ -85,6 +101,7 @@ The resulting output in /etc/puppet/hiera.yaml:
 :yaml:
    :datadir: /etc/puppet/hieradata
 ```
+
 ### Resulting output for Hiera 5
 
 ```yaml
@@ -115,7 +132,7 @@ This module will also allow you to configure different options for logger and
 merge_behavior.  The default behavior is to set logger to console and merge
 behavior to native.
 
-For details and valid options see [Configuring Hiera](https://docs.puppetlabs.com/hiera/1/configuring.html#global-settings).
+For details and valid options see [Configuring Hiera](https://help.puppet.com/core/8/Content/PuppetCore/hiera_config_yaml_5.htm).
 
 ```puppet
 class { 'hiera':
@@ -128,7 +145,8 @@ class { 'hiera':
   merge_behavior => 'deeper'
 }
 ```
-## For Hiera version 5 please see the example above in beginning with Hiera.
+
+## For Hiera version 5 please see the example above in beginning with Hiera
 
 The resulting output in /etc/puppet/hiera.yaml:
 
@@ -250,17 +268,6 @@ The resulting output in /etc/puppet/hiera.yaml:
    :gpg_gnupghome: "/etc/puppet/keys/gpg"
    :gpg_recipients: "sihil@example.com,gtmtech@example.com,tpoulton@example.com"
 ```
-
-### Classes
-
-#### Public Classes
-
-- hiera: Main class to configure hiera
-
-#### Private Classes
-
-- hiera::params: Handles variable conditionals
-- hiera::eyaml: Handles eyaml configuration
 
 ## Limitations
 
