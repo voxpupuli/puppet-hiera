@@ -1,5 +1,7 @@
 # This will validate hiera 5 hierarchy array hash
-type Hiera::Hiera5_hierarchy =  Array[Struct[{
+type Hiera::Hiera5_hierarchy =  Array[
+  Struct[
+    {
       name            => String,
       path            => Optional[String],
       paths           => Optional[Array[String]],
@@ -13,4 +15,6 @@ type Hiera::Hiera5_hierarchy =  Array[Struct[{
       datadir         => Optional[String],
       hiera3_backend  => Optional[String],
       options         => Optional[Hash],
-}]]
+    }
+  ]
+]
