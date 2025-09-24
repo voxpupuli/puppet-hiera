@@ -577,7 +577,7 @@ Struct[{
     data_dig       => Optional[String],
     hiera3_backend => Optional[String],
     options        => Optional[Hash],
-}]
+  }]
 ```
 
 ### <a name="Hiera--Hiera5_hierarchy"></a>`Hiera::Hiera5_hierarchy`
@@ -587,7 +587,8 @@ This will validate hiera 5 hierarchy array hash
 Alias of
 
 ```puppet
-Array[Struct[{
+Array[Struct[
+    {
       name            => String,
       path            => Optional[String],
       paths           => Optional[Array[String]],
@@ -601,6 +602,7 @@ Array[Struct[{
       datadir         => Optional[String],
       hiera3_backend  => Optional[String],
       options         => Optional[Hash],
-}]]
+    }
+  ]]
 ```
 
