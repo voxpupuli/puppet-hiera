@@ -2,7 +2,7 @@
 #   This class handles installing the hiera.yaml for Puppet's use. Creates either /etc/puppet/hiera.yaml or /etc/puppetlabs/puppet/hiera.yaml in set hiera version and links /etc/hiera.yaml to it. Creates $datadir (if $datadir_manage == true).
 #
 # @param hierarchy
-#   The hiera hierarchy. 
+#   The hiera hierarchy.
 # @param hiera_version
 #   To set hiera 5 defaults. e.g. datadir, data_hash.
 # @param hiera5_defaults
