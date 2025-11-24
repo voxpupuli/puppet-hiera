@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.0.0](https://github.com/voxpupuli/puppet-hiera/tree/v7.0.0) (2025-11-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v6.0.0...v7.0.0)
+
+**Breaking changes:**
+
+- Drop support for EOL Ubuntu 20.04 [\#352](https://github.com/voxpupuli/puppet-hiera/pull/352) ([kenyon](https://github.com/kenyon))
+
+**Implemented enhancements:**
+
+- Manage systemwide eyaml config file [\#360](https://github.com/voxpupuli/puppet-hiera/pull/360) ([kenyon](https://github.com/kenyon))
+- `eyaml`: allow custom key paths [\#359](https://github.com/voxpupuli/puppet-hiera/pull/359) ([kenyon](https://github.com/kenyon))
+- Add support for Ubuntu 24.04 [\#356](https://github.com/voxpupuli/puppet-hiera/pull/356) ([kenyon](https://github.com/kenyon))
+- Add support for Debian 12 [\#351](https://github.com/voxpupuli/puppet-hiera/pull/351) ([smortex](https://github.com/smortex))
+
+**Merged pull requests:**
+
+- Acceptance tests: Install openvox-server package instead of puppetserver package [\#355](https://github.com/voxpupuli/puppet-hiera/pull/355) ([kenyon](https://github.com/kenyon))
+- Acceptance tests: use `lookup` instead of `hiera` command and function [\#354](https://github.com/voxpupuli/puppet-hiera/pull/354) ([kenyon](https://github.com/kenyon))
+- README: cleanup [\#353](https://github.com/voxpupuli/puppet-hiera/pull/353) ([kenyon](https://github.com/kenyon))
+- Replace legacy `osfamily` fact [\#346](https://github.com/voxpupuli/puppet-hiera/pull/346) ([cvquesty](https://github.com/cvquesty))
+
 ## [v6.0.0](https://github.com/voxpupuli/puppet-hiera/tree/v6.0.0) (2024-08-13)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-hiera/compare/v5.0.1...v6.0.0)
