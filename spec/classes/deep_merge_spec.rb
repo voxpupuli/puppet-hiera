@@ -20,7 +20,7 @@ describe 'hiera::deep_merge' do
 
         it do
           is_expected.to contain_package('deep_merge').with(
-            'ensure'  => 'installed'
+            'ensure'  => 'installed',
           )
         end
 
@@ -34,7 +34,7 @@ describe 'hiera::deep_merge' do
 
         it do
           is_expected.to contain_package('deep_merge').with(
-            'ensure'  => 'installed'
+            'ensure'  => 'installed',
           )
         end
 
