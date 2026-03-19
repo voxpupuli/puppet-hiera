@@ -23,7 +23,7 @@ describe 'hiera::eyaml_gpg' do
             'ensure' => 'directory',
             'recurse' => true,
             'purge' => false,
-            'mode' => '0600'
+            'mode' => '0600',
           )
         end
 
@@ -38,7 +38,7 @@ describe 'hiera::eyaml_gpg' do
 
         it do
           is_expected.to contain_file('/dev/null/keys/gpg').with(
-            'recurse' => false
+            'recurse' => false,
           )
         end
       end

@@ -19,7 +19,7 @@ describe 'hiera' do
           let(:params) do
             {
               eyaml: true,
-              merge_behavior: 'deeper'
+              merge_behavior: 'deeper',
             }
           end
 
@@ -30,7 +30,7 @@ describe 'hiera' do
         describe 'param manage_package => true' do
           let(:params) do
             {
-              manage_package: true
+              manage_package: true,
             }
           end
 
@@ -45,7 +45,7 @@ describe 'hiera' do
               manage_package: false,
               keysdir: '/dev/null/keys',
               eyaml_pkcs7_private_key: '/dev/null/keys/private_key.pem',
-              eyaml_pkcs7_public_key: '/dev/null/keys/public_key.pem'
+              eyaml_pkcs7_public_key: '/dev/null/keys/public_key.pem',
             }
           end
 
@@ -56,16 +56,16 @@ describe 'hiera' do
           it { is_expected.to contain_hiera__install('hiera-eyaml-gpg') }
 
           it do
-            is_expected.to contain_exec('createkeys').
-              with_command(
+            is_expected.to contain_exec('createkeys')
+              .with_command(
                 [
                   'eyaml',
                   'createkeys',
                   '--pkcs7-private-key=/dev/null/keys/private_key.pem',
-                  '--pkcs7-public-key=/dev/null/keys/public_key.pem'
-                ]
-              ).
-              with_creates('/dev/null/keys/private_key.pem')
+                  '--pkcs7-public-key=/dev/null/keys/public_key.pem',
+                ],
+              )
+              .with_creates('/dev/null/keys/private_key.pem')
           end
 
           it { is_expected.to contain_file('/dev/null/keys/private_key.pem').with_ensure('file').with_mode('0600').that_requires('Exec[createkeys]') }
@@ -77,7 +77,7 @@ describe 'hiera' do
             {
               eyaml: true,
               manage_package: true,
-              keysdir: '/dev/null/keys'
+              keysdir: '/dev/null/keys',
             }
           end
 
@@ -86,13 +86,13 @@ describe 'hiera' do
           it { is_expected.to contain_file('/dev/null/keys/public_key.pkcs7.pem').with_ensure('file').with_mode('0644').that_requires('Exec[createkeys]') }
 
           it do
-            is_expected.to contain_file('/etc/eyaml/config.yaml').
-              with_ensure('file').
-              with_owner('root').
-              with_group('root').
-              with_mode('0644').
-              with_content(%r{pkcs7_private_key: /dev/null/keys/private_key.pkcs7.pem}).
-              with_content(%r{pkcs7_public_key: /dev/null/keys/public_key.pkcs7.pem})
+            is_expected.to contain_file('/etc/eyaml/config.yaml')
+              .with_ensure('file')
+              .with_owner('root')
+              .with_group('root')
+              .with_mode('0644')
+              .with_content(%r{pkcs7_private_key: /dev/null/keys/private_key.pkcs7.pem})
+              .with_content(%r{pkcs7_public_key: /dev/null/keys/public_key.pkcs7.pem})
           end
         end
 
@@ -105,12 +105,12 @@ describe 'hiera' do
               backends: %w[yaml eyaml json yamll],
               'backend_options' => {
                 'json' => {
-                  'datadir' => '/etc/puppet/json_data/data'
+                  'datadir' => '/etc/puppet/json_data/data',
                 },
                 'yamll' => {
-                  'datadir' => '/etc/puppet/yamll_data/data'
-                }
-              }
+                  'datadir' => '/etc/puppet/yamll_data/data',
+                },
+              },
             }
           end
           let(:content) do
@@ -157,12 +157,12 @@ describe 'hiera' do
                 backends: %w[yaml eyaml json yamll],
                 'backend_options' => {
                   'json' => {
-                    'datadir' => '/etc/puppet/json_data/data'
+                    'datadir' => '/etc/puppet/json_data/data',
                   },
                   'yamll' => {
-                    'datadir' => '/etc/puppet/yamll_data/data'
-                  }
-                }
+                    'datadir' => '/etc/puppet/yamll_data/data',
+                  },
+                },
               }
             end
 
@@ -183,7 +183,7 @@ describe 'hiera' do
               {
                 eyaml_gpg: true,
                 datadir: '/etc/puppetlabs/code/environments/%{environment}/hieradata',
-                backends: %w[yaml]
+                backends: %w[yaml],
               }
             end
 
@@ -206,12 +206,12 @@ describe 'hiera' do
                 backends: %w[yaml yamlll],
                 'backend_options' => {
                   'yaml' => {
-                    'datadir' => '/etc/puppet/yaml_data/data'
+                    'datadir' => '/etc/puppet/yaml_data/data',
                   },
                   'yamll' => {
-                    'datadir' => '/etc/puppet/yamll_data/data'
-                  }
-                }
+                    'datadir' => '/etc/puppet/yamll_data/data',
+                  },
+                },
               }
             end
 
@@ -228,12 +228,12 @@ describe 'hiera' do
                 backends: ['yaml'],
                 'backend_options' => {
                   'yaml' => {
-                    'datadir' => '/etc/puppet/yaml_data/data'
+                    'datadir' => '/etc/puppet/yaml_data/data',
                   },
                   'eyaml' => {
-                    'datadir' => '/etc/puppet/eyaml_data/data'
-                  }
-                }
+                    'datadir' => '/etc/puppet/eyaml_data/data',
+                  },
+                },
               }
             end
 
@@ -256,8 +256,8 @@ describe 'hiera' do
                 hierarchy: [
                   '%{environment}/%{calling_class}',
                   '%{environment}',
-                  'common'
-                ]
+                  'common',
+                ],
               }
             end
 
@@ -284,7 +284,7 @@ describe 'hiera' do
           {
             eyaml: true,
             mode: '0640',
-            merge_behavior: 'deeper'
+            merge_behavior: 'deeper',
           }
         end
 
@@ -294,7 +294,7 @@ describe 'hiera' do
         it 'has file mode 0640' do
           is_expected.to contain_file('/dev/null/hiera.yaml').with(
             'ensure' => 'file',
-            'mode' => '0640'
+            'mode' => '0640',
           )
         end
       end
@@ -302,7 +302,7 @@ describe 'hiera' do
       describe 'check if version exists' do
         let(:params) do
           {
-            hiera_version: '5'
+            hiera_version: '5',
           }
         end
 
@@ -324,9 +324,9 @@ describe 'hiera' do
               'data_hash' => 'yaml_data',
               'options' => {
                 'pkcs7_private_key' => '/etc/pki/eyaml/private_key.pkcs7.pem',
-                'pkcs7_public_key' => '/etc/pki/eyaml/public_key.pkcs7.pem'
-              }
-            }
+                'pkcs7_public_key' => '/etc/pki/eyaml/public_key.pkcs7.pem',
+              },
+            },
           }
         end
 
@@ -347,7 +347,7 @@ describe 'hiera' do
         let(:params) do
           {
             hiera_version: '5',
-            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'lookup_key' => 'eyaml_lookup_key' }
+            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'lookup_key' => 'eyaml_lookup_key' },
           }
         end
 
@@ -366,7 +366,7 @@ describe 'hiera' do
         let(:params) do
           {
             hiera_version: '5',
-            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'data_dig' => 'my_data_dig' }
+            hiera5_defaults: { 'datadir' => 'data', 'data_hash' => 'yaml_data', 'data_dig' => 'my_data_dig' },
           }
         end
 
@@ -390,8 +390,8 @@ describe 'hiera' do
               hierarchy: [
                 { 'name' => 'Virtual yaml', 'path' => 'virtual/%{virtual}.yaml' },
                 { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{trusted.certname}.yaml', 'nodes/%{osfamily}.yaml'] },
-                { 'name' => 'Global yaml file', 'path' => 'common.yaml' }
-              ]
+                { 'name' => 'Global yaml file', 'path' => 'common.yaml' },
+              ],
             }
           end
 
@@ -419,8 +419,8 @@ describe 'hiera' do
                 { 'name' => 'Virtual yaml', 'path' => 'virtual/%{virtual}.yaml' },
                 { 'name' => 'Nodes yaml', 'paths'  => ['nodes/%{trusted.certname}.yaml', 'nodes/%{osfamily}.yaml'] },
                 { 'name' => 'Global yaml file', 'path' => 'common.yaml' },
-                { 'name' => 'trocla', 'lookup_key' => 'trocla_lookup_key', 'options' => { 'trocla_hierarchy' => %w[nodes/%{facts.fqdn} roles/%{role} defaults], 'config' => '/dev/null/etc/puppetlabs/puppet/troclarc.yaml' } }
-              ]
+                { 'name' => 'trocla', 'lookup_key' => 'trocla_lookup_key', 'options' => { 'trocla_hierarchy' => %w[nodes/%{facts.fqdn} roles/%{role} defaults], 'config' => '/dev/null/etc/puppetlabs/puppet/troclarc.yaml' } },
+              ],
             }
           end
 
@@ -457,10 +457,10 @@ describe 'hiera' do
                 'lookup_key' => 'some_lookup_key',
                 'options' => {
                   'hash_option' => {
-                    'some_key' => 'some_value'
-                  }
-                }
-              }]
+                    'some_key' => 'some_value',
+                  },
+                },
+              }],
             }
           end
 

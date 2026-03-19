@@ -10,7 +10,7 @@ describe 'hiera::install' do
       end
       let :pre_condition do
         [
-          'include hiera'
+          'include hiera',
         ]
       end
 
@@ -21,7 +21,7 @@ describe 'hiera::install' do
         let(:params) do
           {
             'gem_name' => 'hiera-eyaml',
-            'provider' => 'puppetserver_gem'
+            'provider' => 'puppetserver_gem',
           }
         end
 
@@ -31,14 +31,14 @@ describe 'hiera::install' do
         context 'with gem_install_options' do
           let :pre_condition do
             [
-              'class { "hiera": gem_install_options => ["--http_proxy","http://proxy.example.com:3128"]}'
+              'class { "hiera": gem_install_options => ["--http_proxy","http://proxy.example.com:3128"]}',
             ]
           end
 
           it do
             is_expected.to contain_package('hiera-eyaml').with(
               'name' => 'hiera-eyaml',
-              'install_options' => ['--http_proxy', 'http://proxy.example.com:3128']
+              'install_options' => ['--http_proxy', 'http://proxy.example.com:3128'],
             )
           end
         end
